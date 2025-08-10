@@ -1,7 +1,7 @@
 class Solution:
     def removeOuterParentheses(self, s: str) -> str:
         countOpen = 0
-        stack = []
+        # stack = []
         final = ""
 
         for bracket in s:
@@ -10,16 +10,13 @@ class Solution:
 
             elif (bracket == '('):
                 countOpen += 1
-                stack.append(bracket)
+                final += bracket
 
             elif (bracket == ')' and countOpen != 1):
                 countOpen -= 1
-                stack.append(bracket)
+                final += bracket
 
             elif (bracket == ')' and countOpen == 1):
                 countOpen = 0
-            
-        for prim in stack:
-            final += prim
-        
+
         return final
