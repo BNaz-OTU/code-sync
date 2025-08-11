@@ -1,21 +1,8 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-WITH T1 AS (
-SELECT E.employee_id 
-FROM Employees AS E
-LEFT JOIN Salaries AS S
-ON E.employee_id = S.employee_id
-WHERE (S.salary IS NULL)
+def find_employees(employees: pd.DataFrame, salaries: pd.DataFrame) -> pd.DataFrame:
+    merged_df = pd.merge(employees, salaries, on='employee_id', how='outer')
 
-UNION 
+    miss_data = merged_df[merged_df.isna().any(axis=1)]
 
-SELECT S.employee_id
-FROM Employees AS E
-RIGHT JOIN Salaries AS S
-ON E.employee_id = S.employee_id
-WHERE (E.name IS NULL)
-)
-
-SELECT *
-FROM T1
-ORDER BY T1.employee_id
+    return miss_data[['employee_id']].sort_values('employee_id')
