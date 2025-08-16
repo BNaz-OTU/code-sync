@@ -1,5 +1,8 @@
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
+
+        # Space of O(1) solution: https://www.youtube.com/watch?v=k2qrymM_DOo
+        
         stack_s = []
         stack_t = []
 
