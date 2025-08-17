@@ -1,8 +1,6 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT 
-    user_id, 
-    COUNT(follower_id) AS 'followers_count'
-FROM Followers
-GROUP BY user_id
-ORDER BY user_id ASC
+def count_followers(followers: pd.DataFrame) -> pd.DataFrame:
+    df = followers.groupby('user_id')['follower_id'].size().reset_index()
+    df1 = df.rename(columns={'follower_id' : 'followers_count'})
+    return df1.sort_values('user_id')
