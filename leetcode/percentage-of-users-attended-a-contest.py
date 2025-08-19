@@ -1,13 +1,6 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-WITH T1 AS (
-    SELECT COUNT(*) AS 'p'
-    FROM Users
-)
-
-SELECT 
-    R.contest_id, 
-    ROUND((COUNT(R.contest_id) / T1.p) * 100, 2) AS 'percentage'
-FROM Register AS R, T1
-GROUP BY R.contest_id
-ORDER BY percentage DESC, contest_id ASC
+def users_percentage(users: pd.DataFrame, register: pd.DataFrame) -> pd.DataFrame:
+    df1 = register.groupby('contest_id').size().reset_index(name='percentage')
+    df1['percentage'] = round(df1['percentage'] / len(users) * 100, 2)
+    return df1.sort_values(by=['percentage', 'contest_id'], ascending=[False, True])
