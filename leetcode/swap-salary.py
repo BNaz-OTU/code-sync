@@ -1,6 +1,8 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-UPDATE Salary
-SET sex = (IF(sex='m', 'f', 'm'))
--- WHERE
--- FROM Salary
+def swap_salary(salary: pd.DataFrame) -> pd.DataFrame:
+    
+    swap = lambda x: 'm' if x == 'f' else 'f'
+    salary['sex'] = salary.sex.apply(swap)
+
+    return salary
