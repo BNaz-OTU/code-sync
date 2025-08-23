@@ -1,13 +1,13 @@
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        # USED SOLN: https://www.youtube.com/watch?v=Pr6T-3yB9RM
-
-        pair = [[p, s] for p, s in zip(position, speed)]
+        speed_pos_pair = [[pos, spe] for pos, spe in zip(position, speed)]
         stack = []
 
-        for p, s in sorted(pair)[::-1]:
-            stack.append((target - p) / s)
-            if (len(stack) >= 2 and stack[-1] <= stack[-2]):
-                stack.pop()
+        for p, s in sorted(speed_pos_pair)[::-1]:
+            arrival_time = (target - p) / s
+
+            if (len(stack) == 0 or stack[-1] < arrival_time):
+                stack.append(arrival_time)
         
+        print(sorted(speed_pos_pair))
         return len(stack)
