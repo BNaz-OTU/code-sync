@@ -1,13 +1,11 @@
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        bracketStack = []
+        stack = []
 
         for val in s:
-            if (val == "("):
-                bracketStack.append(val)
-            elif (len(bracketStack) > 0 and bracketStack[-1] == '(' and val == ')'):
-                bracketStack.pop()
+            if (len(stack) > 0 and val == ')' and stack[-1] == '('):
+                stack.pop()
             else:
-                bracketStack.append(val)
+                stack.append(val)
         
-        return len(bracketStack)
+        return len(stack)
