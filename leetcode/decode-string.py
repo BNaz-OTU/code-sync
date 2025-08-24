@@ -1,21 +1,25 @@
 class Solution:
     def decodeString(self, s: str) -> str:
-        # USED SOLN: https://www.youtube.com/watch?v=qB0zZpBJlh8
         stack = []
+        temp = ""
+        num = ""
 
-        for idx in range(len(s)):
-            if (s[idx] != "]"):
-                stack.append(s[idx])
-            
-            else:
-                substr = ""
-                while stack[-1] != "[":
-                    substr = stack.pop() + substr
+        for val in s:
+            if (val == ']'):
+                while stack[-1] != '[':
+                    char = stack.pop()[::-1]
+                    temp += char
+                
                 stack.pop()
 
-                k = ""
-                while stack and stack[-1].isdigit():
-                    k = stack.pop() + k
-                stack.append(int(k) * substr)
-        
+                while (len(stack) > 0 and stack[-1].isdigit()):
+                    num += stack.pop()
+                
+                new_val = int(num[::-1]) * temp
+                stack.append(new_val[::-1])
+                num = ""
+                temp = ""
+            else:
+                stack.append(val)
+
         return "".join(stack)
