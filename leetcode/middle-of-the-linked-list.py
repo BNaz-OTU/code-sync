@@ -5,21 +5,16 @@
 #         self.next = next
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # NEETCODE SOLN: https://www.youtube.com/watch?v=A2_ldqM4QcY
+        
+        slow, fast = head, head
 
-        curr1 = head
-        curr2 = head
-        counter = 0
-        count2 = 0
+        while fast.next:
+            slow = slow.next
 
-        while curr1:
-            print(curr1.val)
-            counter += 1
-            curr1 = curr1.next
+            if (fast.next.next):
+                fast = fast.next.next
+            else: 
+                break
         
-        ranger = counter // 2
-        
-        while count2 < ranger:
-            count2 +=1
-            curr2 = curr2.next
-        
-        return curr2
+        return slow
