@@ -1,4 +1,5 @@
 class MinStack:
+    # USED SOLN: https://www.youtube.com/watch?v=qkLl7nAwDPo
 
     def __init__(self):
         self.stack = []
