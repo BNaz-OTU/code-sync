@@ -1,9 +1,7 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT P.product_name, SUM(O.unit) AS "unit"
-FROM Products AS P
-JOIN Orders AS O
-ON P.product_id = O.product_id
-WHERE O.order_date BETWEEN "2020-02-01" AND "2020-02-29"
-GROUP BY P.product_id 
-HAVING SUM(O.unit) >= 100
+def list_products(products: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    df = products.join(orders.set_index('product_id'), on='product_id', how='inner')
+    df1 = df.loc[(df['order_date'] >= '2020-02-01') & (df['order_date'] <= '2020-02-29')]
+    df2 = df1.groupby(['product_id', 'product_name'])['unit'].sum().reset_index()
+    return df2.loc[df2['unit'] >= 100, ['product_name', 'unit']]
