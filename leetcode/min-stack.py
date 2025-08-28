@@ -1,5 +1,4 @@
 class MinStack:
-    # USED SOLN: https://www.youtube.com/watch?v=qkLl7nAwDPo
 
     def __init__(self):
         self.stack = []
@@ -7,16 +6,15 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-
-        if (len(self.minStack) == 0 or self.minStack[-1] > val):
-            self.minStack.append(val)
-        else:
+        
+        if (len(self.minStack) > 0 and self.minStack[-1] < val):
             self.minStack.append(self.minStack[-1])
+        else:
+            self.minStack.append(val)
 
     def pop(self) -> None:
         self.stack.pop()
         self.minStack.pop()
-        
 
     def top(self) -> int:
         return self.stack[-1]
