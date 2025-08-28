@@ -1,5 +1,7 @@
-import pandas as pd
+# Write your MySQL query statement below
 
-def find_employees(employee: pd.DataFrame) -> pd.DataFrame:
-    df = employee.join(employee.set_index('id'), on='managerId', how='left', lsuffix='_c')
-    return df.loc[df['salary_c'] > df['salary'], ['name_c']].rename(columns={'name_c' : 'Employee'})
+SELECT E.name AS "Employee"
+FROM Employee AS E
+LEFT JOIN Employee AS M
+ON E.managerId = M.id
+WHERE E.salary > M.salary
