@@ -1,32 +1,32 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        nums_dict = {}
-        nums_freq = {}
+        freq_dict = {}
+        num_occurence_dict = {}
         final = []
 
         for idx in range(1, len(nums) + 1):
-            nums_dict[idx] = []
+            freq_dict[idx] = []
         
-        print(nums_dict)
-        
-        for num in nums: 
-            if (num in nums_freq):
-                nums_freq[num] += 1
+        for val in nums:
+            if (val in num_occurence_dict):
+                num_occurence_dict[val] += 1
             else:
-                nums_freq[num] = 1
-
-        for key in nums_freq:
-            nums_dict[nums_freq[key]].append(key)
+                num_occurence_dict[val] = 1
         
-        for key in reversed(nums_dict):
+        for key in num_occurence_dict:
+            freq_dict[num_occurence_dict[key]].append(key)
+        
+        for key in reversed(freq_dict):
+            # print(count < len(freq_dict[key]))
             count = 0
-
-            while (count < len(nums_dict[key])):
-                final.append(nums_dict[key][count])
-
-                if (len(final) == k):
-                    return final
-                
+            while count < len(freq_dict[key]) and k > 0:
+                final.append(freq_dict[key][count])
+                # print(freq_dict[key][count])
                 count += 1
-        
-        print(nums_dict)
+                k -= 1
+            
+            if (k == 0):
+                return final
+
+        print(num_occurence_dict)
+        print(freq_dict)
