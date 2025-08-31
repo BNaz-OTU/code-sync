@@ -1,10 +1,12 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT 
-    query_name,
-    ROUND((SUM(rating / position)) / COUNT(*), 2) AS "quality",
-    ROUND(AVG(rating < 3) * 100, 2) "poor_query_percentage"
+round2 = lambda x: round(x + 1e-9, 2)
 
-    -- ROUND(AVG(IF(rating < 3, COUNT(*))), 2) AS "poor_query_percentage"
-FROM Queries
-GROUP BY query_name
+def queries_stats(queries: pd.DataFrame) -> pd.DataFrame:
+    
+    queries['quality'] = queries.rating / queries.position
+    queries['poor_query_percentage'] = (queries.rating < 3) * 100
+
+    group = queries.groupby('query_name')[['quality', 'poor_query_percentage']].mean().apply(round2).reset_index()
+
+    return group
