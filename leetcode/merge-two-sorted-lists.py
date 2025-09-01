@@ -5,6 +5,8 @@
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+
+        # DIDNT USE SOLN (CHECK FOR REFERENCE): https://www.youtube.com/watch?v=XIdigk956u0
         curr1 = list1
         curr2 = list2
         dummyNode = ListNode()
@@ -54,5 +56,5 @@ class Solution:
 
             print("------------")
             print(f"HEAD:{head}")
-            
+
         return head.next
