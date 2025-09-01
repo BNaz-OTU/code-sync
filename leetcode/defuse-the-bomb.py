@@ -1,5 +1,6 @@
 class Solution:
     def decrypt(self, code: List[int], k: int) -> List[int]:
+        # ** DIDNT USE THIS SOLN, CHECKING FOR REFERENCE: https://www.youtube.com/watch?v=c4oOIi5YTE4 **
         temp_code = [0] * len(code)
 
         # print(-1 % 7)
