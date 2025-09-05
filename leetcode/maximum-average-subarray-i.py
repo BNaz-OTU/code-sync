@@ -1,27 +1,20 @@
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        # ** DIDNT USE SOLN, JUST CHECKED FOR REF: https://www.youtube.com/watch?v=UdUUnoiLkPg **
-        maxCount = 0
-        count = 0
-        left = 0
-
-        for idx in range(len(nums)):
-            
-            if (idx + 1 == k):
-                print('here')
-                count += nums[idx]
-                avg = count / k
-                maxCount = avg
-            
-            elif (idx < k):
-                count += nums[idx]
-
-            else:
-                count -= nums[left]
-                count += nums[idx]
-                left += 1
-
-                avg = count / k
-                maxCount = max(maxCount, avg)
         
-        return maxCount
+        maxAvg = 0
+        num_sum = 0
+
+        for idx in range(k):
+            # print(num_sum, nums[idx])
+            num_sum += nums[idx]
+        
+        maxAvg = num_sum / k
+        # print(num_sum)
+        for idx in range(k, len(nums)):
+            # print(f"NEW: {nums[idx]} | OLD: {nums[idx - k]}")
+            num_sum += nums[idx]
+            num_sum -= nums[idx - k]
+            # print(maxAvg, num_sum / k)
+            maxAvg = max(maxAvg, num_sum / k)
+        
+        return maxAvg
