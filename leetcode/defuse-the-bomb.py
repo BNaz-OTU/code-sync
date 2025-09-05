@@ -1,24 +1,29 @@
 class Solution:
     def decrypt(self, code: List[int], k: int) -> List[int]:
-        # ** DIDNT USE THIS SOLN, CHECKING FOR REFERENCE: https://www.youtube.com/watch?v=c4oOIi5YTE4 **
-        temp_code = [0] * len(code)
+        # USED SOLN: https://www.youtube.com/watch?v=c4oOIi5YTE4
 
-        # print(-1 % 7)
+        N = len(code)
+        res = [0] * N
+
+        left = 0
+        cur_sum = 0
+
+        for right in range(N + abs(k)):
+            cur_sum += code[right % N]
+
+            # If we summed up to many numbers that were needed
+            # remove the oldest number that was added
+            if ((right - left + 1) > abs(k)):
+                cur_sum -= code[left % N]
+                left = (left + 1) % N
+            
+            # Choose wear to save the value on the final list
+            if ((right - left + 1) == abs(k)):
+                # If postive, map value to the left index for that current sum
+                if (k > 0):
+                    res[(left - 1) % N] = cur_sum
+                # If negative, map value to the left index for that current sum
+                elif (k < 0):
+                    res[(right + 1) % N] = cur_sum
         
-        for idx in range(len(code)):
-            temp_k = k
-            new_val = 0
-
-            if (k > 0):
-                while (temp_k > 0):
-                    mod = (idx + temp_k) % len(code)
-                    temp_code[idx] += code[mod]
-                    temp_k -= 1
-
-            elif (k < 0):
-                while (temp_k < 0):
-                    mod = (idx + temp_k) % len(code)
-                    temp_code[idx] += code[mod]
-                    temp_k += 1
-
-        return temp_code
+        return res
