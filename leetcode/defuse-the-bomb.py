@@ -1,29 +1,25 @@
 class Solution:
     def decrypt(self, code: List[int], k: int) -> List[int]:
-        # USED SOLN: https://www.youtube.com/watch?v=c4oOIi5YTE4
-
         N = len(code)
-        res = [0] * N
+        final = [0] * N
 
+        curval = 0
         left = 0
-        cur_sum = 0
+        for idx in range(N + abs(k)):
+            curval += code[(idx) % N]
 
-        for right in range(N + abs(k)):
-            cur_sum += code[right % N]
-
-            # If we summed up to many numbers that were needed
-            # remove the oldest number that was added
-            if ((right - left + 1) > abs(k)):
-                cur_sum -= code[left % N]
-                left = (left + 1) % N
+            if (left + idx + 1 > abs(k)):
+                curval -= code[left % N]
+                left += 1
             
-            # Choose wear to save the value on the final list
-            if ((right - left + 1) == abs(k)):
-                # If postive, map value to the left index for that current sum
+            if (idx - left + 1 == abs(k)):
                 if (k > 0):
-                    res[(left - 1) % N] = cur_sum
-                # If negative, map value to the left index for that current sum
-                elif (k < 0):
-                    res[(right + 1) % N] = cur_sum
-        
-        return res
+                    final[(left - 1) % N] = curval
+                
+                else:
+                    final[(idx + 1) % N] = curval
+
+            print(curval)
+
+
+        return final
