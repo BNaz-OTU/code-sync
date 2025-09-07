@@ -8,8 +8,52 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        # USED SOLN: https://www.youtube.com/watch?v=S5bfdUTrKLM
+
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
         
+        # print(f'Fast: {fast}')
+        # print(f"Slow: {slow}")
+        # print(f"Head: {head}")
+
+        last_half = slow.next
+        slow.next = None
+        prev = None
+
+        # print(slow)
+        # print(head)
+        # print(last_half)
+
+        while last_half:
+            temp_next = last_half.next
+            last_half.next = prev
+            prev = last_half
+            last_half = temp_next
+        
+        # print(prev)
+        # print(slow)
+        # print(head)
+
+        # print
+
+        first, second = head, prev
+
+        while second:
+            temp_1, temp_2 = first.next, second.next
+            first.next = second
+            second.next = temp_1
+            first, second = temp_1, temp_2
+
+        # [1, 2,` 3]
+        #  | /
+        # [4, 3]`
+        
+        # ---------------------------------------------------------------------------------------------------
+        """
         # Find the middle
         slow = head
         fast = head.next
@@ -18,10 +62,18 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         
+        print(fast)
+        print(slow)
+
         # Reverse second half
         second = slow.next
         slow.next = None
         prev = None
+
+        print("--------------")
+        print(f"Second: {second}")
+        print(f"Slow: {slow} | Slow.next: {slow.next}")
+        print(f"Prev: {prev}")
 
         while second:
             tmp = second.next
@@ -38,3 +90,4 @@ class Solution:
             first.next = second
             second.next = tmp1
             first, second = tmp1, tmp2
+        """
