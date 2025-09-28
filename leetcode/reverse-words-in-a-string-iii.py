@@ -4,16 +4,16 @@ class Solution:
 
         for idx in range(len(s_list)):
             word = s_list[idx]
-            left = 0
-            right = len(word) - 1
             split_word = list(word)
+            left = 0 
+            right = len(split_word) - 1
 
+            # print(f"W: {word} | L: {word[left]} | R: {word[right]}")
             while left < right:
                 split_word[left], split_word[right] = split_word[right], split_word[left]
                 left += 1
                 right -= 1
-            print(split_word)
-            
+
             s_list[idx] = "".join(split_word)
-        
+                    
         return " ".join(s_list)
