@@ -1,20 +1,26 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        dict_word_to_let = {}
-        dict_let_to_word = {}
-        new_s = s.split(" ")
+        dictPattern = {}
+        dictWord = {}
+        s_list = s.split(" ")
 
-        if (len(new_s) != len(pattern)):
+        if (len(pattern) != len(s_list)):
             return False
+        
 
         for idx in range(len(pattern)):
-            if (new_s[idx] in dict_word_to_let and dict_word_to_let[new_s[idx]] != pattern[idx]):
+            if (s_list[idx] in dictWord and dictWord[s_list[idx]] != pattern[idx]):
                 return False
+            else:
+                dictWord[s_list[idx]] = pattern[idx]
 
-            if (pattern[idx] in dict_let_to_word and dict_let_to_word[pattern[idx]] != new_s[idx]):
+            if (pattern[idx] in dictPattern and dictPattern[pattern[idx]] != s_list[idx]):
                 return False
-            
-            dict_word_to_let[new_s[idx]] = pattern[idx]
-            dict_let_to_word[pattern[idx]] = new_s[idx]
+            else:
+                dictPattern[pattern[idx]] = s_list[idx]
         
+        return True
+                
+                
+
         return True
