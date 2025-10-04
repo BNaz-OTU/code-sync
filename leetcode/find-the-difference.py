@@ -1,25 +1,16 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
-        # The Hashmap Method
-        
-        dictS = {}
-        dictT = {}
 
-        for val in t:
-            if (val in dictT):
-                dictT[val] += 1
-            else:
-                dictT[val] = 1
-        
+        # Numerical/ASCII Method
+        # Credit NeetCode: https://www.youtube.com/watch?v=oFmv4N4z00c
+
+        sum_s = 0
+        sum_t = 0
+
         for val in s:
-            if (val in dictS):
-                dictS[val] += 1
-            else:
-                dictS[val] = 1
+            sum_s += ord(val)
         
-        for key in dictT:
-            if (key not in dictS):
-                return key
-            
-            elif (dictS[key] != dictT[key]):
-                return key
+        for val in t:
+            sum_t += ord(val)
+        
+        return chr(abs(sum_s - sum_t))
