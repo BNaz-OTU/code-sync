@@ -1,23 +1,37 @@
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
 
-        total = 0
-        max_len = max(len(num1), len(num2))
+        # Credit: https://www.youtube.com/watch?v=q1RR8gk47Cg
+        # (I watched vid once but attempted by myself after not looking at answer)
 
-        r_num1 = num1[::-1]
-        r_num2 = num2[::-1]
+        new_sum = []
+        num1_idx = len(num1) - 1
+        num2_idx = len(num2) - 1
+        carry = 0
 
-        for idx in range(max_len):
-            if (idx < len(num1)):
-                if (idx == 0):
-                    total += (ord(r_num1[-1]) - 48)
-                else:
-                    total += (ord(r_num1[-1]) - 48) * (10 * (idx + 1))
+        while num1_idx >= 0 or num2_idx >= 0:
+            if (num1_idx < 0):
+                val1 = 0
+
+            else:
+                val1 = int(num1[num1_idx])
             
-            if (idx < len(num2)):
-                if (idx == 0):
-                    total += (ord(r_num2[-1]) - 48)
-                else:
-                    total += (ord(r_num2[-1]) - 48) * (10 * (idx + 1))
+            if (num2_idx < 0):
+                val2 = 0
+
+            else:
+                val2 = int(num2[num2_idx])
+
+            new_sum.append(str((carry + val1 + val2) % 10))
+
+            carry = (carry + val1 + val2) // 10
+
+            num1_idx -= 1
+            num2_idx -= 1
+
+
+        if (carry != 0):
+            new_sum.append(str(carry))
         
-        return str(total)
+        # flipped = new_sum[::-1]
+        return "".join(new_sum[::-1])
