@@ -1,6 +1,7 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-
+        
+        # Failed attempt
         final = ""
 
         if (numRows % 2 == 0):
