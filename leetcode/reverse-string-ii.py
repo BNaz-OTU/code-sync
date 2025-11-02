@@ -1,18 +1,17 @@
 class Solution:
     def reverseStr(self, s: str, k: int) -> str:
-        s_list = list(s)
+        list_s = list(s)
 
-        for idx in range(0, len(s) - 1, 2 * k):
+        for idx in range(0, len(s), k * 2):
             left = idx
             right = idx + k - 1
 
-            if (right >= len(s)):
+            if (right > len(s) - 1):
                 right = len(s) - 1
 
-            while left < right:
-                print(f"Left: {left} | Right: {right}")
-                s_list[left], s_list[right] = s_list[right], s_list[left]
+            while (left < right):
+                list_s[left], list_s[right] = list_s[right], list_s[left]
                 left += 1
                 right -= 1
-        
-        return "".join(s_list)
+            
+        return "".join(list_s)
