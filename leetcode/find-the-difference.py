@@ -1,9 +1,6 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
 
-        # Numerical/ASCII Method
-        # Credit NeetCode: https://www.youtube.com/watch?v=oFmv4N4z00c
-
         sum_s = 0
         sum_t = 0
 
@@ -12,5 +9,7 @@ class Solution:
         
         for val in t:
             sum_t += ord(val)
-        
-        return chr(abs(sum_s - sum_t))
+
+        diff = sum_t - sum_s
+
+        return chr(diff)
