@@ -1,7 +1,9 @@
-import pandas as pd
+# Write your MySQL query statement below
 
-def project_employees_i(project: pd.DataFrame, employee: pd.DataFrame) -> pd.DataFrame:
-    df = project.join(employee.set_index('employee_id'), on='employee_id', how='left')
-    df1 = df.groupby('project_id')['experience_years'].mean().round(2).reset_index(name='average_years')
-    return df1
-    # return df1['average_years'] = df1['average_years'].round(2)
+SELECT 
+    P.project_id, 
+    ROUND(AVG(E.experience_years), 2) AS "average_years"
+FROM Project AS P
+JOIN Employee AS E
+ON P.employee_id = E.employee_id
+GROUP BY P.project_id
