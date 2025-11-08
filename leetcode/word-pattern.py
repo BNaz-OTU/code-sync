@@ -1,26 +1,38 @@
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        dictPattern = {}
-        dictWord = {}
-        s_list = s.split(" ")
+        wordSplit = s.split(" ")
+        wordToLet = {}
+        letToWord = {}
 
-        if (len(pattern) != len(s_list)):
+        if (len(wordSplit) != len(pattern)):
             return False
-        
 
+        # Mapping letters (from pattern) to the words
         for idx in range(len(pattern)):
-            if (s_list[idx] in dictWord and dictWord[s_list[idx]] != pattern[idx]):
-                return False
-            else:
-                dictWord[s_list[idx]] = pattern[idx]
+            val = pattern[idx]
 
-            if (pattern[idx] in dictPattern and dictPattern[pattern[idx]] != s_list[idx]):
-                return False
+            if (val in letToWord):
+                if (letToWord[val] == wordSplit[idx]):
+                    continue
+                else:
+                    return False
             else:
-                dictPattern[pattern[idx]] = s_list[idx]
+                letToWord[val] = wordSplit[idx]
         
-        return True
-                
-                
+        # Mapping words to the letters (from pattern)
+        for idx in range(len(pattern)):
+            val = wordSplit[idx]
 
+            if (val in wordToLet):
+                if (wordToLet[val] == pattern[idx]):
+                    continue
+                else:
+                    return False
+
+            else:
+                wordToLet[val] = pattern[idx]
+        
+        print(f"Word to Letter: {wordToLet}")
+        print(f"Letter to Word:{letToWord}")
+        
         return True
