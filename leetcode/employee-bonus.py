@@ -1,7 +1,5 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT E.name, B.bonus
-FROM Employee AS E
-LEFT JOIN Bonus AS B
-ON E.empId = B.empId
-WHERE (B.bonus IS NULL) OR (B.bonus < 1000)
+def employee_bonus(employee: pd.DataFrame, bonus: pd.DataFrame) -> pd.DataFrame:
+    df = employee.join(bonus.set_index('empId'), on='empId', how='left')
+    return df.loc[(df['bonus'].isnull()) | (df['bonus'] < 1000), ['name', 'bonus']]
