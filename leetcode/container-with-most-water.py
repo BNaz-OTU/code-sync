@@ -1,5 +1,7 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
+        # SOLVED BY MYSELF
+        # SOLN VID FOR REFERENCE: https://www.youtube.com/watch?v=UuiTKBwPgAo
         left = 0
         right = len(height) - 1
         maxWater = 0
