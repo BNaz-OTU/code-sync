@@ -1,5 +1,7 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT name, population, area
-FROM World
-WHERE (area >= 3000000) OR (population >= 25000000)
+def big_countries(world: pd.DataFrame) -> pd.DataFrame:
+    return world.loc[
+        (world['population'] >= 25000000) | (world['area'] >= 3000000),
+         ['name', 'population', 'area']
+    ]
