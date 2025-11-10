@@ -1,17 +1,17 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
-        split_words = s.split(" ")
-        
-        for idx in range(len(split_words)):
-            left = 0
-            right = len(split_words[idx]) - 1
-            list_word = list(split_words[idx])
+        sentenceWords = s.split(" ")
 
-            while left < right:
-                list_word[left], list_word[right] = list_word[right], list_word[left]
+        for idx in range(len(sentenceWords)):
+            word = list(sentenceWords[idx])
+            left = 0
+            right = len(word) - 1
+
+            while (left < right):
+                word[left], word[right] = word[right], word[left]
                 left += 1
                 right -= 1
             
-            split_words[idx] = "".join(list_word)
+            sentenceWords[idx] = "".join(word)
         
-        return " ".join(split_words)
+        return " ".join(sentenceWords)
