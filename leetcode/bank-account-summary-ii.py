@@ -1,9 +1,8 @@
-import pandas as pd
+# Write your MySQL query statement below
 
-def account_summary(users: pd.DataFrame, transactions: pd.DataFrame) -> pd.DataFrame:
-    df = users.join(transactions.set_index('account'), on='account', how='left')
-    df2 = df.groupby(['account', 'name'])['amount'].sum().reset_index()
-    return df2.loc[df2['amount'] > 10000, ['name', 'amount']].rename(columns={
-        'name' : 'NAME', 
-        'amount' : 'BALANCE'
-    })
+SELECT U.name AS "NAME", SUM(amount) AS "BALANCE"
+FROM Users AS U
+JOIN Transactions AS T
+ON U.account = T.account
+GROUP BY U.account
+HAVING SUM(amount) > 10000
