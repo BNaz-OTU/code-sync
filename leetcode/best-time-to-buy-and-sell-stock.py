@@ -1,16 +1,16 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        buy = prices[0]
         maxProfit = 0
+        fast = 0
+        slow = 0
 
-        for sell in prices:
-            if (sell < buy):
-                # print(f"#1: Buy: {buy} | Sell: {sell} ")
-                buy = sell
+        while fast < len(prices):
+            if (prices[slow] > prices[fast]):
+                slow = fast
             
-            else:
-                # print(f"#2: Buy: {buy} | Sell: {sell} ")
-                profit = sell - buy
-                maxProfit = max(maxProfit, profit)
+            elif (prices[slow] < prices[fast]):
+                maxProfit = max(maxProfit, prices[fast] - prices[slow])
+
+            fast += 1
         
         return maxProfit
