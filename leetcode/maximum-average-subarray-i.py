@@ -13,6 +13,6 @@ class Solution:
         for jdx in range(k, len(nums)):
             cur_total -= nums[jdx - k]
             cur_total += nums[jdx]
-            max_avg = max(max_avg, cur_total / k)
+            max_avg = round(max(max_avg, cur_total / k), 5)
     
         return max_avg
