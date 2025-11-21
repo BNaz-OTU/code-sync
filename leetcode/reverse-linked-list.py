@@ -5,20 +5,14 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        prev = None
+
         curr = head
+        prev = None
 
-        while curr:
-            # Copy the nodes ahead
-            nxt = curr.next
-
-            # Update the current node to the previous node
+        while curr != None:
+            temp = curr.next
             curr.next = prev
-
-            # Move the prev node to the current node, so the chaining can continue
             prev = curr
+            curr = temp
 
-            # Continue moving through the linked list
-            curr = nxt
-        
         return prev
