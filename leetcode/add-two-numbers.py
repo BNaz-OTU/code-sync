@@ -5,6 +5,9 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+        # USE FOR REFERENCE: https://www.youtube.com/watch?v=wgFPrzTjm7s
+
         list1 = ""
         list2 = ""
 
