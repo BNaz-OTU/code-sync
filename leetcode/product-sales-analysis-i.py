@@ -1,6 +1,5 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT P.product_name, S.year, S.price
-FROM Sales AS S
-LEFT JOIN Product AS P
-ON S.product_id = P.product_id
+def sales_analysis(sales: pd.DataFrame, product: pd.DataFrame) -> pd.DataFrame:
+    df = sales.join(product.set_index('product_id'), how='left', on='product_id')
+    return df.loc[:, ['product_name', 'year', 'price']]
