@@ -1,18 +1,14 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-WITH T1 AS (SELECT E.employee_id, E.name, S.salary
-FROM Employees AS E
-LEFT JOIN Salaries AS S
-ON E.employee_id = S.employee_id
+def find_employees(employees: pd.DataFrame, salaries: pd.DataFrame) -> pd.DataFrame:
+    # Get NULL values to show in DataFrame's
+    df_names = employees.join(salaries.set_index("employee_id"), on="employee_id", how="left")
+    df_salary = employees.join(salaries.set_index("employee_id"), on="employee_id", how="right")
 
-UNION
+    # Combine the tables together
+    df_final = pd.concat([df_names, df_salary])
 
-SELECT S.employee_id, E.name, S.salary
-FROM Employees AS E
-RIGHT JOIN Salaries AS S
-ON E.employee_id = S.employee_id)
-
-SELECT T1.employee_id
-FROM T1
-WHERE (T1.name IS NULL) OR (T1.salary IS NULL)
-ORDER BY T1.employee_id ASC
+    # Filter for the specific tables
+    return df_final.loc[
+        (df_final["name"].isnull()) | (df_final["salary"].isnull()), ['employee_id']
+    ].sort_values(by="employee_id")
