@@ -1,10 +1,9 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT 
-    U.name,
-    SUM(IF(R.distance IS NULL, 0, R.distance)) AS "travelled_distance"
-FROM Users AS U
-LEFT JOIN Rides AS R
-ON U.id = R.user_id
-GROUP BY U.id
-ORDER BY travelled_distance DESC, name ASC
+def top_travellers(users: pd.DataFrame, rides: pd.DataFrame) -> pd.DataFrame:
+    df = users.join(rides.set_index("user_id"), on="id", how="left", lsuffix="_c", rsuffix="_o")
+    df.fillna(0, inplace=True)
+    df2 = df.groupby(["id_c", "name"])["distance"].sum().reset_index(name="travelled_distance")
+    return df2.loc[:, 
+        ["name", "travelled_distance"]
+    ].sort_values(by=["travelled_distance", "name"], ascending=[False, True])
