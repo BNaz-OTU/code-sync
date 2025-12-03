@@ -10,11 +10,11 @@ class Solution:
 
         def inorder(root):
             if (not root):
-                return 
+                return
 
             inorder(root.left)
             final.append(root.val)
             inorder(root.right)
-            
+        
         inorder(root)
         return final
