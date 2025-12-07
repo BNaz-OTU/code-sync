@@ -7,34 +7,14 @@
 class Solution:
     def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
 
-        # USED FOR REFERRENCE: https://www.youtube.com/watch?v=Cpg8f79luEA
+        # Recursion Method
 
-        # Edge Case when the given tree is empty
-        if root is None:
+        if (root is None):
             return TreeNode(val)
-
-        curr = root
-
-        # Remembers the last connection
-        prev = curr
-
-        # Keep looping unitl we find the correct Node to do the insertion
-        while (curr is not None):
-            # Update the last connection
-            prev = curr
-
-            if (val < curr.val):
-                # print(curr.val) # DEBUG
-                curr = curr.left
-
-            else:
-                # print(curr.val) # DEBUG
-                curr = curr.right
         
-        # After leaving the loop use the last connection to determine where to place the new value
-        if (val < prev.val):
-            prev.left = TreeNode(val)
+        if (val < root.val):
+            root.left = self.insertIntoBST(root.left, val)
         else:
-            prev.right = TreeNode(val)
+            root.right = self.insertIntoBST(root.right, val)
         
         return root
