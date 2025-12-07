@@ -1,5 +1,4 @@
-# Write your MySQL query statement below
+import pandas as pd
 
-SELECT *
-FROM Users
-WHERE REGEXP_LIKE(mail, "^[A-Za-z]+[A-Za-z0-9_\.\-]*@leetcode\\.com$", "c")
+def valid_emails(users: pd.DataFrame) -> pd.DataFrame:
+    return users.loc[users["mail"].str.match(r"^[A-Za-z]+[A-Za-z0-9_\.\-]*@leetcode\.com$")]
