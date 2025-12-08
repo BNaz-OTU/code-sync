@@ -6,6 +6,11 @@
 #         self.right = right
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+
+        # USED SOLN (#2 InOrder Traversal): https://neetcode.io/solutions/kth-smallest-element-in-a-bst
+
+        # USED FOR REFERENCE: https://www.youtube.com/watch?v=5LUXSvjmGCw 
+
         final = []
         # found = []
 
