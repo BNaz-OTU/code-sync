@@ -7,6 +7,7 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
 
+        # FAILED
         if (root is None):
             return 0
         
