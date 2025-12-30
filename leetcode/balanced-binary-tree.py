@@ -7,6 +7,8 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
 
+        # USED SOLN: https://www.youtube.com/watch?v=PqfQWtVcd30
+
         def dfs(root):
             if (root is None):
                 return 0
