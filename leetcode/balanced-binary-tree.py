@@ -10,19 +10,19 @@ class Solution:
         def dfs(root):
             if (root is None):
                 return 0
-        
-            heightL = dfs(root.left)
-            if (heightL == -1):
+            
+            left = dfs(root.left)
+            if (left == -1):
                 return -1
             
-            heightR = dfs(root.right)
-            if (heightR == -1):
+            right = dfs(root.right)
+            if (right == -1):
                 return -1
             
-            if (abs(heightL - heightR) <= 1):
-                return max(heightL, heightR) + 1
-            else:
+
+            if (abs(left - right) > 1):
                 return -1
+            
+            return max(left, right) + 1
         
-        print(dfs(root))
         return dfs(root) != -1
