@@ -1,5 +1,7 @@
 # Write your MySQL query statement below
 
+-- ANOTHER METHOD: https://leetcode.com/problems/analyze-subscription-conversion/solutions/7323232/simple-sql-without-cte-by-sarang_malpure-2ht4
+
 WITH T1 AS (SELECT 
     user_id,
     ROUND(SUM(IF(activity_type = "free_trial", activity_duration, 0)) / COUNT(IF(activity_type = "free_trial", 1, 0)), 2) AS "trial_avg_duration",
