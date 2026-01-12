@@ -1,5 +1,7 @@
 # Write your MySQL query statement below
 
+-- ANOTHER METHOD: https://www.youtube.com/watch?v=fLvGRA0sdYw
+
 -- SWAP one half of the numbers
 WITH T1 AS (SELECT 
     S1.id,
