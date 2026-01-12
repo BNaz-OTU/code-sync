@@ -5,37 +5,34 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+    def minNode(self, root):
+        while root is not None and root.left is not None:
+            root = root.left
+        
+        print(root)
+        return root
 
+
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         if (root is None):
             return
         
         if (key < root.val):
             root.left = self.deleteNode(root.left, key)
-            # return root # Try this after completing the code
         
         elif (key > root.val):
             root.right = self.deleteNode(root.right, key)
-            # return root # Try this after completing the code
         
         else:
             if (root.left is None):
                 root = root.right
-
-            elif (root.right is None):
+            
+            elif(root.right is None):
                 root = root.left
             
             else:
-                minNode = self.findMin(root.right)
+                minNode = self.minNode(root.right)
                 root.val = minNode.val
                 root.right = self.deleteNode(root.right, minNode.val)
         
         return root
-
-    def findMin(self, root):
-        curr = root
-
-        while curr and curr.left:
-            curr = curr.left
-        
-        return curr
