@@ -1,13 +1,7 @@
 # Write your MySQL query statement below
 
--- SELECT
---     id,
---     CASE
---         WHEN p_id IS NULL THEN "Root"
---         WHEN COUNT(DISTINCT p_id) > COUNT(id) THEN "Inner"
---         ELSE "Leaf"
---     END AS "type"
--- FROM Tree
+-- ANOTHER METHOD: https://www.youtube.com/watch?v=-hHUVAlTwZg
+-- ANOTHER METHOD: https://www.youtube.com/watch?v=jfE0d4hR--s
 
 SELECT 
     T1.id, 
@@ -16,8 +10,6 @@ SELECT
         WHEN COUNT(T2.p_id) = 0 THEN "Leaf"
         ELSE "Inner"
     END AS "type"
-    -- COUNT(T1.p_id) AS "A",
-    -- COUNT(T2.p_id) AS "B"
 FROM TREE AS T1
 LEFT JOIN TREE AS T2
 ON T1.id = T2.p_id
