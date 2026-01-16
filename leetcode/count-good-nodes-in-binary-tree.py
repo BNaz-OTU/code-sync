@@ -5,6 +5,8 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    # Another method: https://www.youtube.com/watch?v=7cp5imvDzl4 
+
     def goodNodes(self, root: TreeNode) -> int:
         countGoodNodes = 0
         arr = []
