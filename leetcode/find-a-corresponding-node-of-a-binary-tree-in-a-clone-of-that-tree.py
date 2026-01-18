@@ -6,15 +6,20 @@
 #         self.right = None
 
 class Solution:
+    # USED SOLN: https://www.youtube.com/watch?v=ejXTsnWeoyU
+
     def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
         
-        def dfs(root, target):
-            if (root is None):
+        def dfs(og_node, c_node):
+            if (og_node is None):
                 return 
 
-            if (root.val == target.val):
-                return root
+            # print(id(og_node), id(target))
+            # print(og_node)
+            if (og_node == target):
+                return c_node
             
-            return dfs(root.left, target) or dfs(root.right, target)
+            return dfs(og_node.left, c_node.left) or dfs(og_node.right, c_node.right)
         
-        return dfs(cloned, target)
+        # print(target)
+        return dfs(original, cloned)
