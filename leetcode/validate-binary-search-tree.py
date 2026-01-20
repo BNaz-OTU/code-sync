@@ -4,18 +4,28 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        valList = []
 
-        # USED SOLN: https://www.youtube.com/watch?v=s6ATEkipzow
-        
-        def valid(node, left, right):
-            if node is None:
-                return True
+        def dfs(root):
+            if (root is None):
+                return 
             
-            if not (node.val < right and node.val > left):
-                return False
-            
-            return (valid(node.left, left, node.val) and valid(node.right, node.val, right))
+            dfs(root.left)
+            valList.append(root.val)
+            dfs(root.right)
+
+        dfs(root)
+
+        for idx in range(0, len(valList) - 1):
+            low = valList[idx]
+            high = valList[idx + 1]
+
+            print(f"Low: {low} | High: {high}")
+
+            if (low > high or low == high):
+                return False 
         
-        return valid(root, float("-inf"), float("inf"))
+        return True
