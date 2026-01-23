@@ -7,6 +7,7 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # ANOTHER METHOD: https://www.youtube.com/watch?v=gs2LMfuOR9k
 
         if (root is None):
             return 
