@@ -1,25 +1,21 @@
 class Solution:
     def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
-        newList = []
+        dictIdx = []
         final = [0] * len(nums)
 
         for idx in range(len(nums)):
-            # print(f"Val: {nums[idx]} | Idx: {idx}")
-            newList.append([nums[idx], idx]) 
+            dictIdx.append([nums[idx], idx])
         
-        print(newList)
-
-        heapify(newList)
         while k > 0:
-            val = heappop(newList)
-            val[0] = val[0] * multiplier
-            heappush(newList, val)
-            k-= 1
+            heapify(dictIdx)
 
-        print(newList) 
-        while len(newList) > 0:
-            update = newList.pop()
-            indx = update[1]
-            final[indx] = update[0]
+            val = heappop(dictIdx)
+            val[0] = val[0] * multiplier
+            heappush(dictIdx, val)
+            k -= 1
+        
+        while dictIdx:
+            val = dictIdx.pop()
+            final[val[1]] = val[0]
         
         return final
