@@ -1,14 +1,15 @@
 class Solution:
     def numberGame(self, nums: List[int]) -> List[int]:
-        arr = []
+        final = []
+        
         heapify(nums)
         while len(nums) > 0:
-            # Remove Step:
+            # First Remove from old Array
             alice = heappop(nums)
             bob = heappop(nums)
 
-            # Add Step:
-            arr.append(bob)
-            arr.append(alice)
+            # Then add to new Array
+            final.append(bob)
+            final.append(alice)
         
-        return arr
+        return final
