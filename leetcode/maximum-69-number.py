@@ -1,5 +1,6 @@
 class Solution:
     def maximum69Number (self, num: int) -> int:
+        # Better way to solve the problem: https://www.youtube.com/shorts/9aRMN8IZdP0
         
         str_69 = []
         found = False
