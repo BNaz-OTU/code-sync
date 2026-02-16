@@ -1,5 +1,7 @@
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
+        # USED SOLN: https://www.youtube.com/watch?v=WQZdwxZJAhY
+
         dictPart = {}
         final = []
 
