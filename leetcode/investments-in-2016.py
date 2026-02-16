@@ -1,5 +1,6 @@
 # Write your MySQL query statement below
 
+-- Check to find multiple policy holders with same 'tiv_2015' value
 WITH T1 AS (
     SELECT 
         tiv_2015, 
@@ -8,6 +9,7 @@ WITH T1 AS (
     GROUP BY tiv_2015
 ),
 
+-- Check to find only one unique (lat, lon) pair
 T2 AS (
     SELECT 
         lat,
@@ -17,6 +19,7 @@ T2 AS (
     GROUP BY lat, lon
 ),
 
+-- Combine the Insurance table and the multiple policy holders table
 T3 AS (
     SELECT 
         I.*, 
@@ -26,6 +29,7 @@ T3 AS (
     ON I.tiv_2015 = T1.tiv_2015
 )
 
+-- Combine the previous table and the unique location table, then begin filtering to get the answer
 SELECT 
     ROUND(SUM(T3.tiv_2016), 2) AS "tiv_2016"
 FROM T3
