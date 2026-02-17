@@ -1,5 +1,7 @@
 class Solution:
     def makeSmallestPalindrome(self, s: str) -> str:
+        # Another SOLN: https://www.youtube.com/watch?v=EzAjKrEQLFs
+
         # Odd Number
         new_s = ""
 
