@@ -1,22 +1,22 @@
 class Solution:
-    # USED SOLN: https://www.youtube.com/watch?v=REOH22Xwdkk
-
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        final = []
+        # USED SOLN: https://www.youtube.com/watch?v=REOH22Xwdkk
+
+        res = []
         subset = []
 
         def dfs(idx):
             if (idx >= len(nums)):
-                final.append(subset.copy())
-                return 
+                res.append(subset.copy())
+                return
             
-            # Include the number
+            # decision to include nums[idx]
             subset.append(nums[idx])
             dfs(idx + 1)
 
-            # Exclude the number
+            # decision NOT to include nums[idx]
             subset.pop()
             dfs(idx + 1)
         
         dfs(0)
-        return final
+        return res
