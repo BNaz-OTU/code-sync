@@ -10,14 +10,9 @@ class Solution:
             if (sum(subset) == target and subset not in final):
                 final.append(subset.copy())
                 return 
-            
-            print(idx, subset)
-            
-            # Add and continue further in the list
+                        
+            # Continue adding the same element
             subset.append(candidates[idx])
-            dfs(idx + 1, subset)
-
-            # Don't do anything (Continue with the same number)
             dfs(idx, subset)
 
             # Don't add but continue further in the list
