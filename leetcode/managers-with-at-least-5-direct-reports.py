@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
 
-WITH T1 AS (
+WITH T1 AS(
     SELECT 
         managerId
     FROM Employee
@@ -8,8 +8,7 @@ WITH T1 AS (
     HAVING COUNT(*) >= 5
 )
 
-SELECT
-    E.name
+SELECT name
 FROM Employee AS E
-JOIN T1
+JOIN T1 
 ON E.id = T1.managerId
