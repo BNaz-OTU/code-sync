@@ -1,37 +1,28 @@
 class Solution:
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
-        # ANOTHER METHOD: https://www.youtube.com/watch?v=amnrMCVd2YI
-        
         if (len(hand) % groupSize != 0):
             return False
         
         hand.sort()
 
         while len(hand) > 0:
-            holder_idx = []
-            holder_idx.append(0)
+            holderIdx = [0]
 
             for idx in range(1, len(hand)):
-                if (len(holder_idx) == groupSize):
+                if (len(holderIdx) == groupSize):
                     break
 
-                prev = hand[holder_idx[-1]]
-                curr = hand[idx]
-                # DEBUG
-                # print(f"Prev: {prev} | Curr: {curr} | Difference: {curr - prev} | holder: {holder_idx}")
-
-                if (curr - prev == 1):
-                    holder_idx.append(idx)
-                elif (prev == curr):
-                    continue
-                else:
+                diff = abs(hand[idx] - hand[holderIdx[-1]])
+                if (diff > 1):
                     return False
-                
-            # In the event many of the values in hand are the same EX: [3, 3, 3], return False because its not consecutively increasing
-            if (len(holder_idx) != groupSize):
+                elif (diff == 1):
+                    holderIdx.append(idx)
+            
+            if(len(holderIdx) != groupSize):
                 return False
 
-            for val in reversed(holder_idx):
-                hand.pop(val)
+            for index in range(groupSize):
+                rem_idx = holderIdx.pop()
+                hand.pop(rem_idx)
         
         return True
