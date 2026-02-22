@@ -1,24 +1,29 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        # USED SOLN: https://www.youtube.com/watch?v=GBKI9VSKdGg
-        
         final = []
-        current = []
+        subset = []
 
-        def dfs(idx, current):
-
-            if (sum(current) == target):
-                final.append(current.copy())
-                return
-
-            if (idx >= len(candidates) or sum(current) > target):
+        def dfs(idx, subset):
+            if (sum(subset) > target or idx >= len(candidates)):
                 return
             
-            current.append(candidates[idx])
-            dfs(idx, current)
+            if (sum(subset) == target and subset not in final):
+                final.append(subset.copy())
+                return 
+            
+            print(idx, subset)
+            
+            # Add and continue further in the list
+            subset.append(candidates[idx])
+            dfs(idx + 1, subset)
 
-            current.pop()
-            dfs(idx + 1, current)
+            # Don't do anything (Continue with the same number)
+            dfs(idx, subset)
+
+            # Don't add but continue further in the list
+            subset.pop()
+            dfs(idx + 1, subset)
+
         
-        dfs(0, current)
+        dfs(0, subset)
         return final
