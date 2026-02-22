@@ -1,22 +1,20 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        # USED SOLN: https://www.youtube.com/watch?v=REOH22Xwdkk
-        
-        res = []
+        final = []
         subset = []
 
-        def dfs(idx):
-            if (idx == len(nums)):
-                res.append(subset.copy()) 
-                return    
-
-            # Decision to add number to the subset
+        def dfs(idx, subset):
+            if (idx >= len(nums)):
+                final.append(subset.copy())
+                return
+            
+            # Add Number
             subset.append(nums[idx])
-            dfs(idx + 1)
+            dfs(idx + 1, subset)
 
-            # Decision NOT to add number to the subset
+            # Don't Add Number
             subset.pop()
-            dfs(idx + 1)
-        
-        dfs(0)
-        return res
+            dfs(idx + 1, subset)
+
+        dfs(0, subset)
+        return final
