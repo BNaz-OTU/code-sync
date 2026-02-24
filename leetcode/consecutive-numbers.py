@@ -1,4 +1,6 @@
 # Write your MySQL query statement below
+-- ANOTHER SOLN: https://www.youtube.com/watch?v=smd03AqX5LA
+
 WITH T1 AS (
 SELECT 
     *,
