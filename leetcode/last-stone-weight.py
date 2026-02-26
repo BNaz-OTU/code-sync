@@ -1,16 +1,20 @@
 class Solution:
-    # USED SOLN: https://www.youtube.com/watch?v=B-QCq79-Vfw
     def lastStoneWeight(self, stones: List[int]) -> int:
-        # Since python is dumb and can't implement a max heap, convert numbers to negative to get the "max heap" effect 
-        stones = [-s for s in stones]
+        for idx in range(len(stones)):
+            stones[idx] = stones[idx] * -1
+        
         heapq.heapify(stones)
 
         while len(stones) > 1:
-            first = heapq.heappop(stones)
-            second = heapq.heappop(stones)
+            val1 = heapq.heappop(stones) * -1
+            val2 = heapq.heappop(stones) * -1
 
-            if (second > first):
-                heapq.heappush(stones, first - second)
+            diff = val1 - val2
+
+            if (diff > 0):
+                heapq.heappush(stones, diff * -1)
         
-        stones.append(0)
-        return abs(stones[0])
+        if (len(stones) == 1):
+            return stones[0] * -1
+        
+        return 0
