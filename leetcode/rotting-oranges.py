@@ -1,5 +1,5 @@
 from collections import deque
-
+# USED SOLN (didn't acc use solution but needed help explaining): https://www.youtube.com/watch?v=y704fEOx0s0
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         ROWS = len(grid)
