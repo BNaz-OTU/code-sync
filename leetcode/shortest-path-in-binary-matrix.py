@@ -5,26 +5,19 @@ class Solution:
         N = len(grid)
         queue = deque([(0, 0, 1)]) # row, column, length
         visit = set((0,0))
-        neighbours = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1]]
 
-        while queue:
-            row, col, length = queue.popleft()
-
-            if ((min(row, col) < 0) or
-                (max(row, col) >= N) or
-                grid[row][col]):
+        while len(queue) > 0:
+            row, column, length = queue.popleft()
+            if (min(row, column) < 0 or max(row, column) >= N or grid[row][column] == 1):
                 continue
             
-            if (row == N - 1 and col == N - 1):
+            if (row == N - 1 and column == N - 1):
                 return length
             
-
-            for dr, dc in neighbours:
-                diff_row = row + dr
-                diff_col = col + dc
-
-                if ((diff_row, diff_col) not in visit):
-                    queue.append((diff_row, diff_col, length + 1))
-                    visit.add((diff_row, diff_col))
+            for dr, dc in directions:
+                if ((row + dr, column + dc) not in visit):
+                    visit.add((row + dr, column + dc))
+                    queue.append((row + dr, column + dc, length + 1))
         
         return -1
