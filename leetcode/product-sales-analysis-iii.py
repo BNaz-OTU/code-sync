@@ -1,18 +1,17 @@
 # Write your MySQL query statement below
--- Useful comment from the "discussion" board: https://leetcode.com/problems/product-sales-analysis-iii/description/comments/1929476/
-
 WITH T1 AS (
     SELECT 
-        *,
-        RANK() OVER(PARTITION BY product_id ORDER BY year) AS "ranked"
-    FROM Sales
+        product_id,
+        MIN(S.year) AS "first_year"
+    FROM Sales AS S
+    GROUP BY product_id
 )
 
-SELECT
-    product_id,
-    year AS "first_year",
-    quantity,
-    price
+SELECT 
+    S2.product_id,
+    T1.first_year,
+    S2.quantity,
+    S2.price
 FROM T1
-WHERE ranked = 1
--- GROUP BY product_id
+JOIN Sales AS S2
+ON T1.product_id = S2.product_id AND T1.first_year = S2.year
