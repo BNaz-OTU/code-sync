@@ -1,15 +1,14 @@
 # Write your MySQL query statement below
--- FROM DISCUSSION (very helpful): https://leetcode.com/problems/find-overbooked-employees/description/comments/3118095/
 
--- ANOTHER METHOD: https://www.youtube.com/watch?v=jqLHMyfxDjw -- made an error, should use YEARWEEK instead of WEEK
-
+-- Group together the weeks of each year
 WITH T1 AS (
-    SELECT 
+    SELECT
         *,
-        YEARWEEK(meeting_date, 3) AS "year_week"
+        YEARWEEK(meeting_date, 3) AS year_week
     FROM meetings
 ),
 
+-- Calculate the total hours of meeting time in a week
 T2 AS (
     SELECT 
         employee_id, 
@@ -19,15 +18,14 @@ T2 AS (
     GROUP BY employee_id, year_week
 )
 
+-- Apply the filters
 SELECT
     E.*,
     COUNT(*) AS "meeting_heavy_weeks"
-FROM T2 
+FROM T2
 JOIN employees AS E
 ON T2.employee_id = E.employee_id
-WHERE total_hours >= 20
+WHERE total_hours > 20
 GROUP BY E.employee_id
-HAVING COUNT(*) >= 2
-ORDER BY meeting_heavy_weeks DESC, employee_name
-
--- SELECT * FROM T2
+HAVING COUNT(*) > 1
+ORDER BY meeting_heavy_weeks DESC, E.employee_name
