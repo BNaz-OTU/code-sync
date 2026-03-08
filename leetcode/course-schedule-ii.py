@@ -1,7 +1,9 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         hashMap = {}
-        visit = set()
+        cycle = set() # Used to detect if there is a cycle/forever loop of taking courses
+        visit = set() # Unlike cycle this is used to determine if I've already checked a given course and prevents duplicate courses from 
+                      # appearing in the final output
         final = []
 
         for num in range(numCourses):
@@ -11,28 +13,25 @@ class Solution:
             hashMap[crs].append(pre)
         
         def dfs(crs):
-            if (crs in visit):
+            if (crs in cycle):
                 return False
-            
-            if (hashMap[crs] == []):
-                if (crs not in final):
-                    final.append(crs)
+
+            if (crs in visit):
                 return True
             
-            visit.add(crs)
+            cycle.add(crs)
             for pre in hashMap[crs]:
                 if (not dfs(pre)): 
                     return False
-            visit.remove(crs)
 
-            if (crs not in final):
-                final.append(crs)
-            hashMap[crs] = []
+            cycle.remove(crs)
+            visit.add(crs)
+            final.append(crs)
             return True
 
             
         for crs in range(numCourses):
-            if (not dfs(crs)):
+            if (dfs(crs) == False):
                 return []
 
         return final
