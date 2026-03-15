@@ -1,13 +1,10 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         # USED SOLN: https://www.youtube.com/watch?v=XYQecbcd6_c
-        if (len(s) == 1):
-            return s
-
         maxCount = 0
         pali = ""
 
-        for idx in range(len(s) - 1):
+        for idx in range(len(s)):
             left = idx
             right = idx
             while left >= 0 and right < len(s) and s[left] == s[right]:
