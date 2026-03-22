@@ -1,14 +1,12 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        lenOfRow = len(matrix[0])
-        
+
         for idx in range(len(matrix)):
-            print(matrix[idx])
             left = 0
-            right = lenOfRow - 1
+            right = len(matrix[0]) - 1
 
             while left <= right:
-                middle = (left + right) // 2
+                middle = right - left
 
                 if (matrix[idx][middle] == target):
                     return True
@@ -18,5 +16,4 @@ class Solution:
                 
                 else:
                     left = middle + 1
-        
         return False
