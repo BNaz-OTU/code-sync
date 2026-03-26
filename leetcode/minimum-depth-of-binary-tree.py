@@ -4,25 +4,25 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-# USED SOLN: https://www.youtube.com/watch?v=My9ZyeCh_wE
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if (root is None):
             return 0
-        
-        self.min_depth = float('inf')
 
-        self.dfs(root, 0)
-
-        return self.min_depth
-
-    def dfs(self, node, cur_depth):
-        if (node is None):
-            return
+        min_depth = float('inf')
         
-        if (node.left is None and node.right is None):
-            self.min_depth = min(self.min_depth, cur_depth + 1)
+        def dfs(root, num):
+            nonlocal min_depth
+            
+            if (root is None):
+                return
+            
+            if (root.left is None and root.right is None):
+                min_depth = min(min_depth, num + 1)
+            
+            dfs(root.left, num + 1)
+            dfs(root.right, num + 1)
         
-        self.dfs(node.left, cur_depth + 1)
-        self.dfs(node.right, cur_depth + 1)
+        dfs(root, 0)
+
+        return min_depth
