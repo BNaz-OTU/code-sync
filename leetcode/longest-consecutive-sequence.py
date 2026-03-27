@@ -1,15 +1,17 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        # USED SOLN: https://www.youtube.com/watch?v=P6RZZMu_maU
-        numSet = set(nums)
+        if (len(nums) == 0):
+            return 0
 
-        longest = 0
+        setNum = set(nums)
+        maxCount = 1
 
-        for n in numSet:
-            if (n - 1) not in numSet:
-                length = 0
-                while (n + length) in numSet:
-                    length += 1
-                longest = max(length, longest)
+        for num in setNum:
+            if ((num - 1) not in setNum):   # This will locate the lowest number to start 
+                count = 0                   # searching from, if there was [1, 2, 3, 4], we want to start at 1 because checking the other numbers is a waste of time since you can find a longer sequence at starting at 1
+                while (num + count) in setNum:
+                    count += 1
+
+                maxCount = max(count, maxCount)
         
-        return longest
+        return maxCount
