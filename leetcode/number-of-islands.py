@@ -1,28 +1,27 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        ROWS = len(grid)
-        COLS = len(grid[0])
-        visited = set()
+        ROWS, COLS = len(grid), len(grid[0])
+        visit = set()
         counter = 0
 
-        def dfs(row, col, visited):
+        def dfs(row, col, visit):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in visited) or
+                ((row, col) in visit) or
                 (grid[row][col] == "0")):
-                return 
+                return
             
-            visited.add((row, col))
+            visit.add((row, col))
 
-            dfs(row + 1, col, visited)
-            dfs(row - 1, col, visited)
-            dfs(row, col + 1, visited)
-            dfs(row, col - 1, visited)
+            dfs(row + 1, col, visit)
+            dfs(row - 1, col, visit)
+            dfs(row, col + 1, visit)
+            dfs(row, col - 1, visit)
 
-        for idx in range(ROWS):
-            for jdx in range(COLS):
-                if (grid[idx][jdx] == "1" and (idx, jdx) not in visited):
-                    dfs(idx, jdx, visited)
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (grid[row][col] == "1" and (row, col) not in visit):
                     counter += 1
-        
+                    dfs(row, col, visit)
+
         return counter
