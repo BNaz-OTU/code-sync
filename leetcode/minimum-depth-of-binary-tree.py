@@ -8,21 +8,17 @@ class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if (root is None):
             return 0
-
-        min_depth = float('inf')
         
-        def dfs(root, num):
-            nonlocal min_depth
-            
+        minV = float("inf")
+        final
+
+        def dfs(root):
             if (root is None):
-                return
+                return minV
             
             if (root.left is None and root.right is None):
-                min_depth = min(min_depth, num + 1)
+                return 1
             
-            dfs(root.left, num + 1)
-            dfs(root.right, num + 1)
+            return min(dfs(root.left), dfs(root.right)) + 1
         
-        dfs(root, 0)
-
-        return min_depth
+        return dfs(root)
