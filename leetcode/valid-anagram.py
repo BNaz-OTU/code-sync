@@ -1,10 +1,10 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        hashS = {}
-        hashT = {}
-
         if (len(s) != len(t)):
             return False
+
+        hashS = {}
+        hashT = {}
 
         for idx in range(len(s)):
             if (s[idx] in hashS):
@@ -16,8 +16,9 @@ class Solution:
                 hashT[t[idx]] += 1
             else:
                 hashT[t[idx]] = 1
-        
+            
         for key in hashS:
             if (key not in hashT or hashS[key] != hashT[key]):
                 return False
+        
         return True
