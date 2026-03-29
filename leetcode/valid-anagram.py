@@ -7,18 +7,18 @@ class Solution:
         hashT = {}
 
         for idx in range(len(s)):
-            if (s[idx] in hashS):
-                hashS[s[idx]] += 1
-            else:
+            if (s[idx] not in hashS):
                 hashS[s[idx]] = 1
-            
-            if (t[idx] in hashT):
-                hashT[t[idx]] += 1
             else:
-                hashT[t[idx]] = 1
+                hashS[s[idx]] += 1
             
+            if (t[idx] not in hashT):
+                hashT[t[idx]] = 1
+            else:
+                hashT[t[idx]] += 1
+        
         for key in hashS:
-            if (key not in hashT or hashS[key] != hashT[key]):
+            if (key not in hashT or hashT[key] != hashS[key]):
                 return False
         
         return True
