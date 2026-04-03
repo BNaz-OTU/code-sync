@@ -1,35 +1,38 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # USED SOLN: https://www.youtube.com/watch?v=EgI5nU9etnU
-        visit = set()
-        hashMap = {}
-
-        for num in range(numCourses):
-            hashMap[num] = []
+        hashCrs = {}
+        for crs in range(numCourses):
+            hashCrs[crs] = []
         
         for crs, pre in prerequisites:
-            hashMap[crs].append(pre)
+            hashCrs[crs].append(pre)
         
-        print(hashMap)
-        def dfs(crs):
-            if (crs in visit):
-                return False
+        print(hashCrs)
 
-            if (hashMap[crs] == []):
+        def dfs(crs, visit):
+            print(crs)
+            if (hashCrs[crs] == []):
                 return True
             
-            visit.add(crs)
-            for pre in hashMap[crs]:
-               if (not dfs(pre)):
+            if (crs in visit):
                 return False
             
-            visit.remove(crs)
-            hashMap[crs] = []
+            visit.add(crs)
+
+            for crs1 in hashCrs[crs]:
+                print('here1')
+                if (dfs(crs1, visit) == False):
+                    return False
+            hashCrs[crs] = []
             return True
-        
+
+
+        # Check all courses
         for crs in range(numCourses):
-            if (dfs(crs) == False):
+            visit = set()
+            if (dfs(crs, visit)):
+                continue
+            else:
                 return False
-            # visit = set()
-        
+
         return True
