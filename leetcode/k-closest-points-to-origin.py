@@ -1,22 +1,16 @@
-import math
-
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = []
         final = []
-        answer = []
-
-        for point in points:
-            x, y = point
-            ans = math.sqrt(((x - 0) ** 2) + ((y - 0) ** 2))
-            print(x, y, ans)
-            heappush(final, [ans, point])
+        for x, y in points:
+            val = math.sqrt(((x - 0) ** 2) + ((y - 0) ** 2))
+            print(val)
+            heap.append((val, x, y))
         
-        print(final)
+        heapify(heap)
 
-        while k > 0:
-            useless, coords = heappop(final)
-            print(useless, coords)
-            answer.append(coords)
-            k-= 1
+        while len(final) != k:
+            _, x, y = heappop(heap)
+            final.append([x, y])
         
-        return answer
+        return final
