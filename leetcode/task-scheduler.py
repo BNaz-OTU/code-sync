@@ -1,5 +1,4 @@
 class Solution:
-    # USED SOLN: https://www.youtube.com/watch?v=s8p8ukTyA2I
     def leastInterval(self, tasks: List[str], n: int) -> int:
         count = Counter(tasks)
         maxHeap = [-cnt for cnt in count.values()]
@@ -13,6 +12,7 @@ class Solution:
                 cnt = 1 + heappop(maxHeap)
                 if cnt:
                     q.append([cnt, time + n])
+            
             if q and q[0][1] == time:
                 heappush(maxHeap, q.popleft()[0])
         
