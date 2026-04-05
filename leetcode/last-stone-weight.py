@@ -1,6 +1,7 @@
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
         heap = []
+        
         for stone in stones:
             heap.append(stone * -1)
         
@@ -15,7 +16,7 @@ class Solution:
             else:
                 heap.append(calc * -1)
         
-        if (len(heap) == 0):
-            return 0
-            
-        return heap[0] * -1
+        if (len(heap) != 0):
+            return heap[0] * -1
+        
+        return 0
