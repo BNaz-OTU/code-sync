@@ -1,28 +1,30 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        # USED SOLN: https://leetcode.com/problems/rotting-oranges/submissions/1943436408
         ROWS, COLS = len(grid), len(grid[0])
-        queue = deque()
+        rotten = deque()
         visit = set()
         fresh = 0
-        neighbours = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        neighbours = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 
-        for idx in range(ROWS):
-            for jdx in range(COLS):
-                if (grid[idx][jdx] == 2):
-                    queue.append([idx, jdx, 0])
-                
-                if (grid[idx][jdx] == 1):
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (grid[row][col] == 1):
                     fresh += 1
+                
+                elif (grid[row][col] == 2):
+                    rotten.append((row, col, 0))
+                    visit.add((row, col))
         
-        if (fresh == 0):
+        if fresh == 0:
             return 0
-        
-        while len(queue) > 0:
-            qLen = len(queue)
 
+        while len(rotten) > 0:
+            qLen = len(rotten)
             while qLen > 0:
-                row, col, length = queue.popleft()
+                row, col, time = rotten.popleft()
+
+                # if fresh == 0:
+                #     return time
 
                 for dr, dc in neighbours:
                     n_row = row + dr
@@ -30,18 +32,22 @@ class Solution:
 
                     if ((n_row < 0 or n_row >= ROWS) or
                         (n_col < 0 or n_col >= COLS) or
-                        ((n_row, n_col) in visit) or
                         (grid[n_row][n_col] == 0) or
-                        (grid[n_row][n_col] == 2)):
+                        ((n_row, n_col) in visit)):
                         continue
                     
                     grid[n_row][n_col] = 2
                     fresh -= 1
+                    rotten.append((n_row, n_col, time + 1))
                     visit.add((n_row, n_col))
-                    queue.append([n_row, n_col, length + 1])
-
+                
                 qLen -= 1
-    
-        if (fresh == 0):
-            return length
-        return -1
+        
+        if (fresh != 0):
+            return -1
+        return time
+                
+
+        
+        print(fresh)
+        print(rotten)
