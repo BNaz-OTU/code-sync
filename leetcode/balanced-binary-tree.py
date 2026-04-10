@@ -7,24 +7,18 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
 
-        # USED SOLN: https://www.youtube.com/watch?v=PqfQWtVcd30
-
         def dfs(root):
             if (root is None):
-                return 0
-            
-            left = dfs(root.left)
-            if (left == -1):
-                return -1
-            
-            right = dfs(root.right)
-            if (right == -1):
-                return -1
-            
+                return [True, 0]
 
-            if (abs(left - right) > 1):
-                return -1
+            left, right = dfs(root.left), dfs(root.right)
+            # In "(left[0] and right[0])" it determines whether the previous trees/branches were already balanced
+            # In "(abs(left[1] - right[1]) <= 1)" it checks whether the height of the balanced tree isn't more 
+            #    than 1, otherwise its unbalanced
+            # Combining those 2 statements together, it will determine if the tree was balanced
             
-            return max(left, right) + 1
+            balanced = ((left[0] and right[0]) and (abs(left[1] - right[1]) <= 1))
+            
+            return [balanced, max(left[1], right[1]) + 1]
         
-        return dfs(root) != -1
+        return dfs(root)[0]
