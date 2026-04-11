@@ -1,29 +1,20 @@
 class Solution:
     def firstUniqChar(self, s: str) -> int:
+        hashMap = {}
+        visit = set()
 
-        found = {}
-        minV = None
-
-        for idx, val in enumerate(s):
-            if (val in found):
-                found[val] = -1
-            else:
-                found[val] = idx
-        
-        print(found)
-
-        for key in found:
-
-            if (found[key] == -1):
+        for idx in range(len(s)):
+            if (s[idx] in visit):
                 continue
-
-            if minV is None:
-                minV = found[key]
-                
+            
+            if (s[idx] not in hashMap):
+                hashMap[s[idx]] = idx
+            
             else:
-                minV = min(minV, found[key])
+                hashMap.pop(s[idx])
+                visit.add(s[idx])
         
-        if (minV == None):
+        if (len(hashMap) == 0):
             return -1
-        else:
-            return minV
+
+        return min(hashMap.values())
