@@ -7,22 +7,22 @@
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         heap = []
-
+        
         def dfs(root):
-            if (root is None):
+            if root is None:
                 return
-            
+
             dfs(root.left)
             heap.append(root.val)
             dfs(root.right)
         
         dfs(root)
-        print(heap)
         heapify(heap)
-        temp_K = k
+        temp_k = k
 
-        while temp_K > 1:
-            temp_K -= 1
-            heappop(heap)
+        val = 0
+        while temp_k > 0:
+            temp_k -= 1
+            val = heappop(heap)
         
-        return heap[0]
+        return val
