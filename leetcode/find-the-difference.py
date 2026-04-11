@@ -1,15 +1,20 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
+        hashS = {}
 
-        sum_s = 0
-        sum_t = 0
-
-        for val in s:
-            sum_s += ord(val)
+        for char in s:
+            if (char in hashS):
+                hashS[char] += 1
+            
+            else:
+                hashS[char] = 1
         
-        for val in t:
-            sum_t += ord(val)
+        for char in t:
+            if (char not in hashS):
+                return char
+            
+            else:
+                hashS[char] -= 1
 
-        diff = sum_t - sum_s
-
-        return chr(diff)
+                if (hashS[char] == 0):
+                    hashS.pop(char)
