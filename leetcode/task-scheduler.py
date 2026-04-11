@@ -5,7 +5,7 @@ class Solution:
         queue = deque()
 
         for task in tasks:
-            if (task in dictTask):
+            if task in dictTask:
                 dictTask[task] -= 1
             else:
                 dictTask[task] = -1
@@ -15,22 +15,15 @@ class Solution:
         
         heapify(heap)
         time = 0
-
-        while heap or queue:
-            # print(heap)
-            # print(queue)
-            # print("-----\n")
+        while queue or heap:
             time += 1
 
             if (heap):
                 val = heappop(heap)
-                if (val < -1):
-                    queue.append([time + n, val + 1])
+                if val < -1:
+                    queue.append((time + n, val + 1))
             
             if (queue and queue[0][0] == time):
                 heappush(heap, queue.popleft()[1])
 
         return time
-
-            
-        print(heap)
