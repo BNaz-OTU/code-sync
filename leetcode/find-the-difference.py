@@ -1,20 +1,22 @@
 class Solution:
     def findTheDifference(self, s: str, t: str) -> str:
-        hashS = {}
+        hashT = {}
 
-        for char in s:
-            if (char in hashS):
-                hashS[char] += 1
-            
-            else:
-                hashS[char] = 1
-        
         for char in t:
-            if (char not in hashS):
-                return char
-            
+            if (char in hashT):
+                hashT[char] += 1
             else:
-                hashS[char] -= 1
+                hashT[char] = 1
+        
+        for char in s:
+            if (char in hashT):
+                hashT[char] -= 1
 
-                if (hashS[char] == 0):
-                    hashS.pop(char)
+                if (hashT[char] == 0):
+                    hashT.pop(char)
+            
+        # print(hashT.keys())
+        # # return hashT.keys()
+
+        for key in hashT.keys():
+            return key
