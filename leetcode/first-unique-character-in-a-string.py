@@ -1,19 +1,20 @@
 class Solution:
     def firstUniqChar(self, s: str) -> int:
+        hashChar = {}
         visit = set()
-        hashS = {}
 
         for idx, char in enumerate(s):
+            # print(idx, char)
             if (char in visit):
                 continue
-
-            if (char not in hashS):
-                hashS[char] = idx
+            
+            if (char not in hashChar):
+                hashChar[char] = idx
             else:
+                hashChar.pop(char)
                 visit.add(char)
-                hashS.pop(char)
         
-        if (len(hashS) == 0):
+        if (len(hashChar) == 0):
             return -1
 
-        return min(hashS.values())
+        return min(hashChar.values())
