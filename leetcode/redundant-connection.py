@@ -1,31 +1,28 @@
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        # USED SOLN: https://www.youtube.com/watch?v=1lNK80tOTfc
-        
-        N = len(edges)
-        par = [i for i in range(N + 1)]
-        rank = [1] * (N + 1)
+        # USED SOLN: https://neetcode.io/problems/redundant-connection/solution
+        n = len(edges)
+        adj = [[] for _ in range(n + 1)]
 
-        def find(n):
-            if (n != par[n]):
-                par[n] = find(par[n])
-            return par[n]
+        def dfs(node, par):
+            if visit[node]:
+                return True
+            
+            visit[node] = True
+            for nei in adj[node]:
+                if (nei == par):
+                    continue
+                
+                if dfs(nei, node):
+                    return True
+            return False
         
-        def union(n1, n2):
-            p1, p2 = find(n1), find(n2)
-            if (p1 == p2):
-                return False
-            
-            if (rank[p1] > rank[p2]):
-                par[p2] = p1
-                rank[p1] += rank[p2]
-            
-            else:
-                par[p1] = p2
-                rank[p2] += rank[p1]
-            
-            return True
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+            visit = [False] * (n + 1)
+
+            if dfs(u, -1):
+                return [u, v]
         
-        for n1, n2 in edges:
-            if (not union(n1, n2)):
-                return [n1, n2]
+        return []
