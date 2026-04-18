@@ -15,15 +15,15 @@ class Solution:
             if (node in adjList):
                 return adjList[node]
             
-            copyVal = Node(node.val)
-            adjList[node] = copyVal
+            copy = Node(node.val)
+            adjList[node] = copy
 
             for nei in node.neighbors:
-                copyVal.neighbors.append(dfs(nei))
+                copy.neighbors.append(dfs(nei))
             
-            return copyVal
-        
+            return adjList[node]
+
         if node is None:
             return None
-            
+
         return dfs(node)
