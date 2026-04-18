@@ -4,10 +4,9 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
         ROWS, COLS = len(board), len(board[0])
-        outsideO = []
         visit = set()
 
-        def dfs(row, col, visit):
+        def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
                 (board[row][col] == "X") or
@@ -17,20 +16,24 @@ class Solution:
             board[row][col] = "T"
             visit.add((row, col))
 
-            dfs(row + 1, col, visit)
-            dfs(row - 1, col, visit)
-            dfs(row, col + 1, visit)
-            dfs(row, col - 1, visit)
+            dfs(row + 1, col)
+            dfs(row - 1, col)
+            dfs(row, col + 1)
+            dfs(row, col - 1)
 
 
-        for idx in range(ROWS):
-            for jdx in range(COLS):
-                if (idx == 0 or idx == ROWS - 1 or jdx == 0 or jdx == COLS - 1) and (board[idx][jdx] == "O"):
-                    dfs(idx, jdx, visit)
+        for row in range(ROWS):
+            dfs(row, 0)
+            dfs(row, COLS - 1)
         
-        for idx in range(ROWS):
-            for jdx in range(COLS):
-                if (board[idx][jdx] == "O"):
-                    board[idx][jdx] = "X"
-                elif (board[idx][jdx] == "T"):
-                    board[idx][jdx] = "O"
+        for col in range(COLS):
+            dfs(0, col)
+            dfs(ROWS - 1, col)
+        
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (board[row][col] == "O"):
+                    board[row][col] = "X"
+                
+                if (board[row][col] == "T"):
+                    board[row][col] = "O"
