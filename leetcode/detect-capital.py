@@ -1,31 +1,12 @@
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
-        #  A - Z
-        # 65 - 90
+        capitalCount = 0
 
-        # Flags:
-        lower = False
-        upper = False
+        for idx in range(len(word)):
+            if (ord(word[idx]) <= 90):
+                capitalCount += 1
 
-        if (len(word) == 1):
+        if (capitalCount == len(word) or capitalCount == 0 or (capitalCount == 1 and ord(word[0]) <= 90)):
             return True
-
-        if (ord(word[0]) <= 90 and ord(word[1]) <= 90):
-            # print('here')
-            for idx in range(2, len(word)):
-                if (ord(word[idx]) > 90):
-                    return False
-
-        elif (ord(word[0]) <= 90 and ord(word[1]) > 90):
-            # print('here1')
-            for idx in range(2, len(word)):
-                if (ord(word[idx]) <= 90):
-                    return False
-
-        else:
-            # print('here2')
-            for idx in range(1, len(word)):
-                if (ord(word[idx]) <= 90):
-                    return False
         
-        return True
+        return False
