@@ -12,7 +12,7 @@ class Solution:
         adjList = {}
 
         def dfs(node):
-            if (node in adjList):
+            if node in adjList:
                 return adjList[node]
             
             copy = Node(node.val)
@@ -22,8 +22,8 @@ class Solution:
                 copy.neighbors.append(dfs(nei))
             
             return adjList[node]
-
+        
         if node is None:
             return None
-
+            
         return dfs(node)
