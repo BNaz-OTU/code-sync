@@ -13,8 +13,8 @@ class Solution:
                 ((row, col) in visit)):
                 return
             
-            board[row][col] = "T"
             visit.add((row, col))
+            board[row][col] = "T"
 
             dfs(row + 1, col)
             dfs(row - 1, col)
@@ -32,8 +32,8 @@ class Solution:
         
         for row in range(ROWS):
             for col in range(COLS):
-                if (board[row][col] == "O"):
-                    board[row][col] = "X"
-                
                 if (board[row][col] == "T"):
                     board[row][col] = "O"
+                    
+                elif (board[row][col] == "O"):
+                    board[row][col] = "X"
