@@ -12,7 +12,7 @@ class Solution:
         adjList = {}
 
         def dfs(node):
-            if node in adjList:
+            if (node in adjList):
                 return adjList[node]
             
             copy = Node(node.val)
