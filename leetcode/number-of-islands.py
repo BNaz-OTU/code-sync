@@ -14,14 +14,14 @@ class Solution:
             visit.add((row, col))
 
             dfs(row + 1, col)
+            dfs(row - 1, col)
             dfs(row, col + 1)
             dfs(row, col - 1)
-            dfs(row - 1, col)
 
         for row in range(ROWS):
             for col in range(COLS):
                 if (grid[row][col] == "1" and (row, col) not in visit):
-                    counter += 1
                     dfs(row, col)
+                    counter += 1
         
         return counter
