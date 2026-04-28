@@ -1,19 +1,22 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        hashLet = {}
-        count = 0
-        left = 0
+        hashMap = {}
+        for val in set(s):
+            hashMap[val] = 0
+        right = 0
+        maxVal = 0
 
-        for right in range(len(s)):
-            if (s[right] in hashLet):
-                hashLet[s[right]] += 1
-            else:
-                hashLet[s[right]] = 1
-                
-            while (right - left + 1) - max(hashLet.values()) > k:
-                hashLet[s[left]] -= 1
-                left += 1
+        for left in range(len(s)):
+            if (s[left] in hashMap):
+                hashMap[s[left]] += 1
             
-            count = max(count, right - left + 1)
+            val = ((left - right) + 1) - max(hashMap.values())
+
+            while val > k:
+                hashMap[s[right]] -= 1
+                right += 1
+                val = ((left - right) + 1) - max(hashMap.values())
+            
+            maxVal = max(maxVal, ((left - right) + 1))
         
-        return count
+        return maxVal
