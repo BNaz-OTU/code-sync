@@ -1,22 +1,22 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         hashMap = {}
-        for val in set(s):
-            hashMap[val] = 0
-        right = 0
-        maxVal = 0
+        left = 0
+        maxLen = 0
 
-        for left in range(len(s)):
-            if (s[left] in hashMap):
-                hashMap[s[left]] += 1
+        for right in range(len(s)):
+            # print(f"Begin: {left} | {right} | {hashMap}")
+            if s[right] not in hashMap:
+                hashMap[s[right]] = 0
             
-            val = ((left - right) + 1) - max(hashMap.values())
+            hashMap[s[right]] += 1
 
-            while val > k:
-                hashMap[s[right]] -= 1
-                right += 1
-                val = ((left - right) + 1) - max(hashMap.values())
+            if ((right - left + 1) - max(hashMap.values())) > k:
+                # print()
+                hashMap[s[left]] -= 1
+                left += 1
             
-            maxVal = max(maxVal, ((left - right) + 1))
+            maxLen = max(maxLen, right - left + 1)
+            # print(f"End: {left} | {right} | {hashMap}\n")
         
-        return maxVal
+        return maxLen
