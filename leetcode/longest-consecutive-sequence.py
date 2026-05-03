@@ -1,14 +1,20 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        numSet = set(nums)
-        longest = 0
+        visit = set(nums)
+        maxCount = 0
 
-        for n in numSet:
-            # Check if it is the start of a sequence
-            if (n - 1) not in numSet:
-                length = 0
-                while (n + length) in numSet:
-                    length += 1
-                longest = max(longest, length)
-        
-        return longest
+        for num in visit:
+            if ((num - 1) not in visit):
+                count = 0
+
+                for idx in range(len(visit)):
+                    if ((num + idx) in visit):
+                        count += 1
+                    else:
+                        break
+                maxCount = max(maxCount, count)
+
+        return maxCount
+
+            
+            # visit.add(num)
