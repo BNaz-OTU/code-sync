@@ -1,12 +1,12 @@
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
-        hashMap = {}
+        visit = set()
         final = []
 
-        for num in nums:
-            if (num in hashMap):
-                final.append(num)
-            if (num not in hashMap):
-                hashMap[num] = 1
+        for val in nums:
+            if val in visit:
+                final.append(val)
+            else:
+                visit.add(val)
         
         return final
