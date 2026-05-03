@@ -3,10 +3,10 @@ class Solution:
         visit = set()
         final = []
 
-        for val in nums:
-            if val in visit:
-                final.append(val)
+        for num in nums:
+            if num in visit:
+                final.append(num)
             else:
-                visit.add(val)
+                visit.add(num)
         
         return final
