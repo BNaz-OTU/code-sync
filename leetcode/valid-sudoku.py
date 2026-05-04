@@ -1,21 +1,28 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        cols = collections.defaultdict(set)
-        rows = collections.defaultdict(set)
-        squares = collections.defaultdict(set)
-
-        for row in range(9):
-            for col in range(9):
-                if board[row][col] == ".":
+        ROWS = {}
+        COLS = {}
+        DIAG = {}
+        for idx in range(9):
+            ROWS[idx] = set()
+            COLS[idx] = set()
+        
+        for idx in range(3):
+            for jdx in range(3):
+                DIAG[(idx, jdx)] = set()
+        
+        for idx in range(9):
+            for jdx in range(9):
+                if (board[idx][jdx] == "."):
                     continue
-                
-                if (board[row][col] in rows[row] or
-                    board[row][col] in cols[col] or
-                    board[row][col] in squares[(row // 3, col // 3)]):
+                    
+                if (board[idx][jdx] in ROWS[idx] or
+                    board[idx][jdx] in COLS[jdx] or
+                    board[idx][jdx] in DIAG[(idx // 3, jdx // 3)]):
                     return False
                 
-                cols[col].add(board[row][col])
-                rows[row].add(board[row][col])
-                squares[(row // 3, col // 3)].add(board[row][col])
+                ROWS[idx].add(board[idx][jdx])
+                COLS[jdx].add(board[idx][jdx])
+                DIAG[(idx // 3, jdx // 3)].add(board[idx][jdx])
         
         return True
