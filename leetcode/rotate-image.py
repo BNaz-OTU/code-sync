@@ -3,27 +3,26 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        # USED SOLN: https://www.youtube.com/watch?v=fMSJSS7eO1w
-        left, right = 0, len(matrix) - 1
+        top, bot = 0, len(matrix) - 1
+        left, right = 0, len(matrix[0]) - 1
 
-        while left < right:
-            for idx in range (right - left):
+        while top < bot and left < right:
+            for idx in range(right - left):
+                tempVal = matrix[top][left + idx]
 
-                top, bottom = left, right
-                
-                # Save the top-left value
-                tempTopLeft = matrix[top][left + idx]
+                # Change Top-left row
+                matrix[top][left + idx] = matrix[bot - idx][left]
 
-                # Move bottom left into top left
-                matrix[top][left + idx] = matrix[bottom - idx][left]
+                # Change Bottom-left column
+                matrix[bot - idx][left] = matrix[bot][right - idx]
 
-                # Move bottom right into bottom left
-                matrix[bottom - idx][left] = matrix[bottom][right - idx]
+                # Change Bottom-right column
+                matrix[bot][right - idx] = matrix[top + idx][right]
 
-                # Move top right into bottom right
-                matrix[bottom][right - idx] = matrix[top + idx][right]
-
-                # Move top left into top right
-                matrix[top + idx][right] = tempTopLeft
-            right -= 1
+                # Change Top-right row
+                matrix[top + idx][right] = tempVal
+            
+            top += 1
+            bot -= 1
             left += 1
+            right -= 1
