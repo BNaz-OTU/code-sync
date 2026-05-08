@@ -3,7 +3,7 @@ class Solution:
         hashMap = {}
 
         for idx in range(len(nums)):
-            if ((target - nums[idx]) in hashMap):
+            if (target - nums[idx]) in hashMap:
                 return [hashMap[target - nums[idx]], idx]
             
             hashMap[nums[idx]] = idx
