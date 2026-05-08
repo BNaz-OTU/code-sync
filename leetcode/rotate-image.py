@@ -8,19 +8,15 @@ class Solution:
 
         while top < bot and left < right:
             for idx in range(right - left):
-                tempVal = matrix[top][left + idx]
+                topLeftTemp = matrix[top][left + idx]
 
-                # Change Top-left row
                 matrix[top][left + idx] = matrix[bot - idx][left]
 
-                # Change Bottom-left column
                 matrix[bot - idx][left] = matrix[bot][right - idx]
 
-                # Change Bottom-right column
                 matrix[bot][right - idx] = matrix[top + idx][right]
 
-                # Change Top-right row
-                matrix[top + idx][right] = tempVal
+                matrix[top + idx][right] = topLeftTemp
             
             top += 1
             bot -= 1
