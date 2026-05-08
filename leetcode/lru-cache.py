@@ -1,8 +1,7 @@
 class Node:
     def __init__(self, key, val):
         self.key, self.val = key, val
-        self.prev = None
-        self.next = None
+        self.prev, self.next = None, None
 
 class LRUCache:
 
@@ -10,37 +9,42 @@ class LRUCache:
         self.cap = capacity
         self.cache = {}
 
-        # left=LRU, right=most recent
+        # Initialize the Linked List that will be used to determined the "Least Recently Used (LRU) item"
+        # Left -> LRU | Right -> Most Recently used
         self.left, self.right = Node(0, 0), Node(0, 0)
-        self.left.next, self.right.prev = self.right, self.left
+        self.left.next = self.right
+        self.right.prev = self.left
     
-    # HELPER FUNCTION: remove node from list
+    # Helper function: Remove node from the list
     def remove(self, node):
         prev, nxt = node.prev, node.next
-        prev.next, nxt.prev = nxt, prev
-
-    # HELPER FUNCTION: insert node at right
+        prev.next = nxt
+        nxt.prev = prev
+    
+    # Helper function: Insert node at right
     def insert(self, node):
         prev, nxt = self.right.prev, self.right
         prev.next, nxt.prev = node, node
         node.next, node.prev = nxt, prev
         
+
     def get(self, key: int) -> int:
         if key in self.cache:
             self.remove(self.cache[key])
             self.insert(self.cache[key])
             return self.cache[key].val
+        
         return -1
         
 
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
             self.remove(self.cache[key])
+        
         self.cache[key] = Node(key, value)
         self.insert(self.cache[key])
 
-        if len(self.cache) > self.cap:
-            # Remove from the list and delete the LRU from the hashmap
+        if (len(self.cache) > self.cap):
             lru = self.left.next
             self.remove(lru)
             del self.cache[lru.key]
