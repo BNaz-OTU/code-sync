@@ -1,14 +1,14 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        str_1 = ""
+        str_og = ""
+        final = []
 
         for digit in digits:
-            str_1 += str(digit)
+            str_og += str(digit)
         
-        str_2 = str(int(str_1) + 1)
+        str_mod = str(int(str_og) + 1)
 
-        final = []
-        for new_digit in str_2:
-            final.append(int(new_digit))
+        for n_digit in str_mod:
+            final.append(int(n_digit))
         
         return final
