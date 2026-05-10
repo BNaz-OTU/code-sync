@@ -1,21 +1,22 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
+        idx = 0
         insert = 0
-        i = 0
+        group = 1
 
-        while i < len(chars):
+        while idx < len(chars):
             group = 1
-            while (group + i) < len(chars) and chars[group + i] == chars[i]:
+            while (group + idx) < len(chars) and chars[group + idx] == chars[idx]:
                 group += 1
             
-            chars[insert] = chars[i]
+            chars[insert] = chars[idx]
             insert += 1
 
             if group > 1:
-                string = str(group)
-                chars[insert : insert + len(string)] = list(string)
-                insert += len(string)
+                    str_val = str(group)
+                    chars[insert : insert + len(str_val)] = list(str_val)
+                    insert += len(str_val)
             
-            i += group
-        
+            idx += group
+            
         return insert
