@@ -4,17 +4,16 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
         ROWS, COLS = len(board), len(board[0])
-        visit = set()
+        # visit = set()
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in visit) or
-                (board[row][col] == "X")):
+                (board[row][col] == "X") or
+                (board[row][col] == "T")):
                 return
             
             board[row][col] = "T"
-            visit.add((row, col))
 
             dfs(row + 1, col)
             dfs(row - 1, col)
