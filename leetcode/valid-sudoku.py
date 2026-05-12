@@ -1,28 +1,29 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        ROWS = {}
-        COLS = {}
-        DIAG = {}
+        row_hash = {}
+        col_hash = {}
+        box_hash = {}
+
         for idx in range(9):
-            ROWS[idx] = set()
-            COLS[idx] = set()
+            row_hash[idx] = []
+            col_hash[idx] = []
         
-        for idx in range(3):
-            for jdx in range(3):
-                DIAG[(idx, jdx)] = set()
+        for jdx in range(3):
+            for wdx in range(3):
+                box_hash[(jdx % 3, wdx % 3)] = []
         
-        for idx in range(9):
-            for jdx in range(9):
-                if (board[idx][jdx] == "."):
+        for row in range(9):
+            for col in range(9):
+                if (board[row][col] == "."):
                     continue
-                    
-                if (board[idx][jdx] in ROWS[idx] or
-                    board[idx][jdx] in COLS[jdx] or
-                    board[idx][jdx] in DIAG[(idx // 3, jdx // 3)]):
+
+                if ((board[row][col] in row_hash[row]) or
+                    (board[row][col] in col_hash[col]) or
+                    (board[row][col] in box_hash[(row // 3, col // 3)])):
                     return False
                 
-                ROWS[idx].add(board[idx][jdx])
-                COLS[jdx].add(board[idx][jdx])
-                DIAG[(idx // 3, jdx // 3)].add(board[idx][jdx])
+                row_hash[row].append(board[row][col])
+                col_hash[col].append(board[row][col])
+                box_hash[(row // 3, col // 3)].append(board[row][col])
         
         return True
