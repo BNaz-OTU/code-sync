@@ -8,6 +8,7 @@ class Solution:
         count_dir = 0
         obs_set = set()
 
+        # Convert obstacles into a set, to get a more efficient search time
         for ob in obstacles:
             obs_set.add((ob[0], ob[1]))
 
