@@ -3,11 +3,11 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+
         ROWS, COLS = len(board), len(board[0])
-        # visit = set()
 
         def dfs(row, col):
-            if ((row < 0 or row >= ROWS) or
+            if ((row < 0 or row >= ROWS) or 
                 (col < 0 or col >= COLS) or
                 (board[row][col] == "X") or
                 (board[row][col] == "T")):
@@ -28,10 +28,11 @@ class Solution:
             dfs(0, col)
             dfs(ROWS - 1, col)
         
+
         for row in range(ROWS):
             for col in range(COLS):
                 if (board[row][col] == "O"):
                     board[row][col] = "X"
                 
-                if (board[row][col] == "T"):
+                elif(board[row][col] == "T"):
                     board[row][col] = "O"
