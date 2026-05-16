@@ -1,65 +1,37 @@
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
-        # maxX, maxY = 0, 0
-        max_dist = 0
-        position = [0, 0]
-        count = 0
-        direction = 0
-        ob_set = set(map(tuple, obstacles))
+        posX = 0
+        posY = 0
+        maxDist = 0
+                    # N = 0. E = 1.   S = 2.   W = 3
+        direction = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        count_dir = 0
+        obs_set = set()
 
-        # print(-1 % 4)
-
-        # Direction 
-        # North - 0
-        # East  - 1
-        # Sount - 2
-        # West  - 3
-    
-        # N E S W
-        # 0 1 2 3
-        # N   E  S  W  N  E  S  W N E S W N E S W N
-        # -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 
+        for ob in obstacles:
+            obs_set.add((ob[0], ob[1]))
 
         for command in commands:
-            if (command == -1): # Turn Right
-                count += 1
-                direction = count % 4
+            print(posX, posY)
+            if (command == -1):
+                count_dir += 1
             
-            elif (command == -2): # Turn Left
-                count -= 1
-                direction = count % 4
-                
+            elif (command == -2):
+                count_dir -= 1
+            
             else:
-                counter = 0
-                while counter != command:
-                    # Move North
-                    if (direction == 0): 
-                        position[1] += 1
-                        if tuple((position[0], position[1])) in ob_set:
-                            position[1] -= 1
+                idx = count_dir % 4
 
-                    # Move East
-                    elif (direction == 1): 
-                        position[0] += 1
-                        if tuple((position[0], position[1])) in ob_set:
-                            position[0] -= 1
-                    
-                    # Move South
-                    elif (direction == 2): 
-                        position[1] -= 1
-                        if tuple((position[0], position[1])) in ob_set:
-                            position[1] += 1
+                for _ in range(command):
+                    posX += direction[idx][0]
+                    posY += direction[idx][1]
 
-                    # Move West
-                    else: 
-                        position[0] -= 1
-                        if tuple((position[0], position[1])) in ob_set:
-                            position[0] += 1
-                    
-                    counter += 1
-            
-            max_dist = max(max_dist, (position[0] ** 2) + (position[1] **2))
-            
-            print(position)
+                    if ((posX, posY) in obs_set):
+                        posX -= direction[idx][0]
+                        posY -= direction[idx][1]
+                        break
                 
-        return max_dist
+                maxDist = max(maxDist, (posX ** 2) + (posY ** 2))
+        
+        print(posX, posY)
+        return maxDist
