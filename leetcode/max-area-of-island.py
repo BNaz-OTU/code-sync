@@ -7,8 +7,8 @@ class Solution:
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in allVisit) or
-                (grid[row][col] == 0)):
+                (grid[row][col] == 0) or
+                ((row, col) in visit)):
                 return
             
             allVisit.add((row, col))
@@ -21,7 +21,7 @@ class Solution:
 
         for row in range(ROWS):
             for col in range(COLS):
-                if (grid[row][col] == 1 and (row, col) not in allVisit):
+                if ((grid[row][col] == 1) and ((row, col) not in allVisit)):
                     visit = set()
                     dfs(row, col)
                     maxIsland = max(maxIsland, len(visit))
