@@ -4,10 +4,10 @@ class Solution:
         profit = 0
 
         for sell in prices[1:]:
-            if (buy > sell):
+            if buy > sell:
                 buy = sell
+                continue
             
-            else:
-                profit = max(profit, sell - buy)
+            profit = max(profit, sell - buy)
 
         return profit
