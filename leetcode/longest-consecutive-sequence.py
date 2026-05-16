@@ -4,12 +4,9 @@ class Solution:
         maxCount = 0
 
         for val in visit:
-            if (val - 1) in visit:
-                continue
-            
-            else:
+            if ((val - 1) not in visit):
                 count = 0
-                while (val + count) in visit:
+                while val + count in visit:
                     count += 1
                 
                 maxCount = max(maxCount, count)
