@@ -1,36 +1,27 @@
-# @param {Character[][]} grid
-# @return {Integer}
-def num_islands(grid)
-    rows = grid.size()
-    cols = grid[0].size()
-    visit = Set.new
-    count = 0
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        ROWS, COLS = len(grid), len(grid[0])
+        visit = set()
+        count = 0
 
-    def dfs(row, col, rows, cols, grid, visit)
-        if ((row < 0 or row >= rows) or
-            (col < 0 or col >= cols) or
-            (grid[row][col] == "0") or
-            (visit.include?([row, col])))
-            return
-        end
+        def dfs(row, col):
+            if ((row < 0 or row >= ROWS) or
+                (col < 0 or col >= COLS) or
+                (grid[row][col] == "0") or
+                ((row, col) in visit)):
+                return
+            
+            visit.add((row, col))
+
+            dfs(row + 1, col)
+            dfs(row - 1, col)
+            dfs(row, col + 1)
+            dfs(row, col - 1)
         
-        visit.add([row, col])
-
-        dfs(row + 1, col, rows, cols, grid, visit)
-        dfs(row - 1, col, rows, cols, grid, visit)
-        dfs(row, col + 1, rows, cols, grid, visit)
-        dfs(row, col - 1, rows, cols, grid, visit)
-    end
-
-    for idx in 0...rows
-        for jdx in 0...cols
-            if (grid[idx][jdx] == "1" and !visit.include?([idx, jdx]))
-                dfs(idx, jdx, rows, cols, grid, visit)
-                count += 1
-            end
-        end
-    end
-
-    return count
-
-end
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (grid[row][col] == "1" and ((row, col) not in visit)):
+                    dfs(row, col)
+                    count += 1
+        
+        return count
