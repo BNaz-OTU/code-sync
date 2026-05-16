@@ -1,10 +1,10 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
-        fresh = 0
         rotten = deque()
-        neighbours = [[1, 0], [0, 1], [-1, 0], [0, -1]]
         visit = set()
+        fresh = 0
+        neighbours = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
         for row in range(ROWS):
             for col in range(COLS):
@@ -12,30 +12,31 @@ class Solution:
                     fresh += 1
                 
                 elif (grid[row][col] == 2):
-                    rotten.append([row, col, 0])
+                    rotten.append((row, col, 0))
+                    visit.add((row, col))
         
-        if (fresh == 0):
+        if fresh == 0:
             return 0
-
+        
         while len(rotten) > 0:
             row, col, time = rotten.popleft()
 
             for dr, dc in neighbours:
-                n_row = dr + row
+                n_row = dr + row 
                 n_col = dc + col
 
-                if ((n_row < 0 or n_row >= ROWS) or 
+                if ((n_row < 0 or n_row >= ROWS) or
                     (n_col < 0 or n_col >= COLS) or
                     ((n_row, n_col) in visit) or
-                    (grid[n_row][n_col] == 2) or
-                    (grid[n_row][n_col] == 0)):
+                    (grid[n_row][n_col] == 0) or
+                    (grid[n_row][n_col] == 2)):
                     continue
                 
+                rotten.append((n_row, n_col, time + 1))
                 visit.add((n_row, n_col))
-                rotten.append([n_row, n_col, time + 1])
                 fresh -= 1
         
-        if fresh > 0:
-            return - 1
-
+        if (fresh != 0):
+            return -1
+        
         return time
