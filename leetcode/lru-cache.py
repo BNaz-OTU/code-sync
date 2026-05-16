@@ -1,50 +1,71 @@
 class Node:
 
-    def __init__(self, key=None, val=None, nxt=None, prev=None):
+    def __init__(self, key=None, val=None, prev=None, nxt=None):
         self.key = key
         self.val = val
-        self.nxt = nxt
         self.prev = prev
+        self.nxt = nxt
 
 class LRUCache:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.hashMap = {}
-        self.left = Node()
-        self.right = Node()
+        self.right = Node() # Most Used
+        self.left = Node() # Least Used
 
         self.left.nxt = self.right
         self.right.prev = self.left
 
+        self.hashMap = {}
+    
     def _remove(self, node):
-        node.prev.nxt = node.nxt
-        node.nxt.prev = node.prev
+        # # Get the node
+        # node = self.hashMap[key]
 
+        # Get previous node and next node
+        prev = node.prev
+        nxtv = node.nxt
+        
+        # Disconnecting from current node: Set the previous node to point to next and vice-versa
+        prev.nxt = nxtv
+        nxtv.prev = prev
+        pass
+    
     def _add(self, node):
+        # Get the old recently added node
         prev = self.right.prev
+
+        # Connecting the newly added node the second node
         prev.nxt = node
         node.prev = prev
+
+        # Connecting the newly added node to the right node
         node.nxt = self.right
         self.right.prev = node
 
+
     def get(self, key: int) -> int:
-        if (key in self.hashMap):
-            node = self.hashMap[key]
-            self._remove(node)
-            self._add(node)
-            return node.val
+        if key in self.hashMap:
+            value = self.hashMap[key].val
+            self._remove(self.hashMap[key])
+            self._add(self.hashMap[key])
+            return value
+        
         return -1
 
     def put(self, key: int, value: int) -> None:
-        if key in self.hashMap:
+        if (key in self.hashMap):
             self._remove(self.hashMap[key])
-        
-        new_node = Node(key, value)
-        self.hashMap[key] = new_node
-        self._add(new_node)
 
-        if len(self.hashMap) > self.capacity:
+        self.hashMap[key] = Node(key, value)
+        self._add(self.hashMap[key])
+        
+        if (len(self.hashMap) > self.capacity):
             lru = self.left.nxt
             self._remove(lru)
             del self.hashMap[lru.key]
+        
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
