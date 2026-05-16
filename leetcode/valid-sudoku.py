@@ -1,29 +1,29 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        row_hash = {}
-        col_hash = {}
-        box_hash = {}
+        rowMap = {}
+        colMap = {}
+        boxMap = {}
 
         for idx in range(9):
-            row_hash[idx] = []
-            col_hash[idx] = []
+            rowMap[idx] = []
+            colMap[idx] = []
         
-        for jdx in range(3):
-            for wdx in range(3):
-                box_hash[(jdx % 3, wdx % 3)] = []
+        for idx in range(3):
+            for jdx in range(3):
+                boxMap[(idx, jdx)] = []
         
         for row in range(9):
             for col in range(9):
                 if (board[row][col] == "."):
                     continue
 
-                if ((board[row][col] in row_hash[row]) or
-                    (board[row][col] in col_hash[col]) or
-                    (board[row][col] in box_hash[(row // 3, col // 3)])):
+                if ((board[row][col] in rowMap[row]) or
+                    (board[row][col] in colMap[col]) or
+                    (board[row][col] in boxMap[(row // 3, col // 3)])):
                     return False
                 
-                row_hash[row].append(board[row][col])
-                col_hash[col].append(board[row][col])
-                box_hash[(row // 3, col // 3)].append(board[row][col])
+                rowMap[row].append(board[row][col])
+                colMap[col].append(board[row][col])
+                boxMap[(row // 3, col // 3)].append(board[row][col])
         
         return True
