@@ -3,38 +3,28 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        
-        ROWS, COLS = len(matrix), len(matrix[0])
         firstRowZero = False
+        ROWS, COLS = len(matrix), len(matrix[0])
 
-        # Determine which rows and columns should be converted to 0:
-        for r in range(ROWS):
-            for c in range(COLS):
-                if (matrix[r][c] == 0):
-                    
-                    # Flag which columns need to be a zero
-                    matrix[0][c] = 0
+        for idx in range(ROWS):
+            for jdx in range(COLS):
+                if (idx == 0 and matrix[idx][jdx] == 0):
+                    firstRowZero = True
 
-                    # Flag which rows need to be a zero
-                    if r > 0:
-                        matrix[r][0] = 0
-                    
-                    # Flag if the first row needs to be a zero
-                    else:
-                        firstRowZero = True
+                if (matrix[idx][jdx] == 0):
+                    matrix[0][jdx] = 0
+                    if (idx != 0):
+                        matrix[idx][0] = 0
         
-        # Convert most of the squares to zero (skip first row and first column)
-        for r in range(1, ROWS):
-            for c in range(1, COLS):
-                if matrix[0][c] == 0 or matrix[r][0] == 0:
-                    matrix[r][c] = 0
+        for row in range(1, ROWS):
+            for col in range(1, COLS):
+                if (matrix[0][col] == 0 or matrix[row][0] == 0):
+                    matrix[row][col] = 0
         
-        # Convert the first column to 0, if necessary
         if (matrix[0][0] == 0):
-            for r in range(ROWS):
-                matrix[r][0] = 0
-
-        # Convert the first row to 0, if necessary
-        if (firstRowZero):
-            for c in range(COLS):
-                matrix[0][c] = 0
+            for row in range(ROWS):
+                matrix[row][0] = 0
+        
+        if firstRowZero:
+            for col in range(COLS):
+                matrix[0][col] = 0
