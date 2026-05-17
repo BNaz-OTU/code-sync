@@ -1,8 +1,8 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        ROWS, COLS = len(heights), len(heights[0])
         pacific = set()
         atlantic = set()
+        ROWS, COLS = len(heights), len(heights[0])
         final = []
 
         def dfs(row, col, ocean, prevHeight):
@@ -26,9 +26,9 @@ class Solution:
         for col in range(COLS):
             dfs(0, col, pacific, -1)
             dfs(ROWS - 1, col, atlantic, -1)
-        
-        for val in pacific:
-            if (val in atlantic):
-                final.append(val)
 
+        for coords in pacific:
+            if coords in atlantic:
+                final.append(coords)
+        
         return final
