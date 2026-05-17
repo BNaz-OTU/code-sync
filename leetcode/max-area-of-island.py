@@ -8,11 +8,10 @@ class Solution:
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
                 (grid[row][col] == 0) or
-                ((row, col) in visit)):
+                ((row, col) in allVisit)):
                 return
             
             allVisit.add((row, col))
-            visit.add((row, col))
 
             dfs(row + 1, col)
             dfs(row - 1, col)
@@ -21,9 +20,9 @@ class Solution:
 
         for row in range(ROWS):
             for col in range(COLS):
-                if ((grid[row][col] == 1) and ((row, col) not in allVisit)):
-                    visit = set()
+                if (grid[row][col] == 1 and (row, col) not in allVisit):
+                    prevLen = len(allVisit)
                     dfs(row, col)
-                    maxIsland = max(maxIsland, len(visit))
+                    maxIsland = max(maxIsland, len(allVisit) - prevLen)
         
         return maxIsland
