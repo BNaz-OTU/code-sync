@@ -7,41 +7,37 @@ class TextEditor:
     def addText(self, text: str) -> None:
         for char in text:
             self.leftList.append(char)
-        
 
     def deleteText(self, k: int) -> int:
         counter = 0
         while len(self.leftList) > 0 and counter != k:
-            counter += 1
             self.leftList.pop()
+            counter += 1
         
         return counter
 
     def cursorLeft(self, k: int) -> str:
-        while len(self.leftList) > 0 and k > 0:
+        counter = 0
+        while len(self.leftList) > 0 and counter != k:
             val = self.leftList.pop()
             self.rightList.append(val)
-            k -= 1
+            counter += 1
+        
+        idx = min(10, len(self.leftList))
 
-        if (len(self.leftList) < 10):
-            return "".join(self.leftList)
-
-        idx = len(self.leftList) - 10
-        return "".join(self.leftList[idx:])
+        return "".join(self.leftList[len(self.leftList) - idx:])
 
     def cursorRight(self, k: int) -> str:
-        while len(self.rightList) > 0 and k > 0:
+        counter = 0
+        while len(self.rightList) > 0 and counter != k:
             val = self.rightList.pop()
             self.leftList.append(val)
-            k -= 1
+            counter += 1
         
-        if (len(self.leftList) < 10):
-            return "".join(self.leftList)
-        
-        idx = len(self.leftList) - 10
-        return "".join(self.leftList[idx:])
-        
+        idx = min(10, len(self.leftList))
 
+        return "".join(self.leftList[len(self.leftList) - idx:])
+        
 
 # Your TextEditor object will be instantiated and called as such:
 # obj = TextEditor()
