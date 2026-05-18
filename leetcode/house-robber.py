@@ -1,12 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # USED SOLN: https://leetcode.com/problems/house-robber/submissions/1942787199
-        one = 0
-        two = 0
+        profit = [0, nums[0]]
 
-        for n in nums:
-            temp = max(n + one, two)
-            one = two
-            two = temp
+        for idx in range(2, len(nums)):
+            nums[idx] += max(profit[0], profit[1])
+            profit[0] = profit[1]
+            profit[1] = nums[idx - 1]
         
-        return two
+        print(nums)
+        return max(max(profit), nums[len(nums) - 1])
