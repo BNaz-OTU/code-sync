@@ -1,23 +1,24 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        paliCounter = 0
-        
+        paliCount = 0
+
         for idx in range(len(s)):
-            # Odd Case
+            # ODD CASE
             left = idx
             right = idx
 
             while left >= 0 and right < len(s) and s[left] == s[right]:
-                paliCounter += 1
+                paliCount += 1
                 left -= 1
                 right += 1
 
-            # Even Case
+            # EVEN CASE
             left = idx
             right = idx + 1
+
             while left >= 0 and right < len(s) and s[left] == s[right]:
-                paliCounter += 1
+                paliCount += 1
                 left -= 1
                 right += 1
         
-        return paliCounter
+        return paliCount
