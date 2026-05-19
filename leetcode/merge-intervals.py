@@ -1,33 +1,19 @@
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b){
-            return a[0] < b[0];
-        });
+# @param {Integer[][]} intervals
+# @return {Integer[][]}
+def merge(intervals)
+    sort_int = intervals.sort()
+    final = [sort_int[0]]
+
+    for st, ed in sort_int
+        if st <= final[-1][1]
+            final[-1][1] = [ed, final[-1][1]].max()
         
-        vector<vector<int>> final;
-        vector<int> prev = intervals[0];
-
-        for (int idx = 1; idx < intervals.size(); idx++) {
-            vector<int> interval = intervals[idx];
-
-            if (interval[0] <= prev[1]) {
-                if (interval[1] > prev[1]) {
-                    prev[1] = interval[1];
-                } 
-            }
-
-            else {
-                final.push_back(prev);
-                prev = interval;
-            }
-        }
-
-        final.push_back(prev);
-
-        cout << final.size() << "\n";
-
-        return final;
+        else
+            final.push([st, ed])
+        end
         
-    }
-};
+    end
+
+    return final
+
+end
