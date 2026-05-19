@@ -1,10 +1,8 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        leftCount = 0
-        rightCount = 0
+        leftCount, rightCount = 0, 0
         longest = 0
 
-        # Check from left -> right
         for bracket in s:
             if (bracket == "("):
                 leftCount += 1
@@ -13,15 +11,12 @@ class Solution:
                 rightCount += 1
             
             if (leftCount < rightCount):
-                leftCount = 0
-                rightCount = 0
+                leftCount, rightCount = 0, 0
             
-            elif (leftCount == rightCount):
+            if (leftCount == rightCount):
                 longest = max(longest, leftCount + rightCount)
         
-        # Check from right -> left
-        leftCount = 0
-        rightCount = 0
+        leftCount, rightCount = 0, 0
         for bracket in s[::-1]:
             if (bracket == "("):
                 leftCount += 1
@@ -30,10 +25,9 @@ class Solution:
                 rightCount += 1
             
             if (leftCount > rightCount):
-                leftCount = 0
-                rightCount = 0
+                leftCount, rightCount = 0, 0
             
-            elif (leftCount == rightCount):
-                longest = max(longest, leftCount + rightCount) 
-
+            if (leftCount == rightCount):
+                longest = max(longest, leftCount + rightCount)
+        
         return longest
