@@ -19,8 +19,5 @@ class Solution:
                 return -1
             
             heappush(heap, -fuel)
-        
-        if (curlocation < target):
-            return - 1
 
         return minStops
