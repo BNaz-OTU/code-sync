@@ -1,28 +1,22 @@
-# @param {String} s
-# @return {Boolean}
-def is_valid(s)
-    stack = []
-    open_brackets = ["(", "{", "["]
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        OPEN_BRACKET = ["(", "[", "{"]
 
-    # for bracket in s
-    s.each_char do |bracket|
-        if open_brackets.include?(bracket)
-            stack.push(bracket)
+        for bracket in s:
+            if bracket in OPEN_BRACKET:
+                stack.append(bracket)
+            
+            elif (len(stack) > 0 and bracket == ")" and stack[-1] == "("):
+                stack.pop()
+            
+            elif (len(stack) > 0 and bracket == "]" and stack[-1] == "["):
+                stack.pop()
+            
+            elif (len(stack) > 0 and bracket == "}" and stack[-1] == "{"):
+                stack.pop()
+            
+            else:
+                return False
         
-        elsif !stack.empty? && stack[-1] == "(" && bracket == ")"
-            stack.pop()
-
-        elsif !stack.empty? && stack[-1] == "[" && bracket == "]"
-            stack.pop()
-
-        elsif !stack.empty? && stack[-1] == "{" && bracket == "}"
-            stack.pop()
-
-        else
-            return false
-        end        
-    end
-
-    return stack.empty?
-
-end
+        return len(stack) == 0
