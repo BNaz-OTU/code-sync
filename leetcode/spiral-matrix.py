@@ -15,7 +15,7 @@ class Solution:
             
             right -= 1
 
-            if (left >= right or top >= bot):
+            if (top >= bot or left >= right):
                 return final
 
             for idx in range(right - 1, left - 1, -1):
@@ -27,5 +27,5 @@ class Solution:
                 final.append(matrix[idx][left])
             
             left += 1
-        
+
         return final
