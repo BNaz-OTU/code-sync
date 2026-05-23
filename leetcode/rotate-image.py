@@ -6,7 +6,8 @@ class Solution:
         top, bot = 0, len(matrix) - 1
         left, right = 0, len(matrix[0]) - 1
 
-        while left < right and top < bot:
+        while top < bot and left < right:
+
             for idx in range(right - left):
                 topLeftTemp = matrix[top][left + idx]
 
@@ -17,7 +18,7 @@ class Solution:
                 matrix[bot][right - idx] = matrix[top + idx][right]
 
                 matrix[top + idx][right] = topLeftTemp
-            
+        
             left += 1
             top += 1
             right -= 1
