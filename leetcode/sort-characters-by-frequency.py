@@ -1,25 +1,24 @@
 class Solution:
-    # ALT METHOD: https://www.youtube.com/watch?v=OXdXc9HTrIg
     def frequencySort(self, s: str) -> str:
-        dictChar = {}
-        helperList = []
+        hashMap = {}
+        heap = []
         final = ""
 
         for char in s:
-            if (char in dictChar):
-                dictChar[char] += 1
-            else:
-                dictChar[char] = 1
+            if (char not in hashMap):
+                hashMap[char] = 0
+            
+            hashMap[char] += 1
         
-        print(dictChar)
-
-        for key, val in dictChar.items():
-            helperList.append([val, key])
-
-        heapify(helperList)
-        while len(helperList) > 0:
-            val = heappop(helperList)
-            newStr = val[1] * val[0]
-            final += newStr
+        for key in hashMap:
+            heap.append([-hashMap[key], key])
         
-        return final[::-1]
+        numChars = len(hashMap)
+
+        heapify(heap)
+        while numChars > 0:
+            freq, char = heappop(heap)
+            final += char * (freq * -1)
+            numChars -= 1
+        
+        return final
