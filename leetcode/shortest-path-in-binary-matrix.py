@@ -1,34 +1,30 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        if (grid[0][0] == 1 or grid[-1][-1] == 1):
+        if (grid[0][0] == 1 or grid[-1][-1]):
             return -1
         
-        SIZE = len(grid)
+        neighbours = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
         visit = set()
-        queue = deque()
-        queue.append([0, 0, 1])
-        neighbours = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+        heap = [(1, 0, 0)]
 
-        while len(queue) > 0:
-            qlen = len(queue)
-            while qlen > 0:
-                row, col, length = queue.popleft()
-                if (row == SIZE - 1 and col == SIZE - 1):
-                    return length
+        while len(heap) > 0:
+            for _ in range(len(heap)):
+                dist, row, col = heappop(heap)
+
+                if (row == (len(grid) - 1) and col == (len(grid) - 1)):
+                    return dist
 
                 for dr, dc in neighbours:
                     n_row = row + dr
                     n_col = col + dc
 
-                    if ((n_row < 0 or n_row >= SIZE) or 
-                        (n_col < 0 or n_col >= SIZE) or 
-                        (grid[n_row][n_col] == 1) or 
-                        ((n_row, n_col) in visit)):
+                    if ((n_row < 0 or n_row >= len(grid)) or 
+                        (n_col < 0 or n_col >= len(grid)) or 
+                        ((n_row, n_col) in visit) or
+                        (grid[n_row][n_col] == 1)):
                         continue
                     
-                    queue.append([n_row, n_col, length + 1])
                     visit.add((n_row, n_col))
-
-                qlen -= 1
+                    heappush(heap, (dist + 1, n_row, n_col))
         
         return -1
