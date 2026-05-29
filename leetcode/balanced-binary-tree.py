@@ -9,16 +9,20 @@ class Solution:
 
         def dfs(root):
             if (root is None):
-                return [True, 0]
+                return 0
             
             left = dfs(root.left)
             right = dfs(root.right)
 
-            balanced = ((left[0] and right[0]) and (abs(left[1] - right[1]) <= 1))
+            if (left == -1 or right == -1):
+                return -1 
 
-            # if (not balanced):
-            #     return [False, -1]
+            if (abs(left - right) >= 2):
+                return -1
             
-            return [balanced, 1 + max(left[1], right[1])]
+            return max(left, right) + 1
         
-        return dfs(root)[0]
+        if (dfs(root) == -1):
+            return False
+        
+        return True
