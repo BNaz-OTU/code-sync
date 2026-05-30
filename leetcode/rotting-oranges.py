@@ -3,28 +3,26 @@ class Solution:
         ROWS, COLS = len(grid), len(grid[0])
         fresh = 0
         rotten = deque()
-        visit = set()
         neighbours = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        visit = set()
 
         for row in range(ROWS):
             for col in range(COLS):
-                if (grid[row][col] == 2):
+                if (grid[row][col] == 1):
+                    fresh += 1
+                
+                elif (grid[row][col] == 2):
                     rotten.append((row, col))
                     visit.add((row, col))
-                elif (grid[row][col] == 1):
-                    fresh += 1
         
         if (fresh == 0):
             return 0
         
-        # print(rotten)
-        # print(fresh)
-
         time = 0
         while len(rotten) > 0:
             if (fresh == 0):
-                return time
-            
+                break 
+
             for _ in range(len(rotten)):
                 row, col = rotten.popleft()
 
@@ -35,17 +33,16 @@ class Solution:
                     if ((n_row < 0 or n_row >= ROWS) or
                         (n_col < 0 or n_col >= COLS) or
                         ((n_row, n_col) in visit) or
-                        (grid[n_row][n_col] == 0) or
-                        (grid[n_row][n_col] == 2)):
+                        (grid[n_row][n_col] == 0)):
                         continue
-                
+                    
                     visit.add((n_row, n_col))
-                    rotten.append((n_row, n_col))
+                    rotten.append([n_row, n_col])
                     fresh -= 1
-            
+
             time += 1
         
-        if (fresh == 0):
-            return time
+        if (fresh != 0):
+            return -1
         
-        return -1
+        return time
