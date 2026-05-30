@@ -7,6 +7,6 @@ class Solution:
         
         while k > 1:
             heappop(heap)
-            k-= 1
+            k -= 1
         
         return -heap[0]
