@@ -1,24 +1,30 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        n = len(graph)
-        safe = {}
         final = []
+        terminal_set = set() 
+        visit = set()
+        adjList = {idx:graph[idx] for idx in range(len(graph))}
 
-        def dfs(i):
-            if (i in safe):
-                return safe[i]
+        def dfs(key):
+            if (key in visit):
+                return False
             
-            safe[i] = False
+            if (adjList[key] == [] or key in terminal_set):
+                terminal_set.add(key)
+                return True
+            
+            visit.add(key)
+            
+            for sub_key in adjList[key]:
+                if (not dfs(sub_key)):
+                    return False
+            
+            visit.remove(key)
+            terminal_set.add(key)
+            return True
+            
+        for node in range(len(graph)):
+            if (dfs(node)):
+                final.append(node)
 
-            for nei in graph[i]:
-                if (not dfs(nei)):
-                    return safe[i]
-            
-            safe[i] = True
-            return safe[i]
-        
-        for i in range(n):
-            if (dfs(i)):
-                final.append(i)
-        
         return final
