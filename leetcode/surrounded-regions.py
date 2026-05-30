@@ -6,26 +6,27 @@ class Solution:
         ROWS, COLS = len(board), len(board[0])
 
         def dfs(row, col):
-            if ((0 > row or row >= ROWS) or 
-                (0 > col or col >= COLS) or 
+            if ((row < 0 or row >= ROWS) or
+                (col < 0 or col >= COLS) or
                 (board[row][col] == "X") or
                 (board[row][col] == "T")):
-                return
+                return 
             
             board[row][col] = "T"
 
             dfs(row + 1, col)
             dfs(row - 1, col)
-            dfs(row, col + 1)
             dfs(row, col - 1)
+            dfs(row, col + 1)
 
         for row in range(ROWS):
-            dfs(row, 0)
-            dfs(row, COLS - 1)
+            dfs(row, 0)         # Left most column
+            dfs(row, COLS - 1)  # Right most column
         
+
         for col in range(COLS):
-            dfs(0, col)
-            dfs(ROWS - 1, col)
+            dfs(0, col)         # Top row
+            dfs(ROWS - 1, col)  # Bottom row
         
         for row in range(ROWS):
             for col in range(COLS):
