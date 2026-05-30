@@ -1,15 +1,14 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        pac = set()
-        atl = set()
+        pac, atl = set(), set()
         ROWS, COLS = len(heights), len(heights[0])
         final = []
 
         def dfs(row, col, ocean, prevHeight):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in ocean) or
-                (prevHeight > heights[row][col])):
+                ((row, col) in ocean) or 
+                (heights[row][col] < prevHeight)):
                 return
             
             ocean.add((row, col))
@@ -20,15 +19,18 @@ class Solution:
             dfs(row, col - 1, ocean, heights[row][col])
 
         for row in range(ROWS):
-            dfs(row, 0, pac, -1)
-            dfs(row, COLS - 1, atl, -1)
+            dfs(row, 0, pac, -1)        # Left column
+            dfs(row, COLS - 1, atl, -1) # Right column
         
         for col in range(COLS):
             dfs(0, col, pac, -1)
             dfs(ROWS - 1, col, atl, -1)
+        
+        # print(atl)
+        # print(pac)
 
-        for coords in atl:
-            if (coords in pac):
+        for coords in pac:
+            if (coords in atl):
                 final.append(coords)
         
         return final
