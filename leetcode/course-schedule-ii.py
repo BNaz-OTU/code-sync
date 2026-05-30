@@ -1,13 +1,10 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adjList = {}
+        cycle = set()
+        visit = set()
+        adjList = {idx:[] for idx in range(numCourses)}
         final = []
-        cycle = set() # Detect if there is a cycle in taking courses
-        visit = set() # Detect if value is already in the final list
 
-        for crs in range(numCourses):
-            adjList[crs] = []
-        
         for crs, pre in prerequisites:
             adjList[crs].append(pre)
         
@@ -18,19 +15,25 @@ class Solution:
             if (crs in visit):
                 return True
             
-            visit.add(crs)
             cycle.add(crs)
-            
-            for crs1 in adjList[crs]:
-                if (not dfs(crs1)):
+
+            for new_crs in adjList[crs]:
+                if (not dfs(new_crs)):
                     return False
+
+            if (crs not in visit):
+                final.append(crs)
             
-            final.append(crs)
+            visit.add(crs)
             cycle.remove(crs)
+
             return True
         
         for crs in range(numCourses):
             if (not dfs(crs)):
+                print(crs, final)
                 return []
         
         return final
+        
+        print(adjList)
