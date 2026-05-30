@@ -1,18 +1,16 @@
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        n = len(rooms)
-        visit = set()
-
+        my_set = set()
 
         def dfs(key):
-            if key in visit:
-                return 
+            if (key in my_set):
+                return
             
-            visit.add(key)
+            my_set.add(key)
 
-            for nextKey in rooms[key]:
-                dfs(nextKey)
-        
+            for new_key in rooms[key]:
+                dfs(new_key)
+
         dfs(0)
 
-        return len(visit) == n
+        return len(my_set) == len(rooms)
