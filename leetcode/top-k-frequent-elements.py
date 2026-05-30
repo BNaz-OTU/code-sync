@@ -1,23 +1,18 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        hashMap = {}
+        hashMap = defaultdict(int)
         heap = []
         final = []
 
         for num in nums:
-            if (num not in hashMap):
-                hashMap[num] = 0
-
             hashMap[num] += 1
         
         for key in hashMap:
-            heap.append([-hashMap[key], key])
+            heappush(heap, [-hashMap[key], key])
         
-        heapify(heap)
-
         while k > 0:
             val = heappop(heap)
             final.append(val[1])
             k -= 1
-
+        
         return final
