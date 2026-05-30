@@ -1,11 +1,10 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adjList = {}
         visit = set()
-        for crs in range(numCourses):
-            adjList[crs] = []
-        
-        # print(adjList)
+        adjList = {idx:[] for idx in range(numCourses)}
+
+        for crs, pre in prerequisites:
+            adjList[crs].append(pre)
 
         def dfs(crs):
             if (crs in visit):
@@ -17,19 +16,15 @@ class Solution:
             visit.add(crs)
 
             for new_crs in adjList[crs]:
-                if (dfs(new_crs) == False):
+                if (not dfs(new_crs)):
                     return False
             
-            adjList[crs] = []
             visit.remove(crs)
-
+            adjList[crs] = []
             return True
-            
-        for crs, pre in prerequisites:
-            adjList[crs].append(pre)
         
         for crs in range(numCourses):
-            if (dfs(crs) == False):
+            if (not dfs(crs)):
                 return False
-            
+        
         return True
