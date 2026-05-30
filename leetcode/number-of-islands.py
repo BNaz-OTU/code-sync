@@ -2,14 +2,14 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         visit = set()
-        counter = 0
+        count = 0
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
                 (grid[row][col] == "0") or
                 ((row, col) in visit)):
-                return 
+                return
             
             visit.add((row, col))
 
@@ -22,6 +22,6 @@ class Solution:
             for col in range(COLS):
                 if (grid[row][col] == "1" and (row, col) not in visit):
                     dfs(row, col)
-                    counter += 1
+                    count += 1
         
-        return counter
+        return count
