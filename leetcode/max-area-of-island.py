@@ -7,9 +7,9 @@ class Solution:
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in visit) or
-                (grid[row][col] == 0)):
-                return 
+                (grid[row][col] == 0) or
+                ((row, col) in visit)):
+                return
             
             visit.add((row, col))
 
@@ -21,8 +21,8 @@ class Solution:
         for row in range(ROWS):
             for col in range(COLS):
                 if (grid[row][col] == 1 and (row, col) not in visit):
-                    beforeSize = len(visit)
+                    prevLen = len(visit)
                     dfs(row, col)
-                    maxArea = max(maxArea, len(visit) - beforeSize)
+                    maxArea = max(maxArea, len(visit) - prevLen)
         
         return maxArea
