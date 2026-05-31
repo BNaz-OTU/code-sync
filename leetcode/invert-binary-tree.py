@@ -7,7 +7,7 @@
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         temp = root
-
+        
         def dfs(root):
             if (root is None):
                 return
@@ -18,5 +18,4 @@ class Solution:
             dfs(root.right)
 
         dfs(temp)
-        
         return root
