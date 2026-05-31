@@ -1,16 +1,17 @@
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        my_set = set()
+        visit = set()
+        count = 0
 
         def dfs(key):
-            if (key in my_set):
-                return
-            
-            my_set.add(key)
+            nonlocal count
+            visit.add(key)
+            count += 1
 
             for new_key in rooms[key]:
-                dfs(new_key)
-
+                if (new_key not in visit):
+                    dfs(new_key)
+        
         dfs(0)
 
-        return len(my_set) == len(rooms)
+        return count == len(rooms)
