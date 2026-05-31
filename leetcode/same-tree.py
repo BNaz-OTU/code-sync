@@ -11,12 +11,9 @@ class Solution:
             if (root1 is None and root2 is None):
                 return True
             
-            if (root1 is None or root2 is None):
+            if (root1 is None or root2 is None or root1.val != root2.val):
                 return False
             
-            if (root1.val != root2.val):
-                return False
-
             return dfs(root1.left, root2.left) and dfs(root1.right, root2.right)
         
         return dfs(p, q)
