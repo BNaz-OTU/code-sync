@@ -2,29 +2,39 @@ class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
         if (grid[0][0] == 1 or grid[-1][-1] == 1):
             return -1
-        
-        heap = []
-        heap.append([1, 0, 0])
+
+        SIZE = len(grid)
         visit = set()
-        neighbour = [[1, 0], [0, 1], [-1, 0], [0, -1], [-1, -1], [1, 1], [-1, 1], [1, -1]]
+        queue = deque()
+        queue.append((0, 0, 1))
+        visit.add((0, 0))
+        neighbor = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+        mindist = 10000000
 
-        while len(heap) > 0:
-            dist, row, col = heappop(heap)
+        flag = False
+        while len(queue) > 0:
 
-            if (row == (len(grid) - 1) and col == (len(grid) - 1)):
-                return dist
+            for _ in range(len(queue)):
+                row, col, dist = queue.popleft()
 
-            for dr, dc in neighbour:
-                n_row = dr + row
-                n_col = dc + col
+                if (row == (SIZE - 1) and col == (SIZE - 1)):
+                    mindist = min(mindist, dist)
+                    flag = True
 
-                if ((n_row < 0 or n_row >= len(grid)) or
-                    (n_col < 0 or n_col >= len(grid)) or
-                    (grid[n_row][n_col] == 1) or
-                    ((n_row, n_col) in visit)):
-                    continue
-                
-                heappush(heap, [dist + 1, n_row, n_col])
-                visit.add((n_row, n_col))
+                for dr, dc in neighbor:
+                    n_row = row + dr
+                    n_col = col + dc
+
+                    if ((n_row < 0 or n_row >= SIZE) or
+                        (n_col < 0 or n_col >= SIZE) or
+                        ((n_row, n_col) in visit) or
+                        (grid[n_row][n_col] == 1)):
+                        continue
+                    
+                    visit.add((n_row, n_col))
+                    queue.append((n_row, n_col, dist + 1))
         
-        return -1
+        if (flag == False):
+            return -1
+            
+        return mindist
