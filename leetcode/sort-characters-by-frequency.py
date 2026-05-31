@@ -1,7 +1,6 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
         hashMap = {}
-        heap = []
         final = ""
 
         for char in s:
@@ -10,15 +9,13 @@ class Solution:
             
             hashMap[char] += 1
         
-        for key in hashMap:
-            heap.append([-hashMap[key], key])
-        
-        numChars = len(hashMap)
+        heap = []
 
-        heapify(heap)
-        while numChars > 0:
+        for key, val in hashMap.items():
+            heappush(heap, [-val, key])
+        
+        while len(heap) > 0:
             freq, char = heappop(heap)
             final += char * (freq * -1)
-            numChars -= 1
         
         return final
