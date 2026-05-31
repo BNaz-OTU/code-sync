@@ -1,14 +1,14 @@
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
-        visit = set()
         maxArea = 0
+        visit = set()
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                (grid[row][col] == 0) or
-                ((row, col) in visit)):
+                ((row, col) in visit) or
+                (grid[row][col] == 0)):
                 return
             
             visit.add((row, col))
