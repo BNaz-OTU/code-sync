@@ -5,27 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    # Another method: https://www.youtube.com/watch?v=7cp5imvDzl4 
-
     def goodNodes(self, root: TreeNode) -> int:
-        countGoodNodes = 0
-        arr = []
+        count = 0
 
-        def dfs(root):
+        def dfs(root, path):
+            nonlocal count
+            # print (root, path)
+            # print()
             if (root is None):
-                return
+                return 
             
-            nonlocal arr, countGoodNodes
-
-            arr.append(root.val)
-            # print(arr, max(arr))
-
-            if (max(arr) <= root.val):
-                countGoodNodes += 1
-
-            dfs(root.left)
-            dfs(root.right)
-            arr.pop()
+            # if (len(path) == 0):
+            path.append(root.val)
+            
+            if (root.val >= max(path)):
+                count += 1
+            
+            dfs(root.left, path.copy())
+            dfs(root.right, path.copy())
         
-        dfs(root)
-        return countGoodNodes
+        dfs(root, [])
+        return count
