@@ -5,25 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-
-    # USED SOLN: https://www.youtube.com/watch?v=E36O5SWp-LE
-
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        if (subRoot is None):
-            return True
-        if (root is None):
-            return False
+
+        def deepdfs(root, subRoot):
+            if (root is None and subRoot is None):
+                return True
+            
+            if (root is None or subRoot is None or root.val != subRoot.val):
+                return False
+            
+            return deepdfs(root.left, subRoot.left) and deepdfs(root.right, subRoot.right)
+
+        def dfs(root):
+            if (root is None):
+                return False
+            
+            if (root.val == subRoot.val and deepdfs(root, subRoot)):
+                return True
+
+            return dfs(root.left) or dfs(root.right)
         
-        if (self.sameTree(root, subRoot)):
-            return True
-        
-        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))
-        
-    def sameTree(self, mainT, subT):
-        if (mainT is None and subT is None):
-            return True
-    
-        if (mainT and subT and mainT.val == subT.val):
-            return self.sameTree(mainT.left, subT.left) and (self.sameTree(mainT.right, subT.right))
-        
-        return False
+        return dfs(root)
