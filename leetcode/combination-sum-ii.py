@@ -1,27 +1,26 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        # USED SOLN: https://www.youtube.com/watch?v=FOyRpNUSFeA&t=38s
         final = []
-        subset = []
-        candidates.sort()
+        sort_cand = sorted(candidates)
 
-        def dfs(idx, subset):
-            if (sum(subset) == target):
-                final.append(subset.copy())
-                return 
+        def dfs(path, idx):
+            if (sum(path) == target and path not in final):
+                # print(path, sorted(path))
+                final.append(path.copy())
+                return
 
-            if (sum(subset) > target or idx >= len(candidates)):
+            if (sum(path) > target or idx >= len(sort_cand)):
                 return
             
-            subset.append(candidates[idx])
-            dfs(idx + 1, subset)
-            subset.pop()
+            path.append(sort_cand[idx])
+            dfs(path, idx + 1)
 
-            # Skip candidate
-            while idx + 1 < len(candidates) and candidates[idx] == candidates[idx + 1]:
-                idx += 1
+            path.pop()
+            count = idx
+            while count < len(sort_cand) and sort_cand[idx] == sort_cand[count]:
+                count += 1
 
-            dfs(idx + 1, subset)
-
-        dfs(0, subset)
+            dfs(path, count)
+        
+        dfs([], 0)
         return final
