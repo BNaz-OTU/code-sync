@@ -1,24 +1,24 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         final = []
-        subset = []
-        nums.sort()
-
-        def dfs(idx, subset):
-            if (idx >= len(nums)):
-                final.append(subset.copy())
+        sort_nums = sorted(nums)
+        
+        def dfs(path, idx):
+            if (idx >= len(sort_nums)):
+                if (path not in final):
+                    final.append(path.copy())
                 return
             
-            # Include the number
-            subset.append(nums[idx])
-            dfs(idx + 1, subset)
-            subset.pop()
+            path.append(sort_nums[idx])
+            dfs(path, idx + 1)
 
-            while idx < len(nums) - 1 and nums[idx] == nums[idx + 1]:
-                idx += 1
+            path.pop()
+            count = idx
 
-            # Exclude the number
-            dfs(idx + 1, subset)
+            while count < len(nums) and sort_nums[count] == sort_nums[idx]:
+                count += 1
+
+            dfs(path, count)
         
-        dfs(0, subset)
+        dfs([], 0)
         return final
