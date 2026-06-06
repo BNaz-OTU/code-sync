@@ -3,20 +3,18 @@ class Solution:
         final = []
 
         def dfs(path, idx):
-            if (sum(path)> target or idx >= len(candidates)):
+            if (sum(path) > target or idx >= len(candidates)):
                 return
             
-            if (sum(path)== target):
-                if (path not in final):
-                    final.append(path.copy())
+            if (sum(path) == target):
+                final.append(path.copy())
+                return
 
-                return
-            
             path.append(candidates[idx])
-            dfs(path, idx)      # USE CASE 1: Same number
+            dfs(path, idx)
 
             path.pop()
-            dfs(path, idx + 1)  # USE CASE 2: Don't add number
-        
+            dfs(path, idx + 1)
+            
         dfs([], 0)
         return final
