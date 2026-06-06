@@ -1,23 +1,17 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         final = []
-        stack = []
-
-        def dfs(n_left, n_right):
-            if (n_left == n and n_right == n):
-                val = "".join(stack)
-                final.append(val)
-                return 
+        
+        def dfs(brackets, left, right):
+            if (left == 0 and right == 0):
+                final.append(brackets)
+                return
             
-            if (n > n_left):
-                stack.append("(")
-                dfs(n_left + 1, n_right)
-                stack.pop()
-
-            if (n_left > n_right):
-                stack.append(")")
-                dfs(n_left, n_right + 1)
-                stack.pop()
+            if (left != 0):
+                dfs(brackets + "(", left - 1, right)
             
-        dfs(0, 0)
+            if (left == 0 or left < right):
+                dfs(brackets + ")", left, right - 1)
+            
+        dfs("", n, n)
         return final
