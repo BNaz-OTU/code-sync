@@ -1,14 +1,16 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        perm = [[]]
-        for n in nums:
-            new_perms = []
-            for p in perm:
-                for i in range(len(p) + 1):
+        perms = [[]]
+
+        for num in nums:
+            temp = []
+            for p in perms:
+                for idx in range(len(p) + 1):
                     p_copy = p.copy()
-                    p_copy.insert(i, n)
-                    new_perms.append(p_copy)
+                    p_copy.insert(idx, num)
+                
+                    temp.append(p_copy)
             
-            perm = new_perms
+            perms = temp
         
-        return perm
+        return perms
