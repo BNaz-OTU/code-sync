@@ -5,10 +5,11 @@ class Solution:
         def dfs(path, idx):
             if (idx >= len(nums)):
                 final.append(path.copy())
-                return
-
+                return 
+            
             path.append(nums[idx])
             dfs(path, idx + 1)
+
             path.pop()
             dfs(path, idx + 1)
         
