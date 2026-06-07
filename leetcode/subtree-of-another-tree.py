@@ -6,23 +6,22 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        def deeperdfs(root, subroot):
-            if (root is None and subroot is None):
+        def deeperdfs(root, subRoot):
+            if (root is None and subRoot is None):
                 return True
             
-            if (root is None or subroot is None or root.val != subroot.val):
+            if (root is None or subRoot is None or root.val != subRoot.val):
                 return False
             
-            return (deeperdfs(root.left, subroot.left) and deeperdfs(root.right, subroot.right))
-            
-        def dfs(root):
+            return (deeperdfs(root.left, subRoot.left) and deeperdfs(root.right, subRoot.right))
+
+        def dfs(root, subRoot):
             if (root is None):
                 return False
             
-            if (root.val == subRoot.val):
-                if (deeperdfs(root, subRoot)):
-                    return True
+            if (root.val == subRoot.val and deeperdfs(root, subRoot)):
+                return True
             
-            return (dfs(root.left) or dfs(root.right))
+            return (dfs(root.left, subRoot) or dfs(root.right, subRoot))
         
-        return (dfs(root))
+        return dfs(root, subRoot)
