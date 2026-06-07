@@ -15,18 +15,14 @@ class Solution:
             
             visit.add((row, col))
 
-            val = (dfs(row + 1, col, idx + 1) or 
-                    dfs(row - 1, col, idx + 1) or 
-                    dfs(row, col + 1, idx + 1) or 
-                    dfs(row, col - 1, idx + 1))
-
+            holder = (
+                dfs(row + 1, col, idx + 1) or 
+                dfs(row - 1, col, idx + 1) or
+                dfs(row, col + 1, idx + 1) or
+                dfs(row, col - 1, idx + 1)
+            )
             visit.remove((row, col))
-
-            return val
-
-
-            
-
+            return holder
 
         for row in range(ROWS):
             for col in range(COLS):
