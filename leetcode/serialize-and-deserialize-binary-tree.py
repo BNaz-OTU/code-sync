@@ -59,9 +59,6 @@ class Codec:
          
             
 
-        
-        
-
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
 # deser = Codec()
