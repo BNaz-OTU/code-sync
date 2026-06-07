@@ -1,35 +1,32 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-        board = []
+        colSet = set()
+        posSet = set()
+        negSet = set()
         final = []
-        col = set()
-        posDiag = set()
-        negDiag = set()
+        board = [["."] * n for _ in range(n)]
 
-        for _ in range(n):
-            board.append(["."] * n)
-        
         def dfs(row):
             if (row == n):
                 val = ["".join(r) for r in board]
                 final.append(val)
-                return 
+                return
 
-            for num in range(n):
-                if (num in col or (num + row) in posDiag or (num - row) in negDiag):
+            for idx in range(n):
+                if (idx in colSet or (row - idx) in negSet or (row + idx) in posSet):
                     continue
                 
-                board[row][num] = "Q"
-                col.add(num)
-                posDiag.add((num + row))
-                negDiag.add((num - row))
+                board[row][idx] = "Q"
+                colSet.add(idx)
+                posSet.add(row + idx)
+                negSet.add(row - idx)
 
                 dfs(row + 1)
 
-                col.remove(num)
-                posDiag.remove((num + row))
-                negDiag.remove((num - row))
-                board[row][num] = "."
-        
+                board[row][idx] = "."
+                colSet.remove(idx)
+                posSet.remove(row + idx)
+                negSet.remove(row - idx)
+
         dfs(0)
         return final
