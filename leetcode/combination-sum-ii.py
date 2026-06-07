@@ -1,25 +1,24 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         final = []
-        sort_cand = sorted(candidates)
+        candidates.sort()
 
         def dfs(path, idx):
-            if (sum(path) == target and path not in final):
-                # print(path, sorted(path))
+            if (sum(path) == target):
                 final.append(path.copy())
                 return
 
-            if (sum(path) > target or idx >= len(sort_cand)):
+            if (idx >= len(candidates) or sum(path) > target):
                 return
-            
-            path.append(sort_cand[idx])
+        
+            path.append(candidates[idx])
             dfs(path, idx + 1)
 
-            path.pop()
             count = idx
-            while count < len(sort_cand) and sort_cand[idx] == sort_cand[count]:
+            while count < len(candidates) and candidates[idx] == candidates[count]:
                 count += 1
-
+            
+            path.pop()
             dfs(path, count)
         
         dfs([], 0)
