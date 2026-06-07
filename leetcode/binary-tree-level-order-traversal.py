@@ -9,23 +9,24 @@ class Solution:
         if (root is None):
             return []
 
+        final = []
         queue = deque()
         queue.append(root)
-        final = []
 
         while len(queue) > 0:
-            # print(queue)
-            # print()
             temp = []
+            
             for _ in range(len(queue)):
                 node = queue.popleft()
-                if (node is None):
-                    continue
                 
-                temp.append(node.val)
-                queue.append(node.left)
-                queue.append(node.right)
+                if (node.left is not None):
+                    queue.append(node.left)
+                
+                if (node.right is not None):
+                    queue.append(node.right)
 
+                temp.append(node.val)
+            
             final.append(temp)
         
-        return final[:-1]
+        return final
