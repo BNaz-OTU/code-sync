@@ -3,15 +3,14 @@ class Solution:
         final = []
         
         def dfs(brackets, left, right):
-            if (left == 0 and right == 0):
+            if (left >= n and right >= n):
                 final.append(brackets)
-                return
             
-            if (left != 0):
-                dfs(brackets + "(", left - 1, right)
+            if (left < n):
+                dfs(brackets + "(", left + 1, right)
             
-            if (left == 0 or left < right):
-                dfs(brackets + ")", left, right - 1)
-            
-        dfs("", n, n)
+            if (left > right):
+                dfs(brackets + ")", left, right + 1)
+        
+        dfs("", 0, 0)
         return final
