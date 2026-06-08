@@ -4,12 +4,12 @@ class Solution:
         right = len(nums) - 1
 
         while left <= right:
-            middle = right - left
+            middle = (left + right) // 2
 
             if (nums[middle] == target):
                 return middle
-                
-            elif (nums[middle] > target):
+            
+            if (nums[middle] > target):
                 right = middle - 1
             
             else:
