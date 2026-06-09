@@ -4,7 +4,7 @@ class Solution:
         buy = prices[0]
 
         for sell in prices[1:]:
-            if (buy > sell):
+            if (sell < buy):
                 buy = sell
                 continue
             
