@@ -6,16 +6,17 @@ class Solution:
         while left <= right:
             middle = (left + right) // 2
 
-            if nums[middle] == target:
+            if (nums[middle] == target):
                 return middle
-
+            
             if (nums[left] <= nums[middle]):
                 if (target > nums[middle] or target < nums[left]):
                     left = middle + 1
                 else:
                     right = middle - 1
+            
             else:
-                if (target < nums[middle] or nums[right] < target):
+                if (target < nums[middle] or target > nums[right]):
                     right = middle - 1
                 else:
                     left = middle + 1
