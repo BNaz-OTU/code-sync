@@ -9,7 +9,7 @@ class Solution:
             if (nums[middle] == target):
                 return middle
             
-            if (nums[middle] > target):
+            elif (nums[middle] > target):
                 right = middle - 1
             
             else:
