@@ -1,25 +1,24 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        output = []
-        q = collections.deque()
-        l, r = 0, 0
+        queue = deque()
+        final = []
+        left, right = 0, 0
 
-        while r < len(nums):
+        while right < len(nums):
+            # Pop smaller values from 'queue'
+            while queue and nums[queue[-1]] < nums[right]:
+                queue.pop()
             
-            # pop smaller values from q
-            while q and nums[q[-1]] < nums[r]:
-                q.pop()
-            
-            q.append(r)
+            queue.append(right)
 
-            # remove left val from window
-            if l > q[0]:
-                q.popleft()
+            # Remove left val from window
+            if (left > queue[0]):
+                queue.popleft()
             
-            if (r + 1) >= k:
-                output.append(nums[q[0]])
-                l += 1
+            if (right + 1) >= k:
+                final.append(nums[queue[0]])
+                left += 1
             
-            r += 1
+            right += 1
         
-        return output
+        return final
