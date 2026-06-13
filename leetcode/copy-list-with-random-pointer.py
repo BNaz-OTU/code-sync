@@ -9,32 +9,34 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        visit = {}
+        copy1 = head
+        copy2 = head
         newHead = Node(0)
-        temp = newHead
-        queue = deque()
-        cur = head
+        final = newHead
 
-        while cur:
-            if cur in visit:
-                continue
-            else:
-                queue.append(cur)
-                visit[cur] = Node(cur.val)
-            cur = cur.next
+        hashMap = {}
+
+        while copy1:
+            node = Node(copy1.val)
+            hashMap[copy1] = node
+
+            copy1 = copy1.next
         
-        while len(queue) > 0:
-            old_node = queue.popleft()
+        while copy2:
+            # Grab the nodes
+            currentNode = hashMap[copy2]
+            nextNode = hashMap[copy2.next] if copy2.next else None
+            randNode = hashMap[copy2.random] if copy2.random else None
 
-            new_node = visit[old_node]
-            new_rand_node = visit[old_node.random] if old_node.random is not None else None
-            new_next_node = visit[old_node.next] if old_node.next is not None else None
+            # Connect all components to the original node
+            currentNode.next = nextNode
+            currentNode.random = randNode
 
-            new_node.next = new_next_node
-            new_node.random = new_rand_node
+            # Move onto next Node in the list
+            copy2 = copy2.next
 
-            temp.next = new_node
-            temp = temp.next
+            # Add new copy Node to final linked list
+            newHead.next = currentNode
+            newHead = newHead.next
         
-        print(newHead)
-        return newHead.next
+        return final.next
