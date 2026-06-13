@@ -5,78 +5,27 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        
-        carry = 0
         dummyNode = ListNode()
         head = dummyNode
+        carry = 0
 
-        while l1 and l2:
-            print(head)
-            new_val = l1.val + l2.val + carry
-            carry = 0
-            if new_val >= 10:
-                carry = new_val // 10
-                new_val = new_val % 10
+        while l1 or l2 or carry:
+            val1, val2 = 0, 0
+
+            if (l1 is not None):
+                val1 = l1.val
+                l1 = l1.next
             
-            print(carry)
-            
-            node = ListNode(new_val)
+            if (l2 is not None):
+                val2 = l2.val
+                l2 = l2.next
+
+            sumVal = val1 + val2 + carry
+            finalVal = sumVal % 10
+            carry = sumVal // 10
+
+            node = ListNode(finalVal)
             dummyNode.next = node
             dummyNode = dummyNode.next
-
-            l1 = l1.next
-            l2 = l2.next
         
-        while l1 and carry:
-            new_val = l1.val + carry
-            carry = 0
-            if new_val >= 10:
-                carry = new_val // 10
-                new_val = new_val % 10
-            
-            print(carry)
-            
-            node = ListNode(new_val)
-            dummyNode.next = node
-            dummyNode = dummyNode.next
-
-            l1 = l1.next
-        
-        while l2 and carry:
-            new_val = l2.val + carry
-            carry = 0
-            if new_val >= 10:
-                carry = new_val // 10
-                new_val = new_val % 10
-            
-            print(carry)
-            
-            node = ListNode(new_val)
-            dummyNode.next = node
-            dummyNode = dummyNode.next
-
-            l2 = l2.next
-        
-        if carry:
-            node = ListNode(carry)
-            dummyNode.next = node
-            
-        while l1:
-            new_val = l1.val
-            
-            node = ListNode(new_val)
-            dummyNode.next = node
-            dummyNode = dummyNode.next
-
-            l1 = l1.next
-        
-        while l2:
-            new_val = l2.val
-            
-            node = ListNode(new_val)
-            dummyNode.next = node
-            dummyNode = dummyNode.next
-
-            l2 = l2.next
-
         return head.next
