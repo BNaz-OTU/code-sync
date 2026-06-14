@@ -3,21 +3,18 @@ class Solution:
         folder.sort()
         final = set()
 
-        def found(fold):
-            nonlocal word
+        def checker(fold):
+            word = ""
             for idx in range(len(fold)):
-                char = fold[idx]
-                word += char
-                if (word in final and ((idx + 1) > len(fold) or fold[idx + 1] == "/")):
+                word += fold[idx]
+
+                if (word in final and (idx + 1 < len(fold) and fold[idx + 1] == "/")):
                     return False
             
             return True
 
         for fold in folder:
-            word = ""
-
-            if (found(fold)):
-                print("here")
-                final.add(word)                
-
+            if (checker(fold)):
+                final.add(fold)
+        
         return list(final)
