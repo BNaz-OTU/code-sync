@@ -10,7 +10,7 @@ class Solution:
 
             for pile in piles:
                 time += math.ceil(pile / speed)
-                            
+            
             if (time > h):
                 left = speed + 1
             
