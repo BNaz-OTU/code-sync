@@ -2,6 +2,7 @@ class MinStack:
 
     def __init__(self):
         self.minStack = []
+        
 
     def push(self, value: int) -> None:
         if (len(self.minStack) == 0):
@@ -22,6 +23,7 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.minStack[-1][1]
+        
 
 
 # Your MinStack object will be instantiated and called as such:
