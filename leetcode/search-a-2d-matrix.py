@@ -8,27 +8,30 @@ class Solution:
 
             if (matrix[middle][0] <= target and target <= matrix[middle][-1]):
                 break
-            elif (matrix[middle][0] > target and matrix[middle][-1] > target):
-                bot = middle - 1
+            
+            elif (target > matrix[middle][-1]):
+                top = middle + 1
             
             else:
-                top = middle + 1
+                bot = middle - 1
         
-        if top > bot:
+        if (top > bot):
             return False
         
         row = (top + bot) // 2
-        left, right = 0, len(matrix[row]) - 1
-        while left <= right:
-            mid = (left + right) // 2
 
-            if (matrix[row][mid] == target):
+        left = 0
+        right = len(matrix[0]) - 1
+        while left <= right:
+            middle = (left + right) // 2
+
+            if (matrix[row][middle] == target):
                 return True
             
-            elif (matrix[row][mid] > target):
-                right = mid - 1
+            if (matrix[row][middle] > target):
+                right = middle - 1
             
             else:
-                left = mid + 1
+                left = middle + 1
         
         return False
