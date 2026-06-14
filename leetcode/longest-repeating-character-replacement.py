@@ -10,10 +10,11 @@ class Solution:
             
             hashMap[s[right]] += 1
 
-            while (right - left + 1) - max(hashMap.values()) > k:
+            while ((right - left + 1) - max(hashMap.values())) > k:
                 hashMap[s[left]] -= 1
                 left += 1
             
             maxLen = max(maxLen, right - left + 1)
-
+            
+        
         return maxLen
