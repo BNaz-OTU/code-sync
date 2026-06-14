@@ -9,19 +9,24 @@ class Solution:
         head = dummyNode
 
         while list1 and list2:
-            if (list1.val < list2.val):
+            # print(list1)
+            # print()
+            # print(list2)
+            # print("---------")
+            if (list1.val <= list2.val):
                 dummyNode.next = list1
                 list1 = list1.next
-                dummyNode = dummyNode.next
+            
             else:
                 dummyNode.next = list2
                 list2 = list2.next
-                dummyNode = dummyNode.next
+            
+            dummyNode = dummyNode.next
         
-        if list1:
+        if (list1 is not None):
             dummyNode.next = list1
         
-        if list2:
+        if (list2 is not None):
             dummyNode.next = list2
-            
+        
         return head.next
