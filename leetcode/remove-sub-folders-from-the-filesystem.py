@@ -1,21 +1,23 @@
 class Solution:
     def removeSubfolders(self, folder: List[str]) -> List[str]:
         folder.sort()
-        visit = set()
-        final = []
+        final = set()
 
-        def checker(temp_str, fold):
-            for idx, char in enumerate(fold):
-                temp_str += char
-
-                if temp_str in visit and ((idx + 1 == len(fold)) or (fold[idx + 1] == "/")):
+        def found(fold):
+            nonlocal word
+            for idx in range(len(fold)):
+                char = fold[idx]
+                word += char
+                if (word in final and ((idx + 1) > len(fold) or fold[idx + 1] == "/")):
                     return False
             
-            visit.add(fold)
             return True
 
         for fold in folder:
-            if (checker("", fold)):
-                final.append(fold)
-        
-        return final
+            word = ""
+
+            if (found(fold)):
+                print("here")
+                final.add(word)                
+
+        return list(final)
