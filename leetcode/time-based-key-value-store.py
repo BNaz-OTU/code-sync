@@ -12,13 +12,14 @@ class TimeMap:
         
 
     def get(self, key: str, timestamp: int) -> str:
-        if key not in self.hashMap:
+        if (key not in self.hashMap):
             return ""
-
+            
         arr = self.hashMap[key]
+
         left = 0
         right = len(arr) - 1
-        lastVal = ""
+        word = ""
 
         while left <= right:
             middle = (left + right) // 2
@@ -26,15 +27,15 @@ class TimeMap:
             if (arr[middle][0] == timestamp):
                 return arr[middle][1]
             
-            elif (arr[middle][0] < timestamp):
-                lastVal = arr[middle][1]
-                left = middle + 1
+            elif (arr[middle][0] > timestamp):
+                right = middle - 1
             
             else:
-                right = middle - 1
+                left = middle + 1
+                word = arr[middle][1]
         
-        return lastVal
-        
+        return word
+
 
 
 # Your TimeMap object will be instantiated and called as such:
