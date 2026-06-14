@@ -15,21 +15,15 @@ class Solution:
         
         time = 0
         while heap or queue:
-            # print(time)
-            # print(heap)
-            # print(queue)
-            # print()
             if (len(queue) > 0 and queue[0][0] == time):
                 _, count, task = queue.popleft()
-
-                if (count < 0):
-                    heappush(heap, [count, task])
+                heappush(heap, [count, task])
 
             if (len(heap) > 0):
                 count, task = heappop(heap)
-                if (count + 1 != 0):
+                if (count + 1 < 0):
                     queue.append([time + n + 1, count + 1, task])
             
             time += 1
-        
+
         return time
