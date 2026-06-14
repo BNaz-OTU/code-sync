@@ -1,35 +1,35 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        hashTask = {}
+        hashMap = {}
+        heap = []
         queue = deque()
 
         for task in tasks:
-            if task not in hashTask:
-                hashTask[task] = 0
+            if (task not in hashMap):
+                hashMap[task] = 0
             
-            hashTask[task] += 1
+            hashMap[task] += 1
         
-        heap = []
-
-        for task, count in hashTask.items():
+        for task, count in hashMap.items():
             heappush(heap, [-count, task])
         
         time = 0
         while heap or queue:
-            # print(f"Heap: {heap}")
-            # print(f"Queue: {queue}")
             # print(time)
+            # print(heap)
+            # print(queue)
             # print()
-            if queue and queue[0][0] == time:
-                _, miniContainer = queue.popleft()
-                heappush(heap, [miniContainer[0], miniContainer[1]])
-            
-            if heap:
-                count, task = heappop(heap)
-                count += 1
-                if (count != 0):  
-                    queue.append([time + n + 1, (count, task)])
+            if (len(queue) > 0 and queue[0][0] == time):
+                _, count, task = queue.popleft()
 
+                if (count < 0):
+                    heappush(heap, [count, task])
+
+            if (len(heap) > 0):
+                count, task = heappop(heap)
+                if (count + 1 != 0):
+                    queue.append([time + n + 1, count + 1, task])
+            
             time += 1
         
         return time
