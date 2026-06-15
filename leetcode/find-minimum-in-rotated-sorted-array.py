@@ -5,12 +5,12 @@ class Solution:
 
         while left <= right:
             middle = (left + right) // 2
-            print(f"Left: {nums[left]} | Middle: {nums[middle]} | Right: {nums[right]}")
+            print(f"Left: {nums[left]} | Middle: {nums[middle]} | Right: {nums[right]} ")
 
             if (nums[left] <= nums[right]):
                 return nums[left]
             
-            if (nums[left] <= nums[middle]):
+            elif (nums[left] <= nums[middle]):
                 left = middle + 1
             
             else:
