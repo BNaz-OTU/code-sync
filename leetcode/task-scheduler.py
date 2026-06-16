@@ -10,20 +10,25 @@ class Solution:
             
             hashMap[task] += 1
         
+        # print(hashMap)
+
         for task, count in hashMap.items():
             heappush(heap, [-count, task])
         
         time = 0
-        while heap or queue:
+        while len(heap) > 0 or len(queue) > 0:
+
             if (len(queue) > 0 and queue[0][0] == time):
                 _, count, task = queue.popleft()
                 heappush(heap, [count, task])
 
+            
             if (len(heap) > 0):
                 count, task = heappop(heap)
+
                 if (count + 1 < 0):
                     queue.append([time + n + 1, count + 1, task])
             
             time += 1
-
+        
         return time
