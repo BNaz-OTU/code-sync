@@ -1,11 +1,11 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         final = []
-
+        
         def dfs(path, idx):
             if (idx >= len(nums)):
                 final.append(path.copy())
-                return
+                return 
             
             path.append(nums[idx])
             dfs(path, idx + 1)
