@@ -10,12 +10,12 @@ class Solution:
             
             hashMap[num] += 1
         
-        for key, value in hashMap.items():
-            heappush(heap, [-value, key])
+        for value, freq in hashMap.items():
+            heappush(heap, [-freq, value])
         
         while k > 0:
-            val = heappop(heap)
-            final.append(val[1])
+            _, val = heappop(heap)
+            final.append(val)
             k -= 1
         
         return final
