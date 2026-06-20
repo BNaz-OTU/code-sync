@@ -1,11 +1,10 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        one_step = 0
-        two_step = 1
+        dp = [1, 0]
 
-        for idx in range(n):
-            temp = two_step
-            two_step = one_step + two_step
-            one_step = temp
+        for _ in range(n):
+            temp = dp[0]
+            dp[0] = dp[0] + dp[1]
+            dp[1] = temp
         
-        return two_step
+        return dp[0]
