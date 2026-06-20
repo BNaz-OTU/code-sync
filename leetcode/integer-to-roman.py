@@ -16,11 +16,17 @@ class Solution:
             ["I", 1]
         ]
 
-        res = ""
+        final = ""
+
         for sym, val in roman:
-            count = (num // val)
-            if (count > 0):
-                res += (sym * count)
-                num = num % val
-        
-        return res
+            count = num // val
+
+            if (count == 4 or count == 9):
+                final += sym
+
+            elif (count > 0):
+                final += (count * sym)
+            
+            num = num % val
+            
+        return final
