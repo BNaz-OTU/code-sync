@@ -1,10 +1,10 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        top, bot = 0, len(matrix)
-        left, right = 0, len(matrix[0])
         final = []
+        left, right = 0, len(matrix[0])
+        top, bot = 0, len(matrix)
 
-        while left < right and top < bot:
+        while top < bot and left < right:
             for idx in range(left, right):
                 final.append(matrix[top][idx])
             
@@ -15,6 +15,7 @@ class Solution:
             
             right -= 1
 
+            # print(f"Top: {top} | Bot: {bot} | Right: {right} | Left: {left}")
             if (top >= bot or left >= right):
                 return final
 
