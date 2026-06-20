@@ -1,8 +1,9 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        hashMap = {
+        sumVal = 0
+        roman = {
             "I" : 1,
-            "V" : 5, 
+            "V" : 5,
             "X" : 10,
             "L" : 50,
             "C" : 100,
@@ -10,17 +11,16 @@ class Solution:
             "M" : 1000
         }
 
-        total = []
-        for idx in range(len(s)):
-            if (idx == 0):
-                total.append(hashMap[s[idx]])
-            
-            elif (hashMap[s[idx - 1]] >= hashMap[s[idx]]):
-                total.append(hashMap[s[idx]])
+        for idx in range(len(s) - 1):
+            cur = roman[s[idx]]
+            nxt = roman[s[idx + 1]]
+
+            if (cur < nxt):
+                sumVal -= cur
             
             else:
-                cur = hashMap[s[idx]]
-                prev = total[-1]
-                total[-1] = cur - prev
+                sumVal += cur
+            
+        sumVal += roman[s[-1]]
         
-        return sum(total)
+        return sumVal
