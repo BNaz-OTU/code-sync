@@ -9,10 +9,11 @@ class Solution:
         fast = head
 
         while fast and fast.next:
-            fast = fast.next.next
             slow = slow.next
+            fast = fast.next.next
         
         prev = None
+
         while slow:
             temp = slow.next
             slow.next = prev
@@ -20,10 +21,10 @@ class Solution:
             slow = temp
         
         while prev:
-            if (head.val != prev.val):
+            if (prev.val != head.val):
                 return False
             
-            head = head.next
             prev = prev.next
+            head = head.next
         
         return True
