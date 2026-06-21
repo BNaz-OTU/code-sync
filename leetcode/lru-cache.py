@@ -1,10 +1,9 @@
-class Node: 
+class Node:
     def __init__(self, key=0, val=0, prev=None, nxt=None):
         self.key = key
         self.val = val
         self.prev = prev
         self.nxt = nxt
-
 
 class LRUCache:
 
@@ -12,48 +11,45 @@ class LRUCache:
         self.hashMap = {}
         self.cap = capacity
 
-        # Least used
-        self.left = Node()
+        self.left = Node() # Least Used
+        self.right = Node() # Most Used
 
-        # Most used
-        self.right = Node()
-
-        # Make the connection
-        self.left.nxt = self.right
+        # Connect the nodes
         self.right.prev = self.left
+        self.left.nxt = self.right
+        
+    def get(self, key: int) -> int:
+        if key in self.hashMap:
+            val = self.hashMap[key].val
+            self.remove(key)
+            self.insert(key, val)
+
+            return self.hashMap[key].val
+        
+        return -1
     
     def remove(self, key):
         node = self.hashMap[key]
 
-        prev = node.prev 
+        prev = node.prev
         nxt = node.nxt
 
         prev.nxt, nxt.prev = nxt, prev
     
-    def insert(self, key, value):
-        node = Node(key, value)
+    def insert(self, key, val):
+        node = Node(key, val)
 
         prev = self.right.prev
+        nxt = self.right
 
-        # Connect the new node
         node.prev = prev
-        node.nxt = self.right
+        node.nxt = nxt
 
-        # Connect the other nodes to new node
         self.right.prev = node
         prev.nxt = node
-        
+
         self.hashMap[key] = node
 
-    def get(self, key: int) -> int:
-        if (key in self.hashMap):
-            value = self.hashMap[key].val
-            self.remove(key)
-            self.insert(key, value)
-            return self.hashMap[key].val
-        
-        return -1
-        
 
     def put(self, key: int, value: int) -> None:
         if (key in self.hashMap):
@@ -66,6 +62,7 @@ class LRUCache:
             self.remove(least.key)
 
             del self.hashMap[least.key]
+
         
 
 
