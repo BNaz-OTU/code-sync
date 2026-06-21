@@ -1,6 +1,7 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         final = []
+
         top, bot = 0, len(matrix)
         left, right = 0, len(matrix[0])
 
@@ -15,8 +16,6 @@ class Solution:
             
             right -= 1
 
-            # print(left, right)
-            # print(top, bot)
             if (top >= bot or left >= right):
                 return final
 
@@ -29,5 +28,5 @@ class Solution:
                 final.append(matrix[idx][left])
             
             left += 1
-
+        
         return final
