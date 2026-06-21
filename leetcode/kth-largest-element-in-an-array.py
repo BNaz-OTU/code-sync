@@ -1,7 +1,6 @@
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         opps_k = len(nums) - k
-
         heapify(nums)
 
         while opps_k > 0:
