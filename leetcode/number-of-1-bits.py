@@ -5,6 +5,7 @@ class Solution:
         while n > 0:
             remainder = n % 2
             n = n // 2
+
             count += remainder
-        
+
         return count
