@@ -9,7 +9,7 @@ class Solution:
                 (col < 0 or col >= COLS) or
                 ((row, col) in visit) or
                 (grid[row][col] == "0")):
-                return 
+                return
             
             visit.add((row, col))
 
