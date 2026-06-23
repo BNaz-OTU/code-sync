@@ -2,7 +2,7 @@ class Solution:
     def isPalindrome(self, x: int) -> bool:
         if (x < 0):
             return False
-
+        
         div = 1
 
         while div * 10 <= x:
@@ -14,17 +14,18 @@ class Solution:
 
             if (front != back):
                 return False
-            
-            # Remove front number
+
+            # Remove number from front
             x1 = x % div
 
-            # Remove back number
+            # Remove number from back
             x2 = x1 // 10
 
-            # Final updated number
+            # Update 'x'
             x = x2
 
-            # Decrement div
-            div = div / 100
+            # Update div
+            div = div // 100
+            
 
         return True
