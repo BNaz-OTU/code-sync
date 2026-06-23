@@ -1,8 +1,8 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        if x < 0:
+        if (x < 0):
             return False
-            
+
         div = 1
 
         while div * 10 <= x:
@@ -15,14 +15,16 @@ class Solution:
             if (front != back):
                 return False
             
-            # Remove the front number
+            # Remove front number
             x1 = x % div
 
-            # Remove the back number
+            # Remove back number
             x2 = x1 // 10
+
+            # Final updated number
             x = x2
 
-            # Update the divisor
-            div = div // 100
-        
+            # Decrement div
+            div = div / 100
+
         return True
