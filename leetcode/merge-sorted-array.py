@@ -5,16 +5,16 @@ class Solution:
         """
         # nums1 -> m
         # nums2 -> n
+        combine = m + n - 1
 
-        combine = n + m - 1
-
-        while n > 0 and m > 0:
+        while m > 0 and n > 0:
             val1 = nums1[m - 1]
             val2 = nums2[n - 1]
 
             if (val1 < val2):
                 nums1[combine] = val2
                 n -= 1
+            
             else:
                 nums1[combine] = val1
                 m -= 1
