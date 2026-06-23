@@ -3,11 +3,10 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-
         top, bot = 0, len(matrix) - 1
         left, right = 0, len(matrix) - 1
 
-        while top < bot and left < right:
+        while left < right and top < bot:
             for idx in range(right - left):
                 tempTopLeft = matrix[top][left + idx]
 
@@ -18,6 +17,7 @@ class Solution:
                 matrix[bot][right - idx] = matrix[top + idx][right]
 
                 matrix[top + idx][right] = tempTopLeft
+            
 
             top += 1
             bot -= 1
