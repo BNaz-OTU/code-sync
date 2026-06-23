@@ -1,21 +1,22 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         final = []
+
         top, bot = 0, len(matrix)
         left, right = 0, len(matrix[0])
 
-        while left < right and top < bot:
+        while top < bot and left < right:
             for idx in range(left, right):
                 final.append(matrix[top][idx])
             
             top += 1
-
+            
             for idx in range(top, bot):
                 final.append(matrix[idx][right - 1])
-
+            
             right -= 1
 
-            if (top >= bot or left >= right):
+            if (left >= right or top >= bot):
                 return final
 
             for idx in range(right - 1, left - 1, -1):
@@ -27,6 +28,5 @@ class Solution:
                 final.append(matrix[idx][left])
             
             left += 1
-
-
+        
         return final
