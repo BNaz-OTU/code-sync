@@ -4,27 +4,27 @@ class Solution:
         nums.sort()
 
         for idx in range(len(nums)):
-            if (idx > 0 and nums[idx] == nums[idx - 1]):
+            if (idx > 0 and nums[idx - 1] == nums[idx]):
                 continue
             
             left = idx + 1
             right = len(nums) - 1
 
             while left < right:
-                leftVal = nums[left]
-                rightVal = nums[right] 
-                threeSum = nums[idx] + leftVal + rightVal
+                val1 = nums[left]
+                val2 = nums[right]
+                threeSum = nums[idx] + val1 + val2
 
                 if (threeSum == 0):
-                    final.append([nums[idx], leftVal, rightVal])
+                    final.append([nums[idx], val1, val2])
 
-                    while left < right and leftVal == nums[left]:
+                    while left < right and nums[left] == val1:
                         left += 1
                 
-                elif (threeSum < 0):
-                    left += 1
+                elif (threeSum > 0):
+                    right -= 1
                 
                 else:
-                    right -= 1
-
+                    left += 1
+        
         return final
