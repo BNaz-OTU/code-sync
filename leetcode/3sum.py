@@ -4,7 +4,7 @@ class Solution:
         nums.sort()
 
         for idx in range(len(nums)):
-            if (idx > 0 and nums[idx - 1] == nums[idx]):
+            if (idx > 0 and nums[idx] == nums[idx - 1]):
                 continue
             
             left = idx + 1
@@ -20,7 +20,7 @@ class Solution:
 
                     while left < right and nums[left] == val1:
                         left += 1
-                
+                    
                 elif (threeSum > 0):
                     right -= 1
                 
