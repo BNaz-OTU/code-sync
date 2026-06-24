@@ -2,30 +2,28 @@ class Solution:
     def isPalindrome(self, x: int) -> bool:
         if (x < 0):
             return False
-        
-        div = 1
 
+        div = 1
         while div * 10 <= x:
             div *= 10
-        
+                
         while x > 0:
-            front = x // div
+            front = x //div
             back = x % 10
 
             if (front != back):
                 return False
-
-            # Remove number from front
+            
+            # Remove front
             x1 = x % div
 
-            # Remove number from back
+            # Remove back
             x2 = x1 // 10
 
-            # Update 'x'
+            # update X
             x = x2
 
-            # Update div
+            # Update the div
             div = div // 100
-            
-
+        
         return True
