@@ -7,8 +7,8 @@ class Solution:
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                (grid[row][col] == "0") or
-                ((row, col) in visit)):
+                ((row, col) in visit) or
+                (grid[row][col] == "0")):
                 return
             
             visit.add((row, col))
