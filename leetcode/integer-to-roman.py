@@ -22,8 +22,8 @@ class Solution:
             count = num // val
 
             if (count > 0):
-                final += (sym * count)
+                final += (count * sym)
             
             num = num % val
-        
+            
         return final
