@@ -4,7 +4,7 @@ class Solution:
             ["M", 1000],
             ["CM", 900],
             ["D", 500],
-            ["CD", 400], 
+            ["CD", 400],
             ["C", 100],
             ["XC", 90],
             ["L", 50],
@@ -25,5 +25,5 @@ class Solution:
                 final += (sym * count)
             
             num = num % val
-
+        
         return final
