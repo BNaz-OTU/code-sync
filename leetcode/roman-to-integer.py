@@ -3,7 +3,7 @@ class Solution:
         roman = {
             "I" : 1,
             "V" : 5,
-            "X" : 10, 
+            "X" : 10,
             "L" : 50,
             "C" : 100,
             "D" : 500,
@@ -11,6 +11,7 @@ class Solution:
         }
 
         total = 0
+
         for idx in range(len(s) - 1):
             cur = s[idx]
             nxt = s[idx + 1]
@@ -22,4 +23,5 @@ class Solution:
                 total += roman[cur]
         
         total += roman[s[-1]]
+        
         return total
