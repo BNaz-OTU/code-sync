@@ -3,7 +3,7 @@ class Solution:
         intervals.sort()
         final = [intervals[0]]
 
-        for start, end in intervals[1:]:
+        for start, end in intervals:
             prev = final[-1][-1]
 
             if (start <= prev):
