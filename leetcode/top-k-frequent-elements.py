@@ -1,8 +1,8 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        final = []
         hashMap = {}
         heap = []
-        final = []
 
         for num in nums:
             if (num not in hashMap):
@@ -10,8 +10,8 @@ class Solution:
             
             hashMap[num] += 1
         
-        for val, freq in hashMap.items():
-            heappush(heap, [-freq, val])
+        for value, freq in hashMap.items():
+            heappush(heap, [-freq, value])
         
         while k > 0:
             _, val = heappop(heap)
