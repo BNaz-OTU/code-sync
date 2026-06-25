@@ -7,5 +7,5 @@ class Solution:
             n = n // 2
 
             count += remainder
-
+        
         return count
