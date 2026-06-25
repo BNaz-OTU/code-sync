@@ -18,12 +18,12 @@ class Solution:
 
         final = ""
 
-        for sym, val in roman:
-            count = num // val
+        for sym, value in roman:
+            count = num // value
 
-            if (count > 0):
-                final += (count * sym)
-            
-            num = num % val
-            
+            # if (count > 0):
+            final += (sym * count)
+
+            num = num % value
+        
         return final
