@@ -1,8 +1,8 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        final = []
         top, bot = 0, len(matrix)
         left, right = 0, len(matrix[0])
-        final = []
 
         while top < bot and left < right:
             for idx in range(left, right):
@@ -15,8 +15,7 @@ class Solution:
             
             right -= 1
 
-            if (left >= right or top >= bot):
-                print(f"Left: {left} | Right: {right} | Top: {top} | Bot: {bot}")
+            if (top >= bot or left >= right):
                 return final
 
             for idx in range(right - 1, left - 1, -1):
