@@ -9,5 +9,5 @@ class Solution:
             while left < right and nums[left] != 0:
                 left += 1
             
-            if (nums[left] == 0 and nums[right] != 0):
-                nums[left], nums[right] = nums[right], nums[left]
+            if (nums[right] != 0 and nums[left] == 0):
+                nums[right], nums[left] = nums[left], nums[right]
