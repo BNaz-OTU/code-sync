@@ -12,18 +12,17 @@ class Solution:
             ["X", 10],
             ["IX", 9],
             ["V", 5],
-            ["IV", 4],
+            ["IV", 4], 
             ["I", 1]
         ]
 
         final = ""
 
-        for sym, value in roman:
-            count = num // value
+        for sym, val in roman:
+            count = num // val
 
-            # if (count > 0):
-            final += (sym * count)
+            final += (count * sym)
 
-            num = num % value
+            num = num % val
         
         return final
