@@ -17,9 +17,10 @@ class Solution:
 
                 if (threeSum == 0):
                     final.append([nums[idx], val1, val2])
-                    while left < right and val1 == nums[left]:
+
+                    while left < right and nums[left] == val1:
                         left += 1
-                    
+                
                 elif (threeSum > 0):
                     right -= 1
                 
