@@ -4,11 +4,12 @@ class Solution:
             return False
 
         div = 1
+
         while div * 10 <= x:
             div *= 10
-                
+        
         while x > 0:
-            front = x //div
+            front = x // div
             back = x % 10
 
             if (front != back):
@@ -20,10 +21,10 @@ class Solution:
             # Remove back
             x2 = x1 // 10
 
-            # update X
+            # Update X
             x = x2
 
-            # Update the div
+            # Update div
             div = div // 100
         
         return True
