@@ -22,8 +22,8 @@ class Solution:
         while prev:
             if (prev.val != head.val):
                 return False
-            
-            prev = prev.next
+
             head = head.next
-        
+            prev = prev.next
+            
         return True
