@@ -15,8 +15,8 @@ class Solution:
 
             dfs(row + 1, col)
             dfs(row - 1, col)
-            dfs(row, col - 1)
             dfs(row, col + 1)
+            dfs(row, col - 1)
 
         for row in range(ROWS):
             for col in range(COLS):
