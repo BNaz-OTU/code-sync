@@ -7,7 +7,7 @@ class Solution:
         # nums2 -> n
         combine = m + n - 1
 
-        while m > 0 and n > 0:
+        while n > 0 and m > 0:
             val1 = nums1[m - 1]
             val2 = nums2[n - 1]
 
@@ -23,5 +23,5 @@ class Solution:
         
         while n > 0:
             nums1[combine] = nums2[n - 1]
-            n -= 1
             combine -= 1
+            n -= 1
