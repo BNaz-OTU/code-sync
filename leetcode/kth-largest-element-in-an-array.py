@@ -5,9 +5,7 @@ class Solution:
 
         while opps_k > 0:
             heappop(nums)
+
             opps_k -= 1
         
         return nums[0]
-
-        nums = [5,6]
-        opps_k = 0
