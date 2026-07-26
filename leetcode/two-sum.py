@@ -2,8 +2,10 @@ class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         hashMap = {}
 
-        for idx, num in enumerate(nums):
-            if ((target - num) in hashMap):
-                return [hashMap[target - num], idx]
+        for idx, val in enumerate(nums):
+            diff = target - val
+
+            if (diff in hashMap):
+                return [hashMap[diff], idx]
             
-            hashMap[num] = idx
+            hashMap[val] = idx
