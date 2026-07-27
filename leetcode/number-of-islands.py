@@ -9,7 +9,7 @@ class Solution:
                 (col < 0 or col >= COLS) or
                 (grid[row][col] == "0") or
                 ((row, col) in visit)):
-                return
+                return 
             
             visit.add((row, col))
 
@@ -20,8 +20,8 @@ class Solution:
 
         for row in range(ROWS):
             for col in range(COLS):
-                if (grid[row][col] == "1" and (row, col) not in visit):
-                    count += 1
+                if ((row, col) not in visit and grid[row][col] == "1"):
                     dfs(row, col)
+                    count += 1
         
         return count
