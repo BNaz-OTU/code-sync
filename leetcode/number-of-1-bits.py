@@ -3,9 +3,9 @@ class Solution:
         count = 0
 
         while n > 0:
-            remainder = n % 2
+            if (n % 2 == 1):
+                count += 1
+            
             n = n // 2
-
-            count += remainder
         
         return count
