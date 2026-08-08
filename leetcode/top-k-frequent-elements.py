@@ -7,16 +7,15 @@ class Solution:
         for num in nums:
             if (num not in hashMap):
                 hashMap[num] = 0
-
-            hashMap[num] += 1
+            
+            hashMap[num] -= 1
         
-        for key, freq in hashMap.items():
-            heappush(heap, [-freq, key])
+        for key, value in hashMap.items():
+            heappush(heap, [value, key])
         
         while k > 0:
-            _, key = heappop(heap)
-            final.append(key)
-
+            _, val = heappop(heap)
+            final.append(val)
             k -= 1
         
         return final
