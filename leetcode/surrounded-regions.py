@@ -3,15 +3,18 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+        visit = set()
         ROWS, COLS = len(board), len(board[0])
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                (board[row][col] == "T") or
+                ((row, col) in visit) or
                 (board[row][col] == "X")):
-                return
+                return 
             
+            # print(f"Row: {row} | Col: {col}")
+            visit.add((row, col))
             board[row][col] = "T"
 
             dfs(row + 1, col)
