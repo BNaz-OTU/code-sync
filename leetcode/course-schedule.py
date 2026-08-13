@@ -3,15 +3,22 @@ class Solution:
         adjList = {}
         visit = set()
 
+        for num in range(numCourses):
+            adjList[num] = []
+        
+        for crs, pre in prerequisites:
+            adjList[crs].append(pre)
+
+
         def dfs(crs):
             if (crs in visit):
                 return False
             
             if (adjList[crs] == []):
                 return True
-
+            
             visit.add(crs)
-
+        
             for new_crs in adjList[crs]:
                 if (not dfs(new_crs)):
                     return False
@@ -19,12 +26,6 @@ class Solution:
             visit.remove(crs)
             adjList[crs] = []
             return True
-
-        for crs in range(numCourses):
-            adjList[crs] = []
-        
-        for crs, pre in prerequisites:
-            adjList[crs].append(pre)
         
         for crs in range(numCourses):
             if (not dfs(crs)):
