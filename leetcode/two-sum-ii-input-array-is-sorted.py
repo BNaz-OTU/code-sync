@@ -4,11 +4,13 @@ class Solution:
         right = len(numbers) - 1
 
         while left < right:
-            if (numbers[left] + numbers[right] == target):
+            leftVal, rightVal = numbers[left], numbers[right]
+            
+            if (leftVal + rightVal == target):
                 return [left + 1, right + 1]
             
-            elif (numbers[left] + numbers[right] > target):
-                right -= 1
+            elif ((leftVal + rightVal) < target):
+                left += 1
             
             else:
-                left += 1
+                right -= 1
