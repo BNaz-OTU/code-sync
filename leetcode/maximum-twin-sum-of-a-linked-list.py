@@ -8,6 +8,11 @@ class Solution:
         slow = head
         fast = head
         prev = None
+        maxVal = 0
+
+        # while fast and fast.next:
+        #     fast = fast.next.next
+        #     slow = slow.next
 
         while fast and fast.next:
             fast = fast.next.next
@@ -17,10 +22,13 @@ class Solution:
             prev = slow
             slow = tmp
         
-        maxNum = 0
         while slow:
-            maxNum = max(maxNum, slow.val + prev.val)
+            maxVal = max(maxVal, slow.val + prev.val)
             slow = slow.next
             prev = prev.next
         
-        return maxNum
+        return maxVal
+
+        print(slow)
+        print(prev)
+        # print(slow)
