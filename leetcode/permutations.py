@@ -4,13 +4,12 @@ class Solution:
         perms = [[]]
 
         for num in nums:
-            final = []
+            res = []
             for p in perms:
                 for idx in range(len(p) + 1):
                     p_copy = p.copy()
                     p_copy.insert(idx, num)
-                    final.append(p_copy)
-            
-            perms = final
+                    res.append(p_copy)
+            perms = res
         
         return perms
