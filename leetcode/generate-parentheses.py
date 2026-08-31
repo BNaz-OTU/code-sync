@@ -2,16 +2,17 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         final = []
 
-        def dfs(parenth_str, left, right):
+        def dfs(text, left, right):
+            # print(text)
             if (left == n and right == n):
-                final.append(parenth_str)
-                return 
-
+                final.append(text)
+                return
+            
             if (left < n):
-                dfs(parenth_str + "(", left + 1, right)
+                dfs(text + "(", left + 1, right)
             
             if (right < left):
-                dfs(parenth_str + ")", left, right + 1)
-        
+                dfs(text + ")", left, right + 1)
+
         dfs("", 0, 0)
         return final
