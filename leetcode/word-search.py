@@ -15,19 +15,15 @@ class Solution:
             
             visit.add((row, col))
 
-            verdict = (
-                dfs(row + 1, col, wordIdx + 1) or
-                dfs(row - 1, col, wordIdx + 1) or
-                dfs(row, col + 1, wordIdx + 1) or
-                dfs(row, col - 1, wordIdx + 1)
-            )
-
-            if verdict == False:
-                visit.remove((row, col))
-                return False
+            verdict = (dfs(row + 1, col, wordIdx + 1) or
+                        dfs(row - 1, col, wordIdx + 1) or
+                        dfs(row, col + 1, wordIdx + 1) or
+                        dfs(row, col - 1, wordIdx + 1)
+                    )
             
-            return True
+            visit.remove((row, col))
             
+            return verdict
 
         for row in range(ROWS):
             for col in range(COLS):
