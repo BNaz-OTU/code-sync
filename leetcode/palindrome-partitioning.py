@@ -1,27 +1,29 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         final = []
-        part = []
+        temp = []
 
-        def dfs(i):
-            if (i >= len(s)):
-                final.append(part.copy())
+        def dfs(idx):
+            if (idx >= len(s)):
+                final.append(temp.copy())
                 return
-            
-            for j in range(i, len(s)):
-                if self.isPali(s, i, j):
-                    part.append(s[i : j+1])
-                    dfs(j + 1)
-                    part.pop()
+
+            for jdx in range(idx, len(s)):
+                if self.isPali(s, idx, jdx):
+                    temp.append(s[idx:jdx + 1])
+                    dfs(jdx + 1)
+                    temp.pop()
         
         dfs(0)
         return final
 
-    def isPali(self, s, l, r):
-        while l < r:
-            if s[l] != s[r]:
+
+    def isPali(self, s, left, right):
+        while left < right:
+            if (s[left] != s[right]):
                 return False
             
-            l, r = l + 1, r - 1
+            left += 1
+            right -= 1
         
         return True
