@@ -2,19 +2,15 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         final = []
 
-        def getCombs(num, curComb):
-            if (len(curComb) == k):
-                final.append(curComb.copy())
+        def dfs(idx, subset):
+            if (len(subset) == k):
+                final.append(subset.copy())
                 return
             
-            if (num > n):
-                return
-
-            for n_num in range(num, n + 1):
-                curComb.append(n_num)
-                getCombs(n_num + 1, curComb)
-                curComb.pop()
-                # getCombs(n_num + 1, curComb)
-
-        getCombs(1, [])
+            for jdx in range(idx, n):
+                subset.append(jdx + 1)
+                dfs(jdx + 1, subset)
+                subset.pop()
+                    
+        dfs(0, [])
         return final
