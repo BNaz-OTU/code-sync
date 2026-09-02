@@ -1,14 +1,14 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         letters = {
-            "2" : "abc",
-            "3" : "def",
-            "4" : "ghi",
-            "5" : "jkl",
-            "6" : "mno",
-            "7" : "pqrs",
-            "8" : "tuv",
-            "9" : "wxyz"
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
         }
 
         final = []
@@ -17,11 +17,9 @@ class Solution:
             if (len(text) == len(digits)):
                 final.append(text)
                 return
-                        
-            for cur in letters[digits[idx]]:
-                dfs(idx + 1, text + cur)
-        
-        if digits:
-            dfs(0, "")
             
+            for letter in letters[digits[idx]]:
+                dfs(idx + 1, text + letter)
+        
+        dfs(0, "")
         return final
