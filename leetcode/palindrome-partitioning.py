@@ -10,14 +10,14 @@ class Solution:
 
             for jdx in range(idx, len(s)):
                 if self.isPali(s, idx, jdx):
-                    temp.append(s[idx:jdx + 1])
+                    temp.append(s[idx : jdx + 1])
                     dfs(jdx + 1)
                     temp.pop()
-        
+                    
         dfs(0)
         return final
 
-
+    
     def isPali(self, s, left, right):
         while left < right:
             if (s[left] != s[right]):
