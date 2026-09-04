@@ -1,12 +1,27 @@
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
-        # USED SOLN: https://www.youtube.com/watch?v=HToBFhTa1uQ
+        final = []
+        finalSum = 0
         
-        def dfs(i, total):
-
-            if (i == len(nums)):
-                return total
+        def dfs(idx, temp):
+            if (idx >= len(nums) or len(temp) == len(nums)):
+                tempSum = 0
+                if (len(temp) == 1):
+                    tempSum += temp[0]
+                
+                else:
+                    tempSum = 0
+                    for val in temp:
+                        tempSum ^= val
+                    
+                final.append(tempSum)
+                return
             
-            return dfs(i + 1, total ^ nums[i]) + dfs(i + 1, total)
+            temp.append(nums[idx])
+            dfs(idx + 1, temp)
+
+            temp.pop()
+            dfs(idx + 1, temp)
         
-        return dfs(0, 0)
+        dfs(0, [])
+        return sum(final)
