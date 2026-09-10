@@ -1,21 +1,21 @@
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
-        res = []
+        final = []
 
-        if len(s) > 12:
-            return res
+        if (len(s) > 12):
+            return []
         
-        def dfs(i, dots, curIP):
-            if dots == 4 and i == len(s):
-                res.append(curIP[:-1])
+        def dfs(periodCount, text, idx):
+            if (periodCount == 4 and idx == len(s)):
+                final.append(text[:-1])
                 return
             
-            if dots > 4:
+            if periodCount > 4:
                 return
-
-            for j in range(i, min(i + 3, len(s))):
-                if (int(s[i:j + 1]) < 256 and (i == j or s[i] != "0")):
-                    dfs(j + 1, dots + 1, curIP + s[i : j+1] + ".")
+            
+            for jdx in range(idx, min(idx + 3, len(s))): 
+                if (int(s[idx : jdx + 1]) < 256 and (idx == jdx or s[idx] != "0")):                
+                    dfs(periodCount + 1, text + s[idx : jdx + 1] + ".", jdx + 1)
         
-        dfs(0, 0, "")
-        return res
+        dfs(0, "", 0)
+        return final
