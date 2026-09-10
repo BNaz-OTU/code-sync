@@ -1,17 +1,23 @@
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:
-        count = Counter(tiles)
+        count = {}
+        # final = 0
 
-
+        for tile in tiles:
+            if tile not in count:
+                count[tile] = 0
+            
+            count[tile] += 1
+        
         def dfs():
             final = 0
             
-            for c in count:
-                if count[c] > 0:
-                    count[c] -= 1
+            for key in count:
+                if count[key] > 0:
+                    count[key] -= 1
                     final += 1
                     final += dfs()
-                    count[c] += 1
+                    count[key] += 1
             
             return final
 
