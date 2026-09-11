@@ -1,23 +1,20 @@
 class Solution:
     def getHappyString(self, n: int, k: int) -> str:
-        total_happy = 3 * (2 ** (n-1))
+        final = []
+        letters = "abc"
 
-        res = []
-        choices = "abc"
-        left, right = 1, total_happy
+        def dfs(text):
+            if (len(text) == n):
+                final.append(text)
+                return
 
-        for i in range(n):
-            cur = left
-            partition_size = (right - left + 1) // len(choices)
-
-            for c in choices:
-                if (k in range(cur, cur + partition_size)):
-                    res.append(c)
-                    left = cur
-                    right = cur + partition_size - 1
-                    choices = "abc".replace(c, "")
-                    break
-                
-                cur += partition_size
+            for letter in letters:
+                if (len(text) < n and (text == "" or text[-1] != letter)):
+                    dfs(text + letter)
         
-        return "".join(res)
+        dfs("")
+
+        if (len(final) < k):
+            return ""
+        else:
+            return final[k - 1]
