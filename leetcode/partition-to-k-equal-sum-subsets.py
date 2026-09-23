@@ -3,32 +3,31 @@ class Solution:
         if (sum(nums) // k != sum(nums) / k):
             return False
         
-        nums.sort(reverse=True)
-        used = [False] * len(nums)
-        
+        nums.sort()
         target = sum(nums) // k
+        valid_num = [False] * len(nums)
 
-        def dfs(idx, k, subSetSum):
+        def dfs(idx, k, subset):
             if (k == 0):
                 return True
-            
-            if (subSetSum == target):
+
+            if (subset == target):
                 return dfs(0, k - 1, 0)
-            
-            for j in range(idx, len(nums)):
-                if (used[j] or subSetSum + nums[j] > target):
+
+            for jdx in range(idx, len(nums)):
+                if (subset + nums[jdx] > target or valid_num[jdx] == True):
                     continue
                 
-                used[j] = True
+                valid_num[jdx] = True
 
-                if dfs(j + 1, k, subSetSum + nums[j]):
+                if dfs(jdx + 1, k, subset + nums[jdx]):
                     return True
-                
-                used[j] = False
 
-                if (subSetSum == 0):
+                valid_num[jdx] = False
+
+                if (subset == 0):
                     return False
             
             return False
-                
+        
         return dfs(0, k, 0)
