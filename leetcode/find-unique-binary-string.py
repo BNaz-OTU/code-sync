@@ -1,13 +1,15 @@
 class Solution:
     def findDifferentBinaryString(self, nums: list[str]) -> str:
-        
-        def dfs(text):
-            if (len(text) > len(nums)):
+        numSet = set(nums)
+        n = len(nums)
+
+        def dfs(myNum):
+            if (len(myNum) > n or myNum in numSet):
                 return
 
-            if (len(text) == len(nums) and text not in nums):
-                return text
+            if (len(myNum) == n and myNum not in numSet):
+                return myNum
             
-            return dfs(text + "0") or dfs(text + "1")
+            return dfs(myNum + "1") or dfs(myNum + "0")
         
         return dfs("")
