@@ -1,16 +1,27 @@
 class Solution:
     def beautifulSubsets(self, nums: List[int], k: int) -> int:
-        
-        def helper(idx, count):
+        count = 0
+
+        def backtrack(idx, hashmap):
+            nonlocal count
+            count += 1
+
             if (idx == len(nums)):
-                return 1
+                return 
             
-            res = helper(idx + 1, count)
-            if not count[nums[idx] + k] and not count[nums[idx] - k]:
-                count[nums[idx]] += 1
-                res += helper(idx + 1, count)
-                count[nums[idx]] -= 1
-            
-            return res
+            for jdx in range(idx, len(nums)):
+                less_k = nums[jdx] - k
+                more_k = nums[jdx] + k
+
+                if ((less_k in hashmap and hashmap[less_k] >= 1) or (more_k in hashmap and hashmap[more_k] >= 1)):
+                    continue
+                
+                if nums[jdx] not in hashmap:
+                    hashmap[nums[jdx]] = 0
+                
+                hashmap[nums[jdx]] += 1
+                backtrack(jdx + 1, hashmap)
+                hashmap[nums[jdx]] -= 1
         
-        return helper(0, defaultdict(int)) - 1
+        backtrack(0, dict())
+        return count - 1
