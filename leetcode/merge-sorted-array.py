@@ -1,5 +1,5 @@
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+    def merge(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.
         """
@@ -8,21 +8,22 @@ class Solution:
 
         combined = m + n - 1
 
-        while m > 0 and n > 0:
-            val1 = nums1[m - 1]
-            val2 = nums2[n - 1]
-
-            if (val2 > val1):
-                nums1[combined] = val2
-                n -= 1
-            
-            else:
-                nums1[combined] = val1
+        while (n - 1) >= 0 and (m - 1) >= 0:
+            # print(nums1)
+            if (nums1[m - 1] > nums2[n - 1]):
+                nums1[combined] = nums1[m - 1]
                 m -= 1
             
+            elif (nums2[n - 1] >= nums1[m - 1]):
+                nums1[combined] = nums2[n - 1]
+                n -= 1
+ 
             combined -= 1
         
-        while n > 0:
+        # print(nums1[:m])
+        # print(nums2[:n])
+
+        while (n - 1) >= 0:
             nums1[combined] = nums2[n - 1]
-            n -= 1
             combined -= 1
+            n -= 1
