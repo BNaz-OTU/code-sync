@@ -2,7 +2,7 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         visit = set()
-        count = 0
+        islandCount = 0
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
@@ -21,7 +21,7 @@ class Solution:
         for row in range(ROWS):
             for col in range(COLS):
                 if (grid[row][col] == "1" and (row, col) not in visit):
-                    count += 1
                     dfs(row, col)
+                    islandCount += 1
         
-        return count
+        return islandCount
