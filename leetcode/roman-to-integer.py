@@ -1,6 +1,6 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        roman = {
+        romanInt = {
             "I" : 1,
             "V" : 5,
             "X" : 10,
@@ -9,18 +9,18 @@ class Solution:
             "D" : 500,
             "M" : 1000
         }
-
         total = 0
 
         for idx in range(len(s) - 1):
-            cur = s[idx]
-            nxt = s[idx + 1]
-            if (roman[cur] < roman[nxt]):
-                total -= roman[cur]
+            curr_numeral = s[idx]
+            next_numeral = s[idx + 1]
+
+            if (romanInt[curr_numeral] >= romanInt[next_numeral]):
+                total += romanInt[curr_numeral]
             
             else:
-                total += roman[cur]
+                total -= romanInt[curr_numeral]
         
-        total += roman[s[-1]]
+        total += romanInt[s[-1]]
 
         return total
