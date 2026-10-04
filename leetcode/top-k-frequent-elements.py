@@ -1,21 +1,21 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        hashMap = {}
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
         heap = []
         final = []
+        hashmap = {}
 
         for num in nums:
-            if (num not in hashMap):
-                hashMap[num] = 0
+            if (num not in hashmap):
+                hashmap[num] = 0
             
-            hashMap[num] -= 1
+            hashmap[num] += 1
         
-        for key, value in hashMap.items():
-            heappush(heap, [value, key])
+        for key, val in hashmap.items():
+            heappush(heap, [-val, key])
         
         while k > 0:
-            _, val = heappop(heap)
-            final.append(val)
+            _, number = heappop(heap)
+            final.append(number)
             k -= 1
         
         return final
