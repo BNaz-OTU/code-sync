@@ -5,9 +5,9 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:
+        carry = 0
         dummyNode = ListNode()
         head = dummyNode
-        carry = 0
 
         while l1 or l2 or carry:
             l1Val, l2Val = 0, 0
@@ -21,10 +21,10 @@ class Solution:
                 l2 = l2.next
             
             total = l1Val + l2Val + carry
-            curr_num = total % 10
             carry = total // 10
+            num = total % 10
 
-            head.next = ListNode(curr_num)
-            head = head.next
+            dummyNode.next = ListNode(num)
+            dummyNode = dummyNode.next
         
-        return dummyNode.next
+        return head.next
