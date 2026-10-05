@@ -1,24 +1,23 @@
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        if x < 0:
+        if (x < 0):
             return False
         
-        digitCounter = 1
+        divisor = 1
 
-        while digitCounter * 10 <= x:
-            digitCounter *= 10
-                
-        while digitCounter > 0:
-            front = x // digitCounter
-            back = x % 10
+        while divisor * 10 < x:
+            divisor *= 10
+        
+        while x:
+            front = x // divisor
+            end = x % 10
 
-            if (front != back):
+            if (front != end):
                 return False
             
-            x1 = x % digitCounter
+            x1 = x % divisor
             x2 = x1 // 10
             x = x2
-
-            digitCounter = digitCounter // 100
+            divisor = divisor // 100
         
         return True
