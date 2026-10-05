@@ -1,26 +1,19 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        if x == 0:
+        isNegative = False
+
+        if (x < 0):
+            isNegative = True
+            x *= -1
+        
+        new_x = str(x)[::-1]
+
+        if (isNegative):
+            new_x = "-" + new_x
+        
+        new_x = int(new_x)
+
+        if (new_x < (-2 ** 31) or new_x > (2 ** 31) - 1):
             return 0
-            
-        is_negative = True if x < 0 else False
-
-        if (is_negative):
-            x = x * -1
-
-        new_x = ""
-
-        while x > 0:
-            last = x % 10
-            new_x += str(last)
-            x = x // 10
         
-        num = int(new_x)
-
-        if (is_negative):
-            num *= - 1
-        
-        if (-2**31 <= num <= 2**31):
-            return num
-        
-        return 0
+        return new_x
