@@ -1,20 +1,19 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        stack = []
-        final = ''
+        final = []
 
-        new_path = path.split('/')
-        # print(new_path)
+        split_path = path.split("/")
+        split_path = [val for val in split_path if val != ""]
+        print(split_path)
 
-        for val in new_path:
-            if (val == '..' and len(stack) > 0):
-                stack.pop()
-            elif (val == '.' or val == '' or val == '..'):
+        for cdir in split_path:
+            if (cdir == "." or (len(final) == 0 and cdir == "..")):
                 continue
-            else:
-                stack.append(val)
-        
-        for val in stack:
-            final += '/' + val
 
-        return final if len(final) != 0 else '/'
+            if (len(final) > 0 and cdir == ".."):
+                final.pop()
+                continue
+            
+            final.append(cdir)
+        
+        return "/" + "/".join(final)
