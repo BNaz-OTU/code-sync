@@ -5,14 +5,14 @@ class Solution:
         
         divisor = 1
 
-        while divisor * 10 < x:
+        while (divisor * 10) < x:
             divisor *= 10
         
-        while x:
+        while x > 0:
             front = x // divisor
-            end = x % 10
+            back = x % 10
 
-            if (front != end):
+            if (front != back):
                 return False
             
             x1 = x % divisor
