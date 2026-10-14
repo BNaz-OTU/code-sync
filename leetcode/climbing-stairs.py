@@ -3,8 +3,8 @@ class Solution:
         dp = [1, 0]
 
         for _ in range(n):
-            temp = dp[0] + dp[1]
+            temp = dp[1] + dp[0]
             dp[1] = dp[0]
             dp[0] = temp
-            
+        
         return dp[0]
