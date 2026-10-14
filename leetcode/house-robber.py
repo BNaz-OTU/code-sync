@@ -1,13 +1,8 @@
 class Solution:
-    def rob(self, nums: List[int]) -> int:
+    def rob(self, nums: list[int]) -> int:
+        nums.append(0)
 
-        if (len(nums) < 2):
-            return max(nums)
+        for i in range(len(nums) - 4, -1, -1):
+            nums[i] += max(nums[i + 2], nums[i + 3])
         
-        new_nums = [0, 0] + nums
-        
-        for idx in range(3, len(new_nums)):
-            new_nums[idx] = max(new_nums[idx] + new_nums[idx - 2], new_nums[idx] + new_nums[idx - 3])
-        
-        print(new_nums)
-        return max(new_nums[-1], new_nums[-2])
+        return max(nums[0], nums[1])
