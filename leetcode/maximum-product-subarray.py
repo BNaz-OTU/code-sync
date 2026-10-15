@@ -1,17 +1,17 @@
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        res = max(nums)
+    def maxProduct(self, nums: list[int]) -> int:
+        max_num = max(nums)
 
-        curMin, curMax = 1, 1
+        dp = [1, 1]
 
         for n in nums:
-            if (n == 0):
-                curMin, curMax = 1, 1
+            if n == 0:
+                dp = [1, 1]
                 continue
             
-            tmp = curMax * n
-            curMax = max(n * curMax, n * curMin, n)
-            curMin = min(tmp, n * curMin, n)
-            res = max(res, curMax)
+            tmp = dp[0] * n
+            dp[0] = max(n * dp[0], n * dp[1], n)
+            dp[1] = min(tmp, n * dp[1], n)
+            max_num = max(max_num, dp[0])
         
-        return res
+        return max_num
