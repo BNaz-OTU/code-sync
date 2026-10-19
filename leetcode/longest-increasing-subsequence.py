@@ -1,10 +1,10 @@
 class Solution:
     def lengthOfLIS(self, nums: list[int]) -> int:
-        LIS = [1] * len(nums)
+        checker = [1] * len(nums)
 
         for idx in range(len(nums) - 1, -1, -1):
-            for j in range(idx + 1, len(nums)):
-                if nums[idx] < nums[j]:
-                    LIS[idx] = max(LIS[idx], 1 + LIS[j])
-        
-        return max(LIS)
+            for jdx in range(idx + 1, len(nums)):
+                if (nums[idx] < nums[jdx]):
+                    checker[idx] = max(checker[idx], 1 + checker[jdx])
+
+        return max(checker)
