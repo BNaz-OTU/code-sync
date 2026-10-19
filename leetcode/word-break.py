@@ -1,15 +1,13 @@
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        # USED SOLN: https://www.youtube.com/watch?v=Sx9NNgInc3A
-        dp = [False] * (len(s) + 1)
-        dp[len(s)] = True
-
-        for i in range(len(s) - 1, -1, -1):
-            for w in wordDict:
-                if (i + len(w)) <= len(s) and s[i : i+ len(w)] == w:
-                    dp[i] = dp[i + len(w)]
-                
-                if dp[i]:
-                    break
+    def wordBreak(self, s: str, wordDict: list[str]) -> bool:
+        checker = [False] * (len(s) + 1)
+        checker[-1] = True
         
-        return dp[0]
+        for idx in range(len(s) - 1, -1, -1):
+            for word in wordDict:
+                # print(f"IDX: {idx} | Word: {word} | Char slice: {s[idx : idx + len(word)]} | Prev Idx: {idx + len(word)}")
+                if (idx + len(word) <= len(s) and s[idx : idx + len(word)] == word and checker[idx + len(word)] == True):
+                    checker[idx] = True
+            
+        
+        return checker[0]
