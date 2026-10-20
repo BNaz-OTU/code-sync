@@ -1,17 +1,19 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-        if s[0] == "0":
+        if (s[0] == "0"):
             return 0
         
-        dp = { len(s) : 1 }
+        dp = [1, 1]
 
-        for i in range(len(s) - 1, -1, -1):
-            if (s[i] == "0"):
-                dp[i] = 0
-            else:
-                dp[i] = dp[i + 1]
+        for idx in range(len(s) - 1, -1, -1):
+            if (s[idx] == "0"):
+                cur = 0
             
-            if (i + 1 < len(s) and (s[i] == "1" or (s[i] == "2" and s[i + 1] in "0123456"))):
-                dp[i] += dp[i + 2]
+            else:
+                cur = dp[0]
+                if ((idx + 1) < len(s) and (10 <= int(s[idx: idx + 2]) <= 26)):
+                    cur += dp[1]
+            
+            dp[0], dp[1] = cur, dp[0]
         
         return dp[0]
