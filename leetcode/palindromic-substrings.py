@@ -3,6 +3,7 @@ class Solution:
         count = 0
 
         for idx in range(len(s)):
+            
             left, right = idx, idx
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 count += 1
