@@ -3,8 +3,8 @@ class Solution:
         checker = [1] * len(nums)
 
         for idx in range(len(nums) - 1, -1, -1):
-            for jdx in range(idx + 1, len(nums)):
+            for jdx in range(idx, len(nums)):
                 if (nums[idx] < nums[jdx]):
                     checker[idx] = max(checker[idx], 1 + checker[jdx])
-
+        
         return max(checker)
