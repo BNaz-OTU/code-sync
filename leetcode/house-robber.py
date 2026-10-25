@@ -1,8 +1,5 @@
 class Solution:
     def rob(self, nums: list[int]) -> int:
-        if (len(nums) == 1):
-            return nums[0]
-        
         nums.append(0)
 
         for idx in range(len(nums) - 4, -1, -1):
