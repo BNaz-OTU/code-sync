@@ -2,23 +2,23 @@ class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if (len(s) != len(t)):
             return False
-
-        hashS = {}
-        hashT = {}
+        
+        hashMapS = {}
+        hashMapT = {}
 
         for idx in range(len(s)):
-            if (s[idx] not in hashS):
-                hashS[s[idx]] = 1
-            else:
-                hashS[s[idx]] += 1
+            if (s[idx] not in hashMapS):
+                hashMapS[s[idx]] = 0
             
-            if (t[idx] not in hashT):
-                hashT[t[idx]] = 1
-            else:
-                hashT[t[idx]] += 1
-        
-        for key in hashS:
-            if (key not in hashT or hashT[key] != hashS[key]):
+            hashMapS[s[idx]] += 1
+
+            if (t[idx] not in hashMapT):
+                hashMapT[t[idx]] = 0
+            
+            hashMapT[t[idx]] += 1
+
+        for key in hashMapT:
+            if ((key not in hashMapS) or (hashMapT[key] != hashMapS[key])):
                 return False
         
         return True
