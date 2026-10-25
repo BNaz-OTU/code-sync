@@ -1,14 +1,16 @@
 class Solution:
     def partitionString(self, s: str) -> List[str]:
-        seen = set()
-        arr = []
-        current = ""
-
-        for char in s:
-            current += char
-            if (current not in seen):
-                arr.append(current)
-                seen.add(current)
-                current = ""
+        visit = set()
+        final = []
+        left = 0
         
-        return arr
+        for right in range(len(s)):
+            if (s[left : right + 1] in visit):
+                continue
+            
+            else:
+                visit.add(s[left : right + 1])
+                final.append(s[left : right + 1])
+                left = right + 1
+        
+        return final
