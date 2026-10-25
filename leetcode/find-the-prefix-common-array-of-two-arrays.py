@@ -1,30 +1,26 @@
 class Solution:
     def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
-        # USED SOLN: https://www.youtube.com/watch?v=b1h5JJ9Sw74
-        hashMap = {}
-        final = []
-        count = 0
+        visitA, visitB = set(), set()
+        final = [0] * len(A)
 
         for idx in range(len(A)):
-            if A[idx] in hashMap:
-                hashMap[A[idx]] -= 1
-            else:
-                hashMap[A[idx]] = -1
-            
-            if B[idx] in hashMap:
-                hashMap[B[idx]] += 1
-            else:
-                hashMap[B[idx]] = 1
-            
-            if hashMap[A[idx]] == 0:
-                count += 1
-            
-            if hashMap[B[idx]] == 0:
-                count += 1
-            
-            if A[idx] == B[idx]:
-                count -= 1
+            visitA.add(A[idx])
+            visitB.add(B[idx])
+            cur = 0
 
-            final.append(count)
+            if (A[idx] == B[idx]):
+                cur += 1
+            else:
+                if (A[idx] in visitB):
+                    cur += 1
+                
+                if (B[idx] in visitA):
+                    cur += 1
+            
+            if (idx > 0):
+                final[idx] += cur + final[idx - 1]
+            
+            else:
+                final[idx] = cur
         
         return final
