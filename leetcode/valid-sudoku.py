@@ -1,32 +1,32 @@
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
-        # Initialize the HashMap's that will record the data of duplicates
-        rowHash = {}
-        colHash = {}
-        boxHash = {}
+    def isValidSudoku(self, board: list[list[str]]) -> bool:
+        rowDict = {idx : set() for idx in range(len(board))}
+        colDict = {idx : set() for idx in range(len(board))}
+        boxDict = {}
+
+        for idx in range(len(board)):
+            for jdx in range(len(board)):
+                boxDict[(idx // 3, jdx // 3)] = set()
 
         for idx in range(9):
-            rowHash[idx] = []
-            colHash[idx] = []
-        
-        for idx in range(3):
-            for jdx in range(3):
-                boxHash[(idx, jdx)] = []
-        
-        # Parse through the Suduko board looking for duplicates
-        for row in range(9):
-            for col in range(9):
-                if (board[row][col] == "."):
+            for jdx in range(9):
+                val = board[idx][jdx]
+
+                if val == ".":
                     continue
+
+                if (val in rowDict[idx] or 
+                    val in colDict[jdx] or 
+                    val in boxDict[(idx // 3, jdx // 3)]):
+
+                    # print(f"Row: {idx} | Col: {jdx} | Val: {board[idx][jdx]}")
+                    # print(rowDict[idx])
+                    # print(colDict[jdx])
+                    # print(boxDict[(idx // 3, jdx // 3)])
+                    return False
                 
-                elif ((board[row][col] in rowHash[row] ) or
-                        (board[row][col] in colHash[col]) or
-                        (board[row][col] in boxHash[(row // 3, col // 3)])):
-                        return False
-                
-                else:
-                    rowHash[row].append(board[row][col])
-                    colHash[col].append(board[row][col])
-                    boxHash[(row // 3, col // 3)].append(board[row][col])
+                rowDict[idx].add(val)
+                colDict[jdx].add(val)
+                boxDict[(idx // 3, jdx // 3)].add(val)
         
         return True
