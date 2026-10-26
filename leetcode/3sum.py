@@ -3,26 +3,20 @@ class Solution:
         final = []
         nums.sort()
 
-        for idx in range(len(nums)):
+        for idx in range(len(nums) - 1):
             if (idx > 0 and nums[idx] == nums[idx - 1]):
                 continue
 
-            left = idx + 1
-            right = len(nums) - 1
+            left, right = idx + 1, len(nums) - 1
 
             while left < right:
-                val1 = nums[left]
-                val2 = nums[right]
-                threeSum = val1 + val2 + nums[idx]
-
-                if (threeSum == 0):
-                    final.append([nums[idx], val1, val2])
-
-                    left += 1
-                    while left < right and nums[left] == nums[left - 1]:
-                        left += 1
-                
-                elif (nums[idx] + val1 + val2 > 0):
+                if ((nums[idx] + nums[left] + nums[right]) == 0):
+                    final.append([nums[idx], nums[left], nums[right]])
+                    right -= 1
+                    while right > left and nums[right] == nums[right + 1]:
+                        right -= 1
+                    
+                elif ((nums[idx] + nums[left] + nums[right]) > 0):
                     right -= 1
                 
                 else:
