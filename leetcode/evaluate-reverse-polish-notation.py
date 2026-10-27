@@ -1,33 +1,35 @@
+import math
+
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
+    def evalRPN(self, tokens: list[str]) -> int:
         stack = []
 
-        for tok in tokens:
-            try:
-                if (int(tok) or tok == '0'):
-                    stack.append(int(tok))
+        for token in tokens:
+            if (token in "+-/*"):
+                print(stack[-2], token, stack[-1])
 
-            except ValueError:
-                operand_1, operand_2 = stack.pop(), stack.pop()
-
-                if (tok == '+'):
-                    new_val = operand_2 + operand_1
-                    # print(operand_1, tok, operand_2)
-                elif (tok == '-'):
-                    new_val = operand_2 - operand_1
-                    # print(operand_1, tok, operand_2)
-                elif (tok == '/'):
-                    # This will help truncate to 1 decimal by using both 'int' and
-                    # regular division operation, (the '//' integer divison operation
-                    # will round weird with negative numbers)
-                    new_val = int(operand_2 / operand_1) 
-
-                    # print(operand_2, tok, operand_1)
-                    # print(new_val)
-                else:
-                    new_val = operand_1 * operand_2
-                    # print(operand_1, tok, operand_2)
-                
-                stack.append(new_val)
+            if (token == "+"):
+                op1 = int(stack.pop())
+                op2 = int(stack.pop())
+                stack.append(str(op2 + op1))
+            
+            elif (token == "-"):
+                op1 = int(stack.pop())
+                op2 = int(stack.pop())
+                stack.append(str(op2 - op1))
+            
+            elif (token == "*"):
+                op1 = int(stack.pop())
+                op2 = int(stack.pop())
+                stack.append(str(op2 * op1))
+            
+            elif (token == "/"):
+                op1 = int(stack.pop())
+                op2 = int(stack.pop())
+                val = int(op2 / op1)
+                stack.append(str(val))
         
-        return stack[-1]
+            else:
+                stack.append(token)
+
+        return int(stack[0])
