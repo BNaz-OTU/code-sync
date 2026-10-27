@@ -1,18 +1,13 @@
 class Solution:
-    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        # DOESNT WORK
-        answer = []
+    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
+        final = [0] * len(temperatures)
+        stackIdx = []
 
         for idx in range(len(temperatures)):
-            found = False
-            for jdx in range(idx + 1, len(temperatures)):
-                if (temperatures[idx] < temperatures[jdx]):
-                    answer.append(jdx - idx)
-                    found = True
-                    break
+            while (len(stackIdx) >= 1 and temperatures[idx] > temperatures[stackIdx[-1]]):
+                s_idx = stackIdx.pop()
+                final[s_idx] = idx - s_idx
             
-            if (found == False):
-                answer.append(0)
+            stackIdx.append(idx)
         
-        # print(answer)
-        return answer
+        return final
