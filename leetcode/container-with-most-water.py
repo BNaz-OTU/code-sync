@@ -1,20 +1,19 @@
 class Solution:
     def maxArea(self, height: list[int]) -> int:
-        water = 0
         left, right = 0, len(height) - 1
+        maxHeight = 0
+
+        # print(height[0])
 
         while left < right:
-            lWall, rWall = height[left], height[right]
-            cheight = min(lWall, rWall)
+            width = right - left
+            w_height = min(height[left], height[right])
+            maxHeight = max(maxHeight, width * w_height)
 
-            water = max(water, cheight * (right - left))
-            # print(f"Height: {cheight} | leftWall: {lWall} | rightWall: {rWall}\n\tleft:{left} | right:{right} | width: {right - left + 1} | water: {water}")
-            # print("-" * 30)
 
-            if (rWall <= lWall):
-                right -= 1
-            
-            else:
+            if (height[right] >= height[left]):
                 left += 1
-
-        return water
+            else:
+                right -= 1
+        
+        return maxHeight
