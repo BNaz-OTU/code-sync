@@ -1,22 +1,22 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        openBracket = {"(", "{", "["}
+        open_set = {"(", "{", "["}
+        open_b = []
 
         for bracket in s:
-            if bracket in openBracket:
-                stack.append(bracket)
+            if bracket in open_set:
+                open_b.append(bracket)
             
-            elif (len(stack) > 0 and bracket == "]" and stack[-1] == "["):
-                stack.pop()
+            elif (len(open_b) > 0 and bracket == ")" and open_b[-1] == "("):
+                open_b.pop()
             
-            elif (len(stack) > 0 and bracket == ")" and stack[-1] == "("):
-                stack.pop()
+            elif (len(open_b) > 0 and bracket == "}" and open_b[-1] == "{"):
+                open_b.pop()
             
-            elif (len(stack) > 0 and bracket == "}" and stack[-1] == "{"):
-                stack.pop()
+            elif (len(open_b) > 0 and bracket == "]" and open_b[-1] == "["):
+                open_b.pop()
             
             else:
                 return False
         
-        return True if len(stack) == 0 else False
+        return True if len(open_b) == 0 else False
