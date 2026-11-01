@@ -1,43 +1,40 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if (len(t) > len(s)):
+        if (t == ""):
             return ""
         
-        countT = {}
-        countS = {}
-        minLen = len(s) + 1
-        word = [-1, -1]
+        countT, window = {}, {}
 
         for char in t:
-            if (char not in countT):
+            if char not in countT:
                 countT[char] = 0
             
             countT[char] += 1
-                
-        left, right = 0, 0
+        
+        have, need = 0, len(countT)
+        res, resLen = [-1, -1], float("infinity")
+        l = 0
 
-        matches = 0
-        for right in range(len(s)):
-            val = s[right]
-            countS[val] = 1 + countS.get(val, 0)
-
-            if (val in countT and countS[val] == countT[val]):
-                matches += 1
-
-            # print(countT, countS)
-            # print(matches)
-            while matches == len(countT):
-                end_val = s[left]
-
-                if (minLen > (right - left + 1)):
-                    minLen = right - left + 1
-                    word = [left, right]
-                
-                countS[end_val] -= 1
-                if (end_val in countT and countS[end_val] < countT[end_val]):
-                    matches -= 1
-                
-                left += 1
+        for r in range(len(s)):
+            char = s[r]
+            if (char not in window):
+                window[char] = 0
             
+            window[char] += 1
+
+            if (char in countT and window[char] == countT[char]):
+                have += 1
             
-        return s[word[0]:word[1] + 1]
+            while have == need:
+                if (r - l + 1) < resLen:
+                    resLen = r - l + 1
+                    res = [l, r]
+                
+                window[s[l]] -= 1
+                if (s[l] in countT and window[s[l]] < countT[s[l]]):
+                    have -= 1
+
+                l += 1
+            
+
+        return s[res[0] : res[1] + 1] if resLen != float("infinity") else ""
