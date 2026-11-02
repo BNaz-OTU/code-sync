@@ -4,32 +4,43 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
+    def reorderList(self, head: ListNode | None) -> None:
         """
         Do not return anything, modify head in-place instead.
         """
-        copy1 = head
-        copy2 = head
+        head1 = head
+        # 1. Get to the middle
+        fast = head
+        slow = head
 
-        # 1. Identify the second half of the list
-        fast, slow = head.next, head
         while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
         
-        # 2. Reverse the second half of the list
+        # 2. Reverse the Linked List from the middle
+        prev = None
         second = slow.next
-        prev = slow.next = None
+        # print(second)
+        slow.next = None
+        # print(second)
+        # print(head)
+        # print(slow)
         while second:
             temp = second.next
             second.next = prev
             prev = second
             second = temp
-
-        # 3. Merge the 2 lists together
-        first, second = head, prev
-        while second:
-            tmp1, tmp2 = first.next, second.next
-            first.next = second
-            second.next = tmp1
-            first, second = tmp1, tmp2
+        
+        # print(second)
+        # print(slow)
+        # print(prev)
+        # print(head)
+        r_list, f_list = prev, head
+        while r_list:
+            temp1 = f_list.next
+            temp2 = r_list.next
+            f_list.next = r_list
+            r_list.next = temp1
+            f_list = temp1
+            r_list = temp2
+        #     # 4, 3
