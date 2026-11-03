@@ -11,18 +11,18 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         copy1 = head
         copy2 = head
-        hashMap = {}
+        dummyNode = ListNode(0)
+        head2 = dummyNode
+        hashmap = {}
 
         while copy1:
-            hashMap[copy1] = Node(copy1.val)
+            hashmap[copy1] = ListNode(copy1.val)
             copy1 = copy1.next
         
-        dummyNode = Node(0)
-        head2 = dummyNode
         while copy2:
-            node = hashMap[copy2]
-            nextNode = hashMap[copy2.next] if copy2.next is not None else None
-            randNode = hashMap[copy2.random] if copy2.random is not None else None
+            node = hashmap[copy2]
+            nextNode = hashmap[copy2.next] if copy2.next is not None else None
+            randNode = hashmap[copy2.random] if copy2.random is not None else None
 
             node.next = nextNode
             node.random = randNode
