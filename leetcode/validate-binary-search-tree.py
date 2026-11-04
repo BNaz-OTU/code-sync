@@ -5,14 +5,15 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def isValidBST(self, root: TreeNode | None) -> bool:
+        
         def dfs(root, left, right):
             if (root is None):
                 return True
             
-            if (root.val >= right or root.val <= left):
+            if not (root.val < right and root.val > left):
                 return False
             
-            return dfs(root.left, left, root.val) and dfs(root.right, root.val, right)
+            return (dfs(root.left, left, root.val) and dfs(root.right, root.val, right))
         
         return dfs(root, float("-inf"), float("inf"))
