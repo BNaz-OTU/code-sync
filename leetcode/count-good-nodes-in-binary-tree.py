@@ -8,17 +8,19 @@ class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         count = 0
 
-        def dfs(root, maxVal):
+        def dfs(root, nodeList):
             nonlocal count
+
             if (root is None):
-                return 
+                return
             
-            if (maxVal is None or root.val >= maxVal):
-                maxVal = root.val
+            if (len(nodeList) == 0 or root.val >= max(nodeList)):
                 count += 1
             
-            dfs(root.left, maxVal)
-            dfs(root.right, maxVal)
+            nodeList.append(root.val)
+            dfs(root.left, nodeList)
+            dfs(root.right, nodeList)
+            nodeList.pop()
         
-        dfs(root, None)
+        dfs(root, [])
         return count
