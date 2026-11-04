@@ -1,17 +1,18 @@
 class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
+    def subsets(self, nums: list[int]) -> list[list[int]]:
         final = []
+        tempList = []
 
-        def dfs(idx, subset):
+        def dfs(idx):
             if (idx == len(nums)):
-                final.append(subset.copy())
+                final.append(tempList.copy())
                 return
             
-            subset.append(nums[idx])
-            dfs(idx + 1, subset)
-
-            subset.pop()
-            dfs(idx + 1, subset)
+            tempList.append(nums[idx])
+            dfs(idx + 1)
+            
+            tempList.pop()
+            dfs(idx + 1)
         
-        dfs(0, [])
+        dfs(0)
         return final
