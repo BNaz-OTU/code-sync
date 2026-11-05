@@ -1,15 +1,15 @@
 class Solution:
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        ROWS, COLS = len(grid), len(grid[0])
+    def maxAreaOfIsland(self, grid: list[list[int]]) -> int:
         visit = set()
-        maxLen = 0
+        maxArea = 0
+        ROWS, COLS = len(grid), len(grid[0])
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                (grid[row][col] == 0) or
+                (grid[row][col] == 0) or 
                 ((row, col) in visit)):
-                return 
+                return
             
             visit.add((row, col))
 
@@ -21,8 +21,8 @@ class Solution:
         for row in range(ROWS):
             for col in range(COLS):
                 if (grid[row][col] == 1 and (row, col) not in visit):
-                    beforeSize = len(visit)
+                    prev = len(visit)
                     dfs(row, col)
-                    maxLen = max(maxLen, len(visit) - beforeSize)
-                
-        return maxLen
+                    maxArea = max(maxArea, len(visit) - prev)
+        
+        return maxArea
