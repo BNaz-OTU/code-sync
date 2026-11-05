@@ -1,34 +1,33 @@
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
         adjList = {}
         visit = set()
 
-        for num in range(numCourses):
-            adjList[num] = []
+        for crs in range(numCourses):
+            adjList[crs] = []
         
         for crs, pre in prerequisites:
             adjList[crs].append(pre)
-
-
+        
         def dfs(crs):
-            if (crs in visit):
+            if crs in visit:
                 return False
             
-            if (adjList[crs] == []):
+            if adjList[crs] == []:
                 return True
             
             visit.add(crs)
-        
-            for new_crs in adjList[crs]:
-                if (not dfs(new_crs)):
+
+            for crs2 in adjList[crs]:
+                if (dfs(crs2) == False):
                     return False
             
             visit.remove(crs)
             adjList[crs] = []
             return True
-        
+
         for crs in range(numCourses):
-            if (not dfs(crs)):
+            if (dfs(crs) == False):
                 return False
         
         return True
