@@ -1,20 +1,17 @@
 class Solution:
-    def solve(self, board: List[List[str]]) -> None:
+    def solve(self, board: list[list[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        visit = set()
         ROWS, COLS = len(board), len(board[0])
 
         def dfs(row, col):
             if ((row < 0 or row >= ROWS) or
                 (col < 0 or col >= COLS) or
-                ((row, col) in visit) or
-                (board[row][col] == "X")):
-                return 
+                (board[row][col] == "X") or
+                (board[row][col] == "T")):
+                return
             
-            # print(f"Row: {row} | Col: {col}")
-            visit.add((row, col))
             board[row][col] = "T"
 
             dfs(row + 1, col)
@@ -24,15 +21,17 @@ class Solution:
 
         for row in range(ROWS):
             dfs(row, 0)
-            dfs(row, COLS - 1)
+            dfs(row, COLS -1)
         
         for col in range(COLS):
             dfs(0, col)
-            dfs(ROWS - 1, col)
-        
+            dfs(ROWS -1, col)
+
+        # print(board)
         for row in range(ROWS):
             for col in range(COLS):
-                if (board[row][col] == "O"):
-                    board[row][col] = "X"
-                elif (board[row][col] == "T"):
+                if (board[row][col] == "T"):
                     board[row][col] = "O"
+
+                elif (board[row][col] == "O"):
+                    board[row][col] = "X"
