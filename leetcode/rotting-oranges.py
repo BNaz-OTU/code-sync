@@ -1,46 +1,43 @@
 class Solution:
-    def orangesRotting(self, grid: List[List[int]]) -> int:
+    def orangesRotting(self, grid: list[list[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
-        fresh = 0
-        rotten = deque()
-        neighbour = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        queue = deque()
+        freshCount = 0
+        neighbors = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
         for row in range(ROWS):
             for col in range(COLS):
                 if (grid[row][col] == 1):
-                    fresh += 1
+                    freshCount += 1
+                
                 elif (grid[row][col] == 2):
-                    rotten.append((row, col))
+                    queue.append((row, col))
         
-        if (fresh == 0):
+        if freshCount == 0:
             return 0
         
         time = 0
-        while len(rotten) > 0:
-
-            if (fresh == 0):
+        while len(queue) > 0:
+            if freshCount == 0:
                 return time
-
-            for _ in range(len(rotten)):
-                row, col = rotten.popleft()
-
-                for dr, dc in neighbour:
-                    n_row = dr + row
-                    n_col = dc + col
-
-                    if ((n_row < 0 or n_row >= ROWS) or
-                        (n_col < 0 or n_col >= COLS) or
-                        (grid[n_row][n_col] == 0) or
-                        (grid[n_row][n_col] == 2)):
-                        continue
-                    
-                    grid[n_row][n_col] = 2
-                    rotten.append((n_row, n_col))
-                    fresh -= 1
             
+            search = len(queue)
             time += 1
-        
-        if (fresh == 0):
-            return time
-        else:
+
+            for _ in range(search):
+                x, y = queue.popleft()
+
+                for dr, dc in neighbors:
+                    new_x, new_y = x + dr, y + dc
+                    
+                    if ((new_x >= 0 and new_x < ROWS) and
+                        (new_y >= 0 and new_y < COLS) and
+                        (grid[new_x][new_y] == 1)):
+                        grid[new_x][new_y] = 2
+                        freshCount -= 1
+                        queue.append((new_x, new_y))
+                
+        if (freshCount != 0):
             return -1
+        else:
+            return time
