@@ -1,16 +1,21 @@
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n: int) -> list[str]:
         final = []
-        def dfs(left, right, brackets):
+        
+        def dfs(left, right, bracket):
             if (left == n and right == n):
-                final.append(brackets)
+                final.append(bracket)
                 return
             
-            if (left < n):
-                dfs(left + 1, right, brackets + "(")
+            if (left > right):
+                # bracket += ")"
+                dfs(left, right + 1, bracket + ")")
+                # bracket = bracket[:-1]
             
-            if (right < left):
-                dfs(left, right + 1, brackets + ")")
-
+            if (left < n):
+                # bracket += "("
+                dfs(left + 1, right, bracket + "(") 
+                # bracket = bracket[:-1]
+        
         dfs(0, 0, "")
         return final
