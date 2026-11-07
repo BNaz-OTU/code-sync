@@ -3,22 +3,24 @@ class Solution:
         if (len(s) != len(t)):
             return False
         
-        hashMapS = {}
-        hashMapT = {}
+        dictT = {}
+        dictS = {}
 
         for idx in range(len(s)):
-            if (s[idx] not in hashMapS):
-                hashMapS[s[idx]] = 0
-            
-            hashMapS[s[idx]] += 1
+            t_char = t[idx]
+            s_char = s[idx]
 
-            if (t[idx] not in hashMapT):
-                hashMapT[t[idx]] = 0
+            if (t_char not in dictT):
+                dictT[t_char] = 0
             
-            hashMapT[t[idx]] += 1
-
-        for key in hashMapT:
-            if ((key not in hashMapS) or (hashMapT[key] != hashMapS[key])):
+            if (s_char not in dictS):
+                dictS[s_char] = 0
+            
+            dictT[t_char] += 1
+            dictS[s_char] += 1
+        
+        for key, count in dictT.items():
+            if (key not in dictS or dictT[key] != dictS[key]):
                 return False
         
         return True
