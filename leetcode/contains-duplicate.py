@@ -3,7 +3,7 @@ class Solution:
         visit = set()
 
         for num in nums:
-            if (num in visit):
+            if num in visit:
                 return True
             
             visit.add(num)
