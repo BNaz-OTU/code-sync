@@ -1,16 +1,21 @@
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
         hashmap = {}
+        final = []
 
         for string in strs:
-            count = [0] * 26
+            arr = [0] * 26
 
             for char in string:
-                count[ord(char) - ord("a")] += 1
+                idx = ord(char) - ord('a')
+                arr[idx] += 1
             
-            if (tuple(count) not in hashmap):
-                hashmap[tuple(count)] = []
-
-            hashmap[tuple(count)].append(string)
+            if (str(arr) not in hashmap):
+                hashmap[str(arr)] = []
+            
+            hashmap[str(arr)].append(string)
         
-        return list(hashmap.values())
+        for value in hashmap.values():
+            final.append(value)
+        
+        return final
