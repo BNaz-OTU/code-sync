@@ -4,7 +4,7 @@ class Solution:
 
         for idx, num in enumerate(nums):
             diff = target - num
-
+            
             if (diff in hashmap):
                 return [hashmap[diff], idx]
             
