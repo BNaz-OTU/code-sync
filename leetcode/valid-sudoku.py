@@ -1,32 +1,31 @@
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
-        rowDict = {idx : set() for idx in range(len(board))}
-        colDict = {idx : set() for idx in range(len(board))}
-        boxDict = {}
+        row_hash = {}
+        col_hash = {}
+        box_hash = {}
 
-        for idx in range(len(board)):
-            for jdx in range(len(board)):
-                boxDict[(idx // 3, jdx // 3)] = set()
-
-        for idx in range(9):
-            for jdx in range(9):
-                val = board[idx][jdx]
-
-                if val == ".":
+        for num in range(9):
+            row_hash[num] = set()
+            col_hash[num] = set()
+        
+        for num in range(3):
+            for num2 in range(3):
+                box_hash[(num % 3, num2 % 3)] = set()
+        
+        for row in range(9):
+            for col in range(9):
+                val = board[row][col]
+                if (val == "."):
                     continue
-
-                if (val in rowDict[idx] or 
-                    val in colDict[jdx] or 
-                    val in boxDict[(idx // 3, jdx // 3)]):
-
-                    # print(f"Row: {idx} | Col: {jdx} | Val: {board[idx][jdx]}")
-                    # print(rowDict[idx])
-                    # print(colDict[jdx])
-                    # print(boxDict[(idx // 3, jdx // 3)])
+                
+                if ((val in row_hash[row]) or 
+                    (val in col_hash[col]) or
+                    (val in box_hash[(row // 3, col // 3)])):
                     return False
                 
-                rowDict[idx].add(val)
-                colDict[jdx].add(val)
-                boxDict[(idx // 3, jdx // 3)].add(val)
+                row_hash[row].add(val)
+                col_hash[col].add(val)
+                box_hash[(row // 3, col // 3)].add(val)
+                
         
         return True
