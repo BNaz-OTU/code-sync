@@ -1,35 +1,29 @@
-import math
-
 class Solution:
     def evalRPN(self, tokens: list[str]) -> int:
         stack = []
 
         for token in tokens:
-            if (token in "+-/*"):
-                print(stack[-2], token, stack[-1])
+            if token in "+-*/":
+                op2 = stack.pop()
+                op1 = stack.pop()
 
-            if (token == "+"):
-                op1 = int(stack.pop())
-                op2 = int(stack.pop())
-                stack.append(str(op2 + op1))
-            
-            elif (token == "-"):
-                op1 = int(stack.pop())
-                op2 = int(stack.pop())
-                stack.append(str(op2 - op1))
-            
-            elif (token == "*"):
-                op1 = int(stack.pop())
-                op2 = int(stack.pop())
-                stack.append(str(op2 * op1))
-            
-            elif (token == "/"):
-                op1 = int(stack.pop())
-                op2 = int(stack.pop())
-                val = int(op2 / op1)
-                stack.append(str(val))
-        
+                print(op1, token, op2)
+                if token == "*":
+                    val = int(op1) * int(op2)
+                    stack.append(str(val))
+                
+                elif token == "+":
+                    val = int(op1) + int(op2)
+                    stack.append(str(val))
+                
+                elif token == "-":
+                    val = int(op1) - int(op2)
+                    stack.append(str(val))
+                
+                else:
+                    val = int(int(op1) / int(op2))
+                    stack.append(str(val))
             else:
                 stack.append(token)
-
-        return int(stack[0])
+        
+        return int(stack[-1])
