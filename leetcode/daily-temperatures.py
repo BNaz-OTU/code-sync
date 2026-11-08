@@ -1,13 +1,13 @@
 class Solution:
     def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
         final = [0] * len(temperatures)
-        stackIdx = []
+        stack = []
 
         for idx in range(len(temperatures)):
-            while (len(stackIdx) >= 1 and temperatures[idx] > temperatures[stackIdx[-1]]):
-                s_idx = stackIdx.pop()
-                final[s_idx] = idx - s_idx
+            while (len(stack) > 0 and temperatures[idx] > temperatures[stack[-1]]):
+                end_stack_idx = stack.pop()
+                final[end_stack_idx] = idx - end_stack_idx
             
-            stackIdx.append(idx)
-        
+            stack.append(idx)
+
         return final
