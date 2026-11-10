@@ -10,7 +10,7 @@ class Solution:
         while head:
             temp = head.next
             head.next = prev
-            prev = head
+            prev = head 
             head = temp
         
         return prev
