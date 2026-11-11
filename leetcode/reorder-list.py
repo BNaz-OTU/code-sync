@@ -8,39 +8,29 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        head1 = head
-        # 1. Get to the middle
-        fast = head
         slow = head
+        fast = head
+        dummyNode = head
 
         while fast and fast.next:
-            fast = fast.next.next
             slow = slow.next
+            fast = fast.next.next
         
-        # 2. Reverse the Linked List from the middle
-        prev = None
-        second = slow.next
-        # print(second)
+        prev = None 
+        slow2 = slow.next
         slow.next = None
-        # print(second)
-        # print(head)
-        # print(slow)
-        while second:
-            temp = second.next
-            second.next = prev
-            prev = second
-            second = temp
+
+        while slow2:
+            temp = slow2.next
+            slow2.next = prev
+            prev = slow2
+            slow2 = temp
         
-        # print(second)
-        # print(slow)
-        # print(prev)
-        # print(head)
-        r_list, f_list = prev, head
-        while r_list:
-            temp1 = f_list.next
-            temp2 = r_list.next
-            f_list.next = r_list
-            r_list.next = temp1
-            f_list = temp1
-            r_list = temp2
-        #     # 4, 3
+        while prev:
+            temp1 = dummyNode.next
+            temp2 = prev.next
+            dummyNode.next = prev
+            dummyNode = dummyNode.next
+            dummyNode.next = temp1
+            dummyNode = dummyNode.next
+            prev = temp2
