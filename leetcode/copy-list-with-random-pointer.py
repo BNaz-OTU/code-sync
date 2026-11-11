@@ -10,26 +10,27 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         copy1 = head
-        copy2 = head
-        dummyNode = ListNode(0)
-        head2 = dummyNode
-        hashmap = {}
+        hashmap1 = {None : None}
 
         while copy1:
-            hashmap[copy1] = ListNode(copy1.val)
+            hashmap1[copy1] = Node(copy1.val)
             copy1 = copy1.next
         
+        dummyNode = Node(0)
+        new_head = dummyNode
+        copy2 = head
         while copy2:
-            node = hashmap[copy2]
-            nextNode = hashmap[copy2.next] if copy2.next is not None else None
-            randNode = hashmap[copy2.random] if copy2.random is not None else None
+            # Retrieve Nodes
+            curr_node = hashmap1[copy2]
+            next_node = hashmap1[copy2.next]
+            rand_node = hashmap1[copy2.random]
+            
+            # Connect Nodes
+            curr_node.next = next_node
+            curr_node.random = rand_node
 
-            node.next = nextNode
-            node.random = randNode
-
-            dummyNode.next = node
+            dummyNode.next = curr_node
             dummyNode = dummyNode.next
-
             copy2 = copy2.next
         
-        return head2.next
+        return new_head.next
