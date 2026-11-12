@@ -10,7 +10,6 @@ class Solution:
 
         def dfs(root):
             nonlocal maxDiam
-
             if (root is None):
                 return 0
             
