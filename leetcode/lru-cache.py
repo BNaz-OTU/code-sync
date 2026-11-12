@@ -1,61 +1,72 @@
-class doubleLL:
-    def __init__(self, key=0, val=0, nxt=None, prev=None):
-        self.nxt = nxt
+class LinkList_DD:
+    def __init__(self, key=None, val=None, prev=None, nxt=None):
         self.prev = prev
+        self.nxt = nxt
         self.key = key
         self.val = val
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.cache = {}
         self.capacity = capacity
-        self.left = doubleLL()
-        self.right = doubleLL() 
-        
+        self.hashmap = {}
+
+        self.left = LinkList_DD()
+        self.right = LinkList_DD()
+
         self.left.nxt = self.right
         self.right.prev = self.left
-        
-    def remove(self, node):
+
+    def remove(self, key):
+        node = self.hashmap[key]
+
+        # Grab next and prev nodes
         prev, nxt = node.prev, node.nxt
+
+        # Disconnect from node
         prev.nxt = nxt
         nxt.prev = prev
 
+        # Remove from the hashmap
+        del self.hashmap[key]
+    
+    def insert(self, key, value):
+        self.hashmap[key] = LinkList_DD(key, value)
+
+        # Grab neighbor nodes
+        nxt, prev = self.right, self.right.prev
+
+        # Connect new node
+        node = self.hashmap[key]
+        node.nxt = nxt
+        node.prev = prev
+
+        # Connect to new node
+        nxt.prev = node
+        prev.nxt = node
+
 
     def get(self, key: int) -> int:
-        if (key not in self.cache):
+        if (key not in self.hashmap):
             return -1
         
-        node = self.cache[key]
-        self.remove(node)
-        
-        prev = self.right.prev
-        prev.nxt = node
-        self.right.prev = node
-        
-        node.prev = prev
-        node.nxt = self.right
-        return node.val
+        value = self.hashmap[key].val
+
+        self.remove(key)
+        self.insert(key, value)
+
+        return value
         
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            node = self.cache[key]
-            self.remove(node)
-
-        elif (len(self.cache) == self.capacity):
-            lru = self.left.nxt
-            self.remove(lru)
-            del self.cache[lru.key]
-
-        node = doubleLL(key, value)
-        self.cache[key] = node
-
-        prev = self.right.prev
-
-        prev.nxt, self.right.prev = node, node
-        node.nxt, node.prev = self.right, prev
+        if key in self.hashmap:
+            self.remove(key)
         
+        if (len(self.hashmap) >= self.capacity):
+            lru = self.left.nxt
+            self.remove(lru.key)
+
+        self.insert(key, value)
 
 
 # Your LRUCache object will be instantiated and called as such:
