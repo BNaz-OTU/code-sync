@@ -7,25 +7,25 @@ class Solution:
     def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:
         carry = 0
         dummyNode = ListNode()
-        head = dummyNode
+        head2 = dummyNode
 
         while l1 or l2 or carry:
-            l1Val, l2Val = 0, 0
+            op1, op2 = 0, 0
 
             if (l1 is not None):
-                l1Val = l1.val
+                op1 = l1.val
                 l1 = l1.next
             
             if (l2 is not None):
-                l2Val = l2.val
+                op2 = l2.val
                 l2 = l2.next
             
-            n_val = l1Val + l2Val + carry
-            carry = n_val // 10
-            num = n_val % 10
+            total = op1 + op2 + carry
+            carry = total // 10
+            num = total % 10
 
             node = ListNode(num)
             dummyNode.next = node
             dummyNode = dummyNode.next
         
-        return head.next
+        return head2.next
