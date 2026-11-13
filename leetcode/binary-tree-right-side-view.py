@@ -9,25 +9,25 @@ class Solution:
         if root is None:
             return []
             
+        final = []
         queue = deque()
         queue.append(root)
-        final = []
 
-        while queue:
+        while len(queue) > 0:
+            tmp = None
             search = len(queue)
-            temp = None
 
             for _ in range(search):
                 node = queue.popleft()
-                
-                if (node.left):
+
+                if (node.left is not None):
                     queue.append(node.left)
                 
-                if (node.right):
+                if (node.right is not None):
                     queue.append(node.right)
                 
-                temp = node.val
+                tmp = node.val
             
-            final.append(temp)
-        
+            final.append(tmp)
+
         return final
