@@ -4,13 +4,13 @@ class Solution:
         temp = []
 
         def dfs(idx):
-            if (idx <= len(candidates) and sum(temp) == target):
+            if (idx >= len(candidates) or sum(temp) > target):
+                return
+            
+            if (sum(temp) == target):
                 final.append(temp.copy())
                 return
             
-            if (idx >= len(candidates) or sum(temp) > target):
-                return
-
             temp.append(candidates[idx])
             dfs(idx)
             temp.pop()
