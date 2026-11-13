@@ -6,24 +6,22 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: TreeNode | None, subRoot: TreeNode | None) -> bool:
-
-        def dfsComp(root1, root2):
+        def matchTree(root1, root2):
             if (root1 is None and root2 is None):
                 return True
-
-            if ((root1 is  None) or (root2 is None) or (root1.val != root2.val)):
+            
+            if (root1 is None or root2 is None or root1.val != root2.val):
                 return False
             
-            return dfsComp(root1.left, root2.left) and dfsComp(root1.right, root2.right)
+            return matchTree(root1.left, root2.left) and matchTree(root1.right, root2.right)
         
-        def dfs(root, subRoot):
-            if root is None:
-                return 0
-
-            if (root.val == subRoot.val and dfsComp(root, subRoot)):
-                return 1
+        def dfs(root):
+            if (root is None):
+                return False
             
-            return dfs(root.left, subRoot) or dfs(root.right, subRoot)
+            if (matchTree(root, subRoot)):
+                return True
             
+            return dfs(root.left) or dfs(root.right)
         
-        return True if dfs(root, subRoot) == 1 else False
+        return True if dfs(root) == True else False
